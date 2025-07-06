@@ -39,7 +39,7 @@ object FormMain: TFormMain
     TabOrder = 7
     OnClick = btConvertClick
   end
-  object lbChannels: TCheckListBox
+  object lbTracks: TCheckListBox
     Left = 8
     Height = 304
     Top = 72
@@ -52,7 +52,7 @@ object FormMain: TFormMain
     ItemHeight = 0
     ParentFont = False
     TabOrder = 6
-    OnDblClick = lbChannelsDblClick
+    OnDblClick = lbTracksDblClick
   end
   object btLoad: TButton
     Left = 560

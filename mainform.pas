@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, CheckLst, Spin,
-  MSC_Definitions, MSC_Container, ymexport;
+  MSC_Definitions, MSC_Container, ymexport, ymsynth;
 
 type
 
@@ -29,7 +29,7 @@ type
    btLoad: TButton;
    edAuthor: TEdit;
    edSongName: TEdit;
-   lbChannels: TCheckListBox;
+   lbTracks: TCheckListBox;
    edInputMid: TEdit;
    edOutputYM: TEdit;
    llAuthor: TLabel;
@@ -44,7 +44,7 @@ type
    procedure btLoadClick(Sender: TObject);
    procedure FormCreate(Sender: TObject);
    procedure FormDestroy(Sender: TObject);
-   procedure lbChannelsDblClick(Sender: TObject);
+   procedure lbTracksDblClick(Sender: TObject);
  private
    FMIDIContainer: TMIDI_Container;
 
@@ -75,9 +75,9 @@ var
   e: TMIDI_Event;
   t: TTrack;
 begin
-  for i := 0 to lbChannels.Count - 1 do
-    lbChannels.Items.Objects[i].Free;
-  lbChannels.Clear;
+  for i := 0 to lbTracks.Count - 1 do
+    lbTracks.Items.Objects[i].Free;
+  lbTracks.Clear;
 
   FMIDIContainer.LoadFromFile(edInputMid.Text, nil);
   seBPM.Value := FMIDIContainer.BPM;
@@ -113,7 +113,7 @@ begin
       t.PatchFileName := ChangeFileExt(t.Name,'.fxp');
       t.Export := True;
 
-      lbChannels.AddItem('dummy', t);
+      lbTracks.AddItem('dummy', t);
     end;
   end;
 
@@ -134,14 +134,43 @@ end;
 
 procedure TFormMain.btConvertClick(Sender: TObject);
 var
+  iTrack: Integer;
   YMData: TYMData;
+  trk: TTrack;
+  p: TYMPatch;
+  vv: TYMVirtualVoice;
+  yms: TYMSynth;
   yme: TYMExporter;
+  n, d, s, t: TReal_Array;
 begin
-  YMData.FrameRate := 200;
-  YMData.SongName := edSongName.Text;
-  YMData.Author := edAuthor.Text;
+  yms := TYMSynth.Create;
+  try
+    for iTrack := 0 to lbTracks.Count - 1 do
+    begin
+      trk := TTrack(lbTracks.Items.Objects[iTrack]);
 
-  SetLength(YMData.Frames, 200);
+      p := TYMPatch.Create;
+      yms.Patches.Add(p);
+
+      // TODO: TMP
+      p.HasNoise := not trk.Export;
+      p.HasSquare := trk.Export;
+      p.TicksPerVBL := 1;
+
+      vv := TYMVirtualVoice.Create(p);
+      yms.VirtualVoices.Add(vv);
+
+      FMIDIContainer.get_vectors(trk.Index, n, d, s, t);
+      vv.LoadFromMSCVectors(n, d, s, t);
+    end;
+
+    YMData := yms.Render;
+
+    YMData.SongName := edSongName.Text;
+    YMData.Author := edAuthor.Text;
+  finally
+    yms.Free;
+  end;
 
   yme := TYMExporter.Create(edOutputYM.Text);
   try
@@ -156,16 +185,16 @@ begin
   FMIDIContainer.Free;
 end;
 
-procedure TFormMain.lbChannelsDblClick(Sender: TObject);
+procedure TFormMain.lbTracksDblClick(Sender: TObject);
 var
-  i: Integer;
+  iTrack: Integer;
   t: TTrack;
 begin
-  i := lbChannels.ItemAtPos(lbChannels.ScreenToClient(Mouse.CursorPos), False);
+  iTrack := lbTracks.ItemAtPos(lbTracks.ScreenToClient(Mouse.CursorPos), False);
 
-  if i >= 0 then
+  if iTrack >= 0 then
   begin
-    t := TTrack(lbChannels.Items.Objects[i]);
+    t := TTrack(lbTracks.Items.Objects[iTrack]);
     if PromptForFileName(t.PatchFileName) then
       NameTracks;
   end;
@@ -173,15 +202,15 @@ end;
 
 procedure TFormMain.NameTracks;
 var
-  i: Integer;
+  iTrack: Integer;
   t: TTrack;
 begin
-  for i := 0 to lbChannels.Count - 1 do
+  for iTrack := 0 to lbTracks.Count - 1 do
   begin
-    t := TTrack(lbChannels.Items.Objects[i]);
+    t := TTrack(lbTracks.Items.Objects[iTrack]);
 
-    lbChannels.Items[i] := Format('Track: %2d, Name: %16s, NoteCount: %5d, PatchFile: %s', [t.Index, t.Name, t.NoteCount, t.PatchFileName]);
-    lbChannels.Checked[i] := t.Export;
+    lbTracks.Items[iTrack] := Format('Track: %2d, Name: %16s, NoteCount: %5d, PatchFile: %s', [t.Index, t.Name, t.NoteCount, t.PatchFileName]);
+    lbTracks.Checked[iTrack] := t.Export;
   end;
 end;
 
