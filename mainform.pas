@@ -44,6 +44,7 @@ type
    procedure btLoadClick(Sender: TObject);
    procedure FormCreate(Sender: TObject);
    procedure FormDestroy(Sender: TObject);
+   procedure lbTracksClickCheck(Sender: TObject);
    procedure lbTracksDblClick(Sender: TObject);
  private
    FMIDIContainer: TMIDI_Container;
@@ -134,7 +135,7 @@ end;
 
 procedure TFormMain.btConvertClick(Sender: TObject);
 var
-  iTrack: Integer;
+  iTrack, iNote: Integer;
   YMData: TYMData;
   trk: TTrack;
   p: TYMPatch;
@@ -143,25 +144,34 @@ var
   yme: TYMExporter;
   n, d, s, t: TReal_Array;
 begin
-  yms := TYMSynth.Create;
+  yms := TYMSynth.Create(seLength.Value);
   try
     for iTrack := 0 to lbTracks.Count - 1 do
     begin
       trk := TTrack(lbTracks.Items.Objects[iTrack]);
 
-      p := TYMPatch.Create;
-      yms.Patches.Add(p);
+      if trk.Export then
+      begin
+        p := TYMPatch.Create;
+        yms.Patches.Add(p);
 
-      // TODO: TMP
-      p.HasNoise := not trk.Export;
-      p.HasSquare := trk.Export;
-      p.TicksPerVBL := 1;
+        // TODO: TMP
+        p.HasSquare := True;
+        p.TicksPerVBL := 1;
 
-      vv := TYMVirtualVoice.Create(p);
-      yms.VirtualVoices.Add(vv);
+        vv := TYMVirtualVoice.Create(yms, p);
+        yms.VirtualVoices.Add(vv);
 
-      FMIDIContainer.get_vectors(trk.Index, n, d, s, t);
-      vv.LoadFromMSCVectors(n, d, s, t);
+        FMIDIContainer.get_vectors(trk.Index, n, d, s, t);
+
+        for iNote := 0 to High(n) do
+        begin
+          d[iNote] := FMIDIContainer.time_to_seconds(Round(d[iNote]));
+          t[iNote] := FMIDIContainer.time_to_seconds(Round(t[iNote]));
+        end;
+
+        vv.LoadFromMSCVectors(n, d, s, t);
+      end;
     end;
 
     YMData := yms.Render;
@@ -181,8 +191,28 @@ begin
 end;
 
 procedure TFormMain.FormDestroy(Sender: TObject);
+var
+  i: Integer;
 begin
+  for i := 0 to lbTracks.Count - 1 do
+    lbTracks.Items.Objects[i].Free;
+
   FMIDIContainer.Free;
+end;
+
+procedure TFormMain.lbTracksClickCheck(Sender: TObject);
+var
+  iTrack: Integer;
+  t: TTrack;
+begin
+  iTrack := lbTracks.ItemAtPos(lbTracks.ScreenToClient(Mouse.CursorPos), False);
+
+  if iTrack >= 0 then
+  begin
+    t := TTrack(lbTracks.Items.Objects[iTrack]);
+    t.Export := not t.Export;
+    NameTracks;
+  end;
 end;
 
 procedure TFormMain.lbTracksDblClick(Sender: TObject);

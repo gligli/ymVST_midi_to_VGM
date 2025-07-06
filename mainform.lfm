@@ -52,6 +52,7 @@ object FormMain: TFormMain
     ItemHeight = 0
     ParentFont = False
     TabOrder = 6
+    OnClickCheck = lbTracksClickCheck
     OnDblClick = lbTracksDblClick
   end
   object btLoad: TButton
@@ -77,6 +78,8 @@ object FormMain: TFormMain
     Height = 24
     Top = 40
     Width = 80
+    DecimalPlaces = 3
+    MaxValue = 1000000
     TabOrder = 5
   end
   object btInputBrowse: TButton
