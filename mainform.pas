@@ -157,7 +157,7 @@ begin
 
         // TODO: TMP
         p.HasSquare := True;
-        p.TicksPerVBL := 1;
+        p.TicksPerVBL := 2;
 
         vv := TYMVirtualVoice.Create(yms, p);
         yms.VirtualVoices.Add(vv);

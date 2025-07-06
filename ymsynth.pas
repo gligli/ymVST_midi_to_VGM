@@ -190,7 +190,7 @@ begin
     begin
       Assigned[AssignedPitchCount] := True;
       Pitch[AssignedPitchCount] := n.GetYMNote;
-      Level[AssignedPitchCount] := n.Velocity shr 3;
+      Level[AssignedPitchCount] := ((n.Velocity + 1) shr 3) - 1;
       Inc(AssignedPitchCount);
     end;
   end;

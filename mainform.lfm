@@ -26,7 +26,7 @@ object FormMain: TFormMain
     Top = 448
     Width = 520
     Anchors = [akRight, akBottom]
-    TabOrder = 3
+    TabOrder = 8
     Text = 'Project_46.ym'
   end
   object btConvert: TButton
@@ -36,7 +36,7 @@ object FormMain: TFormMain
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Convert'
-    TabOrder = 7
+    TabOrder = 9
     OnClick = btConvertClick
   end
   object lbTracks: TCheckListBox
@@ -51,7 +51,7 @@ object FormMain: TFormMain
     Font.Quality = fqDraft
     ItemHeight = 0
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 5
     OnClickCheck = lbTracksClickCheck
     OnDblClick = lbTracksDblClick
   end
@@ -71,7 +71,7 @@ object FormMain: TFormMain
     Top = 40
     Width = 64
     Enabled = False
-    TabOrder = 4
+    TabOrder = 3
   end
   object seLength: TFloatSpinEdit
     Left = 312
@@ -80,7 +80,7 @@ object FormMain: TFormMain
     Width = 80
     DecimalPlaces = 3
     MaxValue = 1000000
-    TabOrder = 5
+    TabOrder = 4
   end
   object btInputBrowse: TButton
     Left = 528
@@ -134,7 +134,7 @@ object FormMain: TFormMain
     Height = 24
     Top = 384
     Width = 528
-    TabOrder = 8
+    TabOrder = 6
     Text = 'Loading...'
   end
   object edAuthor: TEdit
@@ -142,7 +142,7 @@ object FormMain: TFormMain
     Height = 24
     Top = 416
     Width = 528
-    TabOrder = 9
+    TabOrder = 7
     Text = 'GliGli'
   end
 end
