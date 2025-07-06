@@ -5,7 +5,7 @@
     <PathDelim Value="\"/>
     <General>
       <SessionStorage Value="InProjectDir"/>
-      <Title Value="ymVST_midi_to_vgm"/>
+      <Title Value="ymVST_midi_to_YM"/>
       <Scaled Value="True"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
@@ -21,7 +21,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="ymVST_midi_to_vgm"/>
+            <Filename Value="ymVST_midi_to_YM"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -59,13 +59,14 @@
     </RequiredPackages>
     <Units>
       <Unit>
-        <Filename Value="ymVST_midi_to_vgm.lpr"/>
+        <Filename Value="ymVST_midi_to_YM.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="mainform.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FormMain"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="MainForm"/>
       </Unit>
@@ -75,7 +76,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="ymVST_midi_to_vgm"/>
+      <Filename Value="ymVST_midi_to_YM_debug"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

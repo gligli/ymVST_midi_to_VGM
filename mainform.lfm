@@ -3,7 +3,7 @@ object FormMain: TFormMain
   Height = 480
   Top = 30
   Width = 640
-  Caption = 'GliGli''s midi + ymVST patch to VGM converter'
+  Caption = 'GliGli''s midi + ymVST patch to YM converter'
   ClientHeight = 480
   ClientWidth = 640
   Constraints.MinHeight = 200
@@ -19,22 +19,22 @@ object FormMain: TFormMain
     TabOrder = 0
     Text = 'Project_44.mid'
   end
-  object edOutputVGM: TEdit
+  object edOutputYM: TEdit
     Left = 8
     Height = 24
     Top = 448
     Width = 520
     Anchors = [akRight, akBottom]
     TabOrder = 3
-    Text = 'test.vgm'
+    Text = 'test.ym'
   end
-  object btExport: TButton
+  object btConvert: TButton
     Left = 560
     Height = 25
     Top = 448
     Width = 75
     Anchors = [akRight, akBottom]
-    Caption = 'Export'
+    Caption = 'Convert'
     TabOrder = 7
   end
   object lbChannels: TCheckListBox

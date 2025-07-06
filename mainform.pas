@@ -24,12 +24,12 @@ type
  { TFormMain }
 
  TFormMain = class(TForm)
-   btExport: TButton;
+   btConvert: TButton;
    btInputBrowse: TButton;
    btLoad: TButton;
    lbChannels: TCheckListBox;
    edInputMid: TEdit;
-   edOutputVGM: TEdit;
+   edOutputYM: TEdit;
    llBPM: TLabel;
    llHint: TLabel;
    llTime: TLabel;
