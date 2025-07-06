@@ -112,7 +112,7 @@ begin
       t.NoteCount := FMIDIContainer.Voice_Count[iTrack];
       t.Name := FMIDIContainer.Track_Name[iTrack];
       t.PatchFileName := ChangeFileExt(t.Name,'.fxp');
-      t.Export := True;
+      t.Export := False;
 
       lbTracks.AddItem('dummy', t);
     end;
@@ -155,9 +155,7 @@ begin
         p := TYMPatch.Create;
         yms.Patches.Add(p);
 
-        // TODO: TMP
-        p.HasSquare := True;
-        p.TicksPerVBL := 2;
+        p.LoadFromCubaseFXP(trk.PatchFileName);
 
         vv := TYMVirtualVoice.Create(yms, p);
         yms.VirtualVoices.Add(vv);
@@ -234,14 +232,20 @@ procedure TFormMain.NameTracks;
 var
   iTrack: Integer;
   t: TTrack;
+  ok: Boolean;
 begin
+  ok := False;
   for iTrack := 0 to lbTracks.Count - 1 do
   begin
     t := TTrack(lbTracks.Items.Objects[iTrack]);
 
     lbTracks.Items[iTrack] := Format('Track: %2d, Name: %16s, NoteCount: %5d, PatchFile: %s', [t.Index, t.Name, t.NoteCount, t.PatchFileName]);
     lbTracks.Checked[iTrack] := t.Export;
+
+    ok := ok or t.Export;
   end;
+
+  btConvert.Enabled := ok;
 end;
 
 end.
