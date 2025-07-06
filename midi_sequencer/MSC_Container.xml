@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="MSC_Container">
+  <const name="pm_Begin_Update" type="Integer">
+    <value>
+      $7FFFFFFE
+    </value>
+  </const>
+  <const name="pm_End_Update" type="Integer">
+    <value>
+      $7FFFFFFD
+    </value>
+  </const>
+  <const name="pm_Insert_Event" type="Integer">
+    <value>
+      $7FFFFFFC
+    </value>
+  </const>
+  <const name="pm_Update_Time" type="Integer">
+    <value>
+      $7FFFFFFB
+    </value>
+  </const>
+  <const name="pm_Clear_Events" type="Integer">
+    <value>
+      $7FFFFFFA
+    </value>
+  </const>
+  <const name="imInsert" type="TInsertion_Mode">
+    <value>
+      imInsert
+    </value>
+  </const>
+  <const name="imAppend" type="TInsertion_Mode">
+    <value>
+      imAppend
+    </value>
+  </const>
+  <array name="TReal_Array">
+    <element type="Double" />
+  </array>
+  <enum name="TInsertion_Mode">
+    <element name="imInsert" />
+    <element name="imAppend" />
+  </enum>
+  <class name="TMIDI_Container">
+    <ancestor name="TPublisher" namespace="Publish_Subscribe">
+      <methodref name="Create" visibility="public" />
+      <methodref name="Destroy" visibility="public" />
+      <methodref name="pbBeginUpdate" visibility="public" />
+      <methodref name="pbEndUpdate" visibility="public" />
+      <methodref name="Subscribe" visibility="public" />
+      <methodref name="Unsubscribe" visibility="public" />
+      <methodref name="Publish" visibility="public" />
+      <ancestor name="TSimpleInterfacedObject" namespace="Publish_Subscribe">
+        <methodref name="QueryInterface" visibility="protected" />
+        <methodref name="_AddRef" visibility="protected" />
+        <methodref name="_Release" visibility="protected" />
+        <ancestor name="TPersistent" namespace="Classes">
+          <methodref name="AssignError" visibility="private">
+          </methodref>
+          <methodref name="AssignTo" visibility="public">
+          </methodref>
+          <methodref name="DefineProperties" visibility="public">
+          </methodref>
+          <methodref name="GetOwner" visibility="protected">
+          </methodref>
+          <methodref name="Destroy" visibility="public">
+          </methodref>
+          <methodref name="Assign" visibility="public">
+          </methodref>
+          <methodref name="GetNamePath" visibility="public">
+          </methodref>
+          <ancestor name="TObject" namespace="System">
+            <methodref name="Create" visibility="public">
+            </methodref>
+            <methodref name="Free" visibility="public">
+            </methodref>
+            <methodref name="InitInstance" visibility="public">
+            </methodref>
+            <methodref name="CleanupInstance" visibility="public">
+            </methodref>
+            <methodref name="ClassType" visibility="public">
+            </methodref>
+            <methodref name="ClassName" visibility="public">
+            </methodref>
+            <methodref name="ClassNameIs" visibility="public">
+            </methodref>
+            <methodref name="ClassParent" visibility="public">
+            </methodref>
+            <methodref name="ClassInfo" visibility="public">
+            </methodref>
+            <methodref name="InstanceSize" visibility="public">
+            </methodref>
+            <methodref name="InheritsFrom" visibility="public">
+            </methodref>
+            <methodref name="MethodAddress" visibility="public">
+            </methodref>
+            <methodref name="MethodAddress" visibility="public">
+            </methodref>
+            <methodref name="MethodName" visibility="public">
+            </methodref>
+            <methodref name="FieldAddress" visibility="public">
+            </methodref>
+            <methodref name="FieldAddress" visibility="public">
+            </methodref>
+            <methodref name="GetInterface" visibility="public">
+            </methodref>
+            <methodref name="GetInterfaceEntry" visibility="public">
+            </methodref>
+            <methodref name="GetInterfaceTable" visibility="public">
+            </methodref>
+            <methodref name="UnitName" visibility="public">
+            </methodref>
+            <methodref name="Equals" visibility="public">
+            </methodref>
+            <methodref name="GetHashCode" visibility="public">
+            </methodref>
+            <methodref name="ToString" visibility="public">
+            </methodref>
+            <methodref name="SafeCallException" visibility="public">
+            </methodref>
+            <methodref name="AfterConstruction" visibility="public">
+            </methodref>
+            <methodref name="BeforeDestruction" visibility="public">
+            </methodref>
+            <methodref name="Dispatch" visibility="public">
+            </methodref>
+            <methodref name="DefaultHandler" visibility="public">
+            </methodref>
+            <methodref name="NewInstance" visibility="public">
+            </methodref>
+            <methodref name="FreeInstance" visibility="public">
+            </methodref>
+            <methodref name="Destroy" visibility="public">
+            </methodref>
+          </ancestor>
+        </ancestor>
+      </ancestor>
+    </ancestor>
+    <interfaces>
+      <implements name="IPublish" />
+    </interfaces>
+    <members>
+      <field name="FBeats" type="Byte" visibility="private" />
+      <field name="FDenominator" type="Byte" visibility="private" />
+      <field name="FKey" type="TMIDI_Key_Signature" visibility="private" />
+      <field name="FMajor" type="Boolean" visibility="private" />
+      <field name="FSharps" type="Integer" visibility="private" />
+      <field name="FChanged" type="Boolean" visibility="private" />
+      <field name="FSlice_Begin" type="Integer" visibility="private" />
+      <field name="FSlice_End" type="Integer" visibility="private" />
+      <field name="FLast_Index" type="Integer" visibility="private" />
+      <field name="FCommand" type="Integer" visibility="private" />
+      <field name="FTrace" type="Boolean" visibility="private" />
+      <field name="FCurrent_Event" type="Integer" visibility="private" />
+      <field name="FCurrent_Time" type="Integer" visibility="private" />
+      <field name="FMax_Time" type="Integer" visibility="private" />
+      <field name="FMicro_SPQ" type="Integer" visibility="private" />
+      <field name="FTicks_per_Quarter" type="Integer" visibility="private" />
+      <field name="FTrack_Count" visibility="private">
+        <array name="FTrack_Count" low="1" high="16">
+          <element type="Integer" />
+        </array>
+      </field>
+      <field name="FVoice_Count" visibility="private">
+        <array name="FVoice_Count" low="1" high="16">
+          <element type="Integer" />
+        </array>
+      </field>
+      <field name="FTrack_Name" type=":TMIDI_Container.:1" visibility="private" />
+      <field name="last_time" type="Cardinal" visibility="private" />
+      <field name="Event_List" type="TStringList" visibility="private" />
+      <field name="qn32" type="Integer" visibility="private" />
+      <procedure name="set_beats" visibility="private">
+        <parameters>
+          <parameter name="value" type="Byte" />
+        </parameters>
+      </procedure>
+      <procedure name="set_denominator" visibility="private">
+        <parameters>
+          <parameter name="value" type="Byte" />
+        </parameters>
+      </procedure>
+      <procedure name="set_track_count" visibility="private">
+        <parameters>
+          <parameter name="channel" type="TMIDI_Range" />
+          <parameter name="value" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="get_track_count" visibility="private">
+        <parameters>
+          <parameter name="channel" type="TMIDI_Range" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="set_voice_count" visibility="private">
+        <parameters>
+          <parameter name="channel" type="TMIDI_Range" />
+          <parameter name="value" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="get_voice_count" visibility="private">
+        <parameters>
+          <parameter name="channel" type="TMIDI_Range" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="set_track_name" visibility="private">
+        <parameters>
+          <parameter name="channel" type="TMIDI_Range" />
+          <parameter name="value" type="string" />
+        </parameters>
+      </procedure>
+      <function name="get_track_name" visibility="private">
+        <parameters>
+          <parameter name="channel" type="TMIDI_Range" />
+          <retval type="string" />
+        </parameters>
+      </function>
+      <function name="get_ticks_per_quarter" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="set_ticks_per_quarter" visibility="private">
+        <parameters>
+          <parameter name="value" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="get_milli_seconds_per_tick" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="set_milli_seconds_per_tick" visibility="private">
+        <parameters>
+          <parameter name="value" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="get_micro_spq" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="set_micro_spq" visibility="private">
+        <parameters>
+          <parameter name="value" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="get_bpm" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="set_bpm" visibility="private">
+        <parameters>
+          <parameter name="value" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="get_current_event" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="set_current_event" visibility="private">
+        <parameters>
+          <parameter name="value" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="get_max_time" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="set_max_time" visibility="private">
+        <parameters>
+          <parameter name="value" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="get_count" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_event" visibility="private">
+        <parameters>
+          <parameter name="index" type="Integer" />
+          <retval type="TMIDI_Event" />
+        </parameters>
+      </function>
+      <procedure name="set_last_index" visibility="private">
+        <parameters>
+          <parameter name="index" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="set_trace" visibility="private">
+        <parameters>
+          <parameter name="trace" type="Boolean" />
+        </parameters>
+      </procedure>
+      <field name="Timer_Ticks_per_Q" type="Integer" visibility="public" />
+      <constructor name="Create" visibility="public">
+        <parameters>
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <procedure name="Clear" visibility="public">
+      </procedure>
+      <procedure name="Reset" visibility="public">
+      </procedure>
+      <function name="status" visibility="public">
+        <parameters>
+          <retval type="string" />
+        </parameters>
+      </function>
+      <function name="time_to_seconds" visibility="public">
+        <parameters>
+          <parameter name="time" type="Integer" />
+          <retval type="Double" />
+        </parameters>
+      </function>
+      <function name="n_tracks" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="assign_events" visibility="public">
+        <parameters>
+          <parameter name="events" type="TStringList" />
+        </parameters>
+      </procedure>
+      <procedure name="get_vectors" visibility="public">
+        <parameters>
+          <parameter name="tr" type="Integer" />
+          <parameter name="n" type="TReal_Array" paramflags="var" />
+          <parameter name="d" type="TReal_Array" paramflags="var" />
+          <parameter name="s" type="TReal_Array" paramflags="var" />
+          <parameter name="t" type="TReal_Array" paramflags="var" />
+        </parameters>
+      </procedure>
+      <procedure name="handle_event" visibility="public">
+        <parameters>
+          <parameter name="event" type="TMIDI_Event" />
+        </parameters>
+      </procedure>
+      <function name="store_event" visibility="public">
+        <parameters>
+          <parameter name="event" type="TMIDI_Event" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="add_event" visibility="public">
+        <parameters>
+          <parameter name="event" type="TMIDI_Event" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="publish_command" visibility="public">
+        <parameters>
+          <parameter name="published_command" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="find_duration" visibility="public">
+        <parameters>
+          <parameter name="ev" type="TMIDI_Event" />
+          <parameter name="pos" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="LoadFromFile" visibility="public">
+        <parameters>
+          <parameter name="file_name" type="string" />
+          <parameter name="raw_copy" type="TStringList" />
+        </parameters>
+      </procedure>
+      <procedure name="SaveToFile" visibility="public">
+        <parameters>
+          <parameter name="file_name" type="string" />
+        </parameters>
+      </procedure>
+      <property name="Beats" visibility="public" read="FBeats" write="set_beats" type="Byte" />
+      <property name="Denominator" visibility="public" read="FDenominator" write="set_denominator" type="Byte" />
+      <property name="Key" visibility="public" read="FKey" write="FKey" type="TMIDI_Key_Signature" />
+      <property name="Major" visibility="public" read="FMajor" write="FMajor" type="Boolean" />
+      <property name="Sharps" visibility="public" read="FSharps" type="Integer" />
+      <property name="Max_Time" visibility="public" read="get_max_time" write="set_max_time" type="Integer" />
+      <property name="Changed" visibility="public" read="FChanged" write="FChanged" type="Boolean" />
+      <property name="Track_Count" visibility="public" read="get_track_count" write="set_track_count" type="Integer" />
+      <property name="Voice_Count" visibility="public" read="get_voice_count" write="set_voice_count" type="Integer" />
+      <property name="Track_Name" visibility="public" read="get_track_name" write="set_track_name" type="string" />
+      <property name="Event" visibility="public" read="get_event" type="TMIDI_Event" />
+      <property name="Count" visibility="public" read="get_count" type="Integer" />
+      <property name="Last_Index" visibility="public" read="FLast_Index" write="set_last_index" type="Integer" />
+      <property name="Command" visibility="public" read="FCommand" type="Integer" />
+      <property name="Trace" visibility="public" read="FTrace" write="set_trace" type="Boolean" />
+      <property name="Slice_Begin" visibility="public" read="FSlice_Begin" type="Integer" />
+      <property name="Slice_End" visibility="public" read="FSlice_End" type="Integer" />
+      <property name="Current_Time" visibility="public" read="FCurrent_Time" write="FCurrent_Time" type="Integer" />
+      <property name="Current_Event" visibility="public" read="get_current_event" write="set_current_event" type="Integer" />
+      <property name="Milli_Seconds_Per_Tick" visibility="public" read="get_milli_seconds_per_tick" write="set_milli_seconds_per_tick" type="Integer" />
+      <property name="Micro_SPQ" visibility="public" read="get_micro_spq" write="set_micro_spq" type="Integer" />
+      <property name="Ticks_Per_Quarter" visibility="public" read="get_ticks_per_quarter" write="set_ticks_per_quarter" type="Integer" />
+      <property name="BPM" visibility="public" read="get_bpm" write="set_bpm" type="Integer" />
+    </members>
+  </class>
+</namespace>

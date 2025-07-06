@@ -1,0 +1,74 @@
+
+
+From LISTSERV@AUVM.AMERICAN.EDU Mon Oct 19 17:20:53 1992
+Return-Path: <LISTSERV@AUVM.AMERICAN.EDU>
+Received: from auvm.american.edu by calvin.gsfc.nasa.gov (4.1/SMI-4.1)
+	id AB26900; Mon, 19 Oct 92 17:20:51 EDT
+Message-Id: <9210192120.AB26900@calvin.gsfc.nasa.gov>
+Received: from AUVM.AMERICAN.EDU by AUVM.AMERICAN.EDU (IBM VM SMTP V2R2)
+   with BSMTP id 2007; Mon, 19 Oct 92 17:20:09 EDT
+Received: by AUVM (Mailer R2.08) id 0953; Mon, 19 Oct 92 17:20:09 EDT
+Date:         Mon, 19 Oct 1992 17:20:06 -0400
+From: Revised List Processor (1.7d) <LISTSERV@AMERICAN.EDU>
+Subject:      File: "MIDIBNF MIDISPEC" being sent to you
+To: Joe McMahon <xrjdm@CALVIN.gsfc.nasa.gov>
+Status: OR
+
+The latest issue of the IMA bulletin had an article on BNF for MIDI.  The
+article points out that this syntax is what can be TRANSMITTED and the
+actual RECEIVER implementation may differ slightly from this grammer. This
+may allow greater error tolerance. The example given is that of tranmitting
+a system exclusive message without the termination byte <eox> F7. A channel
+status byte could also be used to terminate a system exclusive in the event
+the eox byte is lost due to error or power down etc...
+
+Definitions 3-17 define running status and realtime data insertion as well as
+the various channel messages.
+
+1.  <MIDI Stream> ::=           <MIDI msg> < MIDI Stream>
+2.  <MIDI msg> ::=              <sys msg> | <chan msg>
+3.  <chan msg> ::=              <chan 1byte msg> |
+                                | <chan 2byte msg>
+4.  <chan 1byte msg> ::=        <chan stat1 byte> <data singlet>
+                                  <running singlets>
+5.  <chan 2byte msg> ::=        <chan stat2 byte> <data pair>
+                                  <running pairs>
+6.  <chan stat1 byte> ::=       <chan voice stat1 nibble>
+                                  <hex nibble>
+7.  <chan stat2 byte> ::=       <chan voice stat2 nibble>
+                                  <hex nibble>
+8.  <chan voice stat1 nyble>::= C | D
+9.  <chan voice stat2 nyble>::= 8 | 9 | A | B | E
+10. <hex nyble> ::=             0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+                                | 8 | 9 | A | B | C | D | E | F
+11. <data pair> ::=             <data singlet> <data singlet>
+12. <data singlet> ::=          <realtime byte> <data singlet> |
+                                | <data byte>
+13. <running pairs> ::=         <empty> | <data pair> <running pairs>
+14. <running singlets> ::=      <empty> |
+                                | <data singlet> <running singlets>
+15. <data byte> ::=             <data MSD> <hex nyble>
+16. <data MSD> ::=              0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
+17. <realtime byte> ::=         F8 | FA | FB | FC | FE | FF
+18. <sys msg> ::=               <sys common msg> |
+                                | <sysex msg> |
+                                | <sys realtime msg>
+19. <sys realtime msg> ::=      <realtime byte>
+20. <sysex msg> ::=             <sysex data byte>
+                                  <data singlet> <running singlets>
+                                  <eox byte>
+21. <sysex stat byte> ::=       F0
+22. <eox byte> ::=              F7
+23. <sys common msg> ::=        <song position msg> |
+                                | <song select msg> |
+                                | <tune request>
+24. <tune request> ::=          F6
+25. <song position msg> ::=     <song position stat byte>
+                                  <data pair>
+26. <song select msg> ::=       <song select stat byte>
+                                  <data singlet>
+27. <song position stat byte>::=F2
+28. <song select stat byte> ::= F3
+ú MAILER UHCCUX  4/07/89
+§lee@uhccux          eharnden@auvm        4/07/89 midi-bnf
+

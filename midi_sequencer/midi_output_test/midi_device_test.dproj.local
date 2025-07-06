@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2011-02-18 10:19:08.000.188,=C:\Users\arnold\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2011-02-18 10:19:55.000.852,=D:\home\development\Delphi\Components\MIDI Sequencer Components\midi_output_test\Main.pas</Transaction>
+    <Transaction>2011-02-18 10:20:38.000.582,C:\Users\arnold\Documents\RAD Studio\Projects\Project1.dproj=D:\home\development\Delphi\Components\MIDI Sequencer Components\midi_output_test\midi_device_test.dproj</Transaction>
+    <Transaction>2011-02-18 10:21:16.000.990,=D:\home\development\Delphi\Components\MIDI Sequencer Components\MSC_Out_Device.pas</Transaction>
+    <Transaction>2011-02-18 10:21:16.000.963,=D:\home\development\Delphi\Components\MIDI Sequencer Components\MSC_Device.pas</Transaction>
+    <Transaction>2011-02-18 10:21:16.000.923,=D:\home\development\Delphi\Components\MIDI Sequencer Components\MSC_Definitions.pas</Transaction>
+    <Transaction>2011-02-18 10:26:57.000.957,=D:\home\development\Delphi\Components\MIDI Sequencer Components\MSC_Circular_Buffer.pas</Transaction>
+    <Transaction>2011-02-18 10:29:22.000.942,=D:\home\development\Delphi\Components\MIDI Sequencer Components\utilities_math.pas</Transaction>
+    <Transaction>2011-02-18 10:30:27.000.187,=D:\home\development\Delphi\Components\MIDI Sequencer Components\MSC_Component.pas</Transaction>
+    <Transaction>2011-02-18 10:30:57.000.849,=D:\home\development\Delphi\Components\MIDI Sequencer Components\MSC_Delphi_MIDI_Callback.pas</Transaction>
+  </Transactions>
+</BorlandProject>

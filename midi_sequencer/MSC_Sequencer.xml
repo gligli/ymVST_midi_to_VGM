@@ -1,0 +1,556 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="MSC_Sequencer">
+  <const name="seq_Play" type="TSequencer_Status">
+    <value>
+      seq_Play
+    </value>
+  </const>
+  <const name="seq_Pause" type="TSequencer_Status">
+    <value>
+      seq_Pause
+    </value>
+  </const>
+  <const name="seq_Step" type="TSequencer_Status">
+    <value>
+      seq_Step
+    </value>
+  </const>
+  <const name="seq_Record" type="TSequencer_Status">
+    <value>
+      seq_Record
+    </value>
+  </const>
+  <const name="seq_Rewind" type="TSequencer_Status">
+    <value>
+      seq_Rewind
+    </value>
+  </const>
+  <const name="seq_Stop" type="TSequencer_Status">
+    <value>
+      seq_Stop
+    </value>
+  </const>
+  <const name="seq_Generate" type="TSequencer_Status">
+    <value>
+      seq_Generate
+    </value>
+  </const>
+  <enum name="TSequencer_Status">
+    <element name="seq_Play" />
+    <element name="seq_Pause" />
+    <element name="seq_Step" />
+    <element name="seq_Record" />
+    <element name="seq_Rewind" />
+    <element name="seq_Stop" />
+    <element name="seq_Generate" />
+  </enum>
+  <array name="TPatch_Names" low="0" high="127">
+    <element type="string" />
+  </array>
+  <class name="TMIDI_Sequencer">
+    <ancestor name="TMSC_Component" namespace="MSC_Component">
+      <ancestor name="TComponent" namespace="Classes">
+        <methodref name="GetComObject" visibility="private">
+        </methodref>
+        <methodref name="GetComponent" visibility="private">
+        </methodref>
+        <methodref name="GetComponentCount" visibility="private">
+        </methodref>
+        <methodref name="GetComponentIndex" visibility="private">
+        </methodref>
+        <methodref name="Insert" visibility="private">
+        </methodref>
+        <methodref name="ReadLeft" visibility="private">
+        </methodref>
+        <methodref name="ReadTop" visibility="private">
+        </methodref>
+        <methodref name="Remove" visibility="private">
+        </methodref>
+        <methodref name="RemoveNotification" visibility="private">
+        </methodref>
+        <methodref name="SetComponentIndex" visibility="private">
+        </methodref>
+        <methodref name="SetReference" visibility="private">
+        </methodref>
+        <methodref name="WriteLeft" visibility="private">
+        </methodref>
+        <methodref name="WriteTop" visibility="private">
+        </methodref>
+        <methodref name="IntfGetComponent" visibility="private">
+        </methodref>
+        <methodref name="ChangeName" visibility="protected">
+        </methodref>
+        <methodref name="DefineProperties" visibility="public">
+        </methodref>
+        <methodref name="GetChildren" visibility="protected">
+        </methodref>
+        <methodref name="GetChildOwner" visibility="protected">
+        </methodref>
+        <methodref name="GetChildParent" visibility="protected">
+        </methodref>
+        <methodref name="GetOwner" visibility="protected">
+        </methodref>
+        <methodref name="Loaded" visibility="public">
+        </methodref>
+        <methodref name="Notification" visibility="public">
+        </methodref>
+        <methodref name="PaletteCreated" visibility="protected">
+        </methodref>
+        <methodref name="ReadState" visibility="public">
+        </methodref>
+        <methodref name="SetAncestor" visibility="protected">
+        </methodref>
+        <methodref name="SetDesigning" visibility="protected">
+        </methodref>
+        <methodref name="SetInline" visibility="protected">
+        </methodref>
+        <methodref name="SetDesignInstance" visibility="protected">
+        </methodref>
+        <methodref name="SetName" visibility="public">
+        </methodref>
+        <methodref name="SetChildOrder" visibility="protected">
+        </methodref>
+        <methodref name="SetParentComponent" visibility="protected">
+        </methodref>
+        <methodref name="Updating" visibility="protected">
+        </methodref>
+        <methodref name="Updated" visibility="protected">
+        </methodref>
+        <methodref name="UpdateRegistry" visibility="public">
+        </methodref>
+        <methodref name="ValidateRename" visibility="public">
+        </methodref>
+        <methodref name="ValidateContainer" visibility="protected">
+        </methodref>
+        <methodref name="ValidateInsert" visibility="protected">
+        </methodref>
+        <methodref name="WriteState" visibility="public">
+        </methodref>
+        <methodref name="QueryInterface" visibility="public">
+        </methodref>
+        <methodref name="_AddRef" visibility="protected">
+        </methodref>
+        <methodref name="_Release" visibility="protected">
+        </methodref>
+        <methodref name="GetTypeInfoCount" visibility="protected">
+        </methodref>
+        <methodref name="GetTypeInfo" visibility="protected">
+        </methodref>
+        <methodref name="GetIDsOfNames" visibility="protected">
+        </methodref>
+        <methodref name="Invoke" visibility="protected">
+        </methodref>
+        <methodref name="Create" visibility="public">
+        </methodref>
+        <methodref name="Destroy" visibility="public">
+        </methodref>
+        <methodref name="BeforeDestruction" visibility="public">
+        </methodref>
+        <methodref name="DestroyComponents" visibility="public">
+        </methodref>
+        <methodref name="Destroying" visibility="public">
+        </methodref>
+        <methodref name="ExecuteAction" visibility="public">
+        </methodref>
+        <methodref name="FindComponent" visibility="public">
+        </methodref>
+        <methodref name="FreeNotification" visibility="public">
+        </methodref>
+        <methodref name="RemoveFreeNotification" visibility="public">
+        </methodref>
+        <methodref name="FreeOnRelease" visibility="public">
+        </methodref>
+        <methodref name="GetEnumerator" visibility="public">
+        </methodref>
+        <methodref name="GetParentComponent" visibility="public">
+        </methodref>
+        <methodref name="GetNamePath" visibility="public">
+        </methodref>
+        <methodref name="HasParent" visibility="public">
+        </methodref>
+        <methodref name="InsertComponent" visibility="public">
+        </methodref>
+        <methodref name="RemoveComponent" visibility="public">
+        </methodref>
+        <methodref name="SetSubComponent" visibility="public">
+        </methodref>
+        <methodref name="SafeCallException" visibility="public">
+        </methodref>
+        <methodref name="UpdateAction" visibility="public">
+        </methodref>
+        <methodref name="IsImplementorOf" visibility="public">
+        </methodref>
+        <methodref name="ReferenceInterface" visibility="public">
+        </methodref>
+        <propertyref name="ComObject" visibility="public">
+        </propertyref>
+        <propertyref name="Components" visibility="public">
+        </propertyref>
+        <propertyref name="ComponentCount" visibility="public">
+        </propertyref>
+        <propertyref name="ComponentIndex" visibility="public">
+        </propertyref>
+        <propertyref name="ComponentState" visibility="public">
+        </propertyref>
+        <propertyref name="ComponentStyle" visibility="public">
+        </propertyref>
+        <propertyref name="DesignInfo" visibility="public">
+        </propertyref>
+        <propertyref name="Owner" visibility="public">
+        </propertyref>
+        <propertyref name="VCLComObject" visibility="public">
+        </propertyref>
+        <propertyref name="Name" visibility="published">
+        </propertyref>
+        <propertyref name="Tag" visibility="published">
+        </propertyref>
+        <ancestor name="TPersistent" namespace="Classes">
+          <methodref name="AssignError" visibility="private">
+          </methodref>
+          <methodref name="AssignTo" visibility="public">
+          </methodref>
+          <methodref name="DefineProperties" visibility="public">
+          </methodref>
+          <methodref name="GetOwner" visibility="protected">
+          </methodref>
+          <methodref name="Destroy" visibility="public">
+          </methodref>
+          <methodref name="Assign" visibility="public">
+          </methodref>
+          <methodref name="GetNamePath" visibility="public">
+          </methodref>
+          <ancestor name="TObject" namespace="System">
+            <methodref name="Create" visibility="public">
+            </methodref>
+            <methodref name="Free" visibility="public">
+            </methodref>
+            <methodref name="InitInstance" visibility="public">
+            </methodref>
+            <methodref name="CleanupInstance" visibility="public">
+            </methodref>
+            <methodref name="ClassType" visibility="public">
+            </methodref>
+            <methodref name="ClassName" visibility="public">
+            </methodref>
+            <methodref name="ClassNameIs" visibility="public">
+            </methodref>
+            <methodref name="ClassParent" visibility="public">
+            </methodref>
+            <methodref name="ClassInfo" visibility="public">
+            </methodref>
+            <methodref name="InstanceSize" visibility="public">
+            </methodref>
+            <methodref name="InheritsFrom" visibility="public">
+            </methodref>
+            <methodref name="MethodAddress" visibility="public">
+            </methodref>
+            <methodref name="MethodAddress" visibility="public">
+            </methodref>
+            <methodref name="MethodName" visibility="public">
+            </methodref>
+            <methodref name="FieldAddress" visibility="public">
+            </methodref>
+            <methodref name="FieldAddress" visibility="public">
+            </methodref>
+            <methodref name="GetInterface" visibility="public">
+            </methodref>
+            <methodref name="GetInterfaceEntry" visibility="public">
+            </methodref>
+            <methodref name="GetInterfaceTable" visibility="public">
+            </methodref>
+            <methodref name="UnitName" visibility="public">
+            </methodref>
+            <methodref name="Equals" visibility="public">
+            </methodref>
+            <methodref name="GetHashCode" visibility="public">
+            </methodref>
+            <methodref name="ToString" visibility="public">
+            </methodref>
+            <methodref name="SafeCallException" visibility="public">
+            </methodref>
+            <methodref name="AfterConstruction" visibility="public">
+            </methodref>
+            <methodref name="BeforeDestruction" visibility="public">
+            </methodref>
+            <methodref name="Dispatch" visibility="public">
+            </methodref>
+            <methodref name="DefaultHandler" visibility="public">
+            </methodref>
+            <methodref name="NewInstance" visibility="public">
+            </methodref>
+            <methodref name="FreeInstance" visibility="public">
+            </methodref>
+            <methodref name="Destroy" visibility="public">
+            </methodref>
+          </ancestor>
+        </ancestor>
+      </ancestor>
+    </ancestor>
+    <members>
+      <field name="FMIDI_Container" type="TMIDI_Container" visibility="private" />
+      <field name="FMIDI_Res_In" type="TMIDI_Resources_In" visibility="private" />
+      <field name="FMIDI_Res_Out" type="TMIDI_Resources_Out" visibility="private" />
+      <field name="FMIDI_Player" type="TMIDI_Player" visibility="private" />
+      <field name="FMIDI_Recorder" type="TMIDI_Recorder" visibility="private" />
+      <field name="FMIDI_Controllers" type="TController_Holder" visibility="private" />
+      <field name="FStatus" type="TSequencer_Status" visibility="private" />
+      <field name="FInstrument_Name" type="TPatch_Names" visibility="private" />
+      <field name="FDrum_Name" type="TPatch_Names" visibility="private" />
+      <field name="FController_Name" type="TPatch_Names" visibility="private" />
+      <procedure name="send_controller" visibility="private">
+        <parameters>
+          <parameter name="cnt" type="T7bit" />
+          <parameter name="channel" type="TMIDI_Range" />
+          <parameter name="value" type="T7bit" />
+        </parameters>
+      </procedure>
+      <function name="get_controller" visibility="private">
+        <parameters>
+          <parameter name="index" type="T7bit" />
+          <retval type="TMIDI_Controller" />
+        </parameters>
+      </function>
+      <procedure name="set_pitch_bend" visibility="private">
+        <parameters>
+          <parameter name="channel" type="TMIDI_Range" />
+          <parameter name="value" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="set_status" visibility="private">
+        <parameters>
+          <parameter name="value" type="TSequencer_Status" />
+        </parameters>
+      </procedure>
+      <function name="get_Port_In_Count" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_Port_Out_Count" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_bpm" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="set_bpm" visibility="private">
+        <parameters>
+          <parameter name="value" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="get_beats" visibility="private">
+        <parameters>
+          <retval type="Byte" />
+        </parameters>
+      </function>
+      <procedure name="set_beats" visibility="private">
+        <parameters>
+          <parameter name="value" type="Byte" />
+        </parameters>
+      </procedure>
+      <function name="get_denominator" visibility="private">
+        <parameters>
+          <retval type="Byte" />
+        </parameters>
+      </function>
+      <procedure name="set_denominator" visibility="private">
+        <parameters>
+          <parameter name="value" type="Byte" />
+        </parameters>
+      </procedure>
+      <function name="get_key" visibility="private">
+        <parameters>
+          <retval type="TMIDI_Key_Signature" />
+        </parameters>
+      </function>
+      <procedure name="set_key" visibility="private">
+        <parameters>
+          <parameter name="value" type="TMIDI_Key_Signature" />
+        </parameters>
+      </procedure>
+      <function name="get_major" visibility="private">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <procedure name="set_major" visibility="private">
+        <parameters>
+          <parameter name="value" type="Boolean" />
+        </parameters>
+      </procedure>
+      <function name="get_max_time" visibility="private">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_Time_Change" visibility="private">
+        <parameters>
+          <retval type="TTime_Change_Event" />
+        </parameters>
+      </function>
+      <procedure name="set_time_change" visibility="private">
+        <parameters>
+          <parameter name="value" type="TTime_Change_Event" />
+        </parameters>
+      </procedure>
+      <function name="get_tick_change" visibility="private">
+        <parameters>
+          <retval type="TTime_Change_Event" />
+        </parameters>
+      </function>
+      <procedure name="set_tick_change" visibility="private">
+        <parameters>
+          <parameter name="value" type="TTime_Change_Event" />
+        </parameters>
+      </procedure>
+      <function name="get_prepare" visibility="private">
+        <parameters>
+          <retval type="TTime_Change_Event" />
+        </parameters>
+      </function>
+      <procedure name="set_prepare" visibility="private">
+        <parameters>
+          <parameter name="value" type="TTime_Change_Event" />
+        </parameters>
+      </procedure>
+      <procedure name="set_patch" visibility="private">
+        <parameters>
+          <parameter name="channel" type="TMIDI_Range" />
+          <parameter name="patch" type="TMIDI_Patch_Range" />
+        </parameters>
+      </procedure>
+      <function name="get_patch_name" visibility="private">
+        <parameters>
+          <parameter name="index" type="T7bit" />
+          <retval type="string" />
+        </parameters>
+      </function>
+      <function name="get_drum_name" visibility="private">
+        <parameters>
+          <parameter name="index" type="T7bit" />
+          <retval type="string" />
+        </parameters>
+      </function>
+      <function name="get_ctrl_name" visibility="private">
+        <parameters>
+          <parameter name="index" type="T7bit" />
+          <retval type="string" />
+        </parameters>
+      </function>
+      <field name="MIDI_Thru" type=":TMIDI_Sequencer.:2" visibility="protected" />
+      <procedure name="do_play" visibility="protected">
+      </procedure>
+      <procedure name="do_pause" visibility="protected">
+      </procedure>
+      <procedure name="do_step" visibility="protected">
+      </procedure>
+      <procedure name="do_record" visibility="protected">
+      </procedure>
+      <procedure name="do_rewind" visibility="protected">
+      </procedure>
+      <procedure name="do_stop" visibility="protected">
+      </procedure>
+      <procedure name="do_Generate" visibility="protected">
+      </procedure>
+      <procedure name="Record_MIDI_Input" visibility="protected">
+        <parameters>
+          <parameter name="Sender" type="TObject" />
+        </parameters>
+      </procedure>
+      <procedure name="BPM_Change" visibility="protected">
+        <parameters>
+          <parameter name="Sender" type="TObject" />
+        </parameters>
+      </procedure>
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="AOwner" type="TComponent" />
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <procedure name="Reset" visibility="public">
+      </procedure>
+      <procedure name="load_patch_names" visibility="public">
+        <parameters>
+          <parameter name="file_name" type="string" />
+        </parameters>
+      </procedure>
+      <procedure name="load_drum_names" visibility="public">
+        <parameters>
+          <parameter name="file_name" type="string" />
+        </parameters>
+      </procedure>
+      <procedure name="load_ctrl_names" visibility="public">
+        <parameters>
+          <parameter name="file_name" type="string" />
+        </parameters>
+      </procedure>
+      <procedure name="LoadFromFile" visibility="public">
+        <parameters>
+          <parameter name="file_name" type="string" />
+          <parameter name="raw_copy" type="TStringList" />
+        </parameters>
+      </procedure>
+      <procedure name="SaveToFile" visibility="public">
+        <parameters>
+          <parameter name="file_name" type="string" />
+        </parameters>
+      </procedure>
+      <procedure name="connect_MIDI_thru" visibility="public">
+        <parameters>
+          <parameter name="from" type="Integer" />
+          <parameter name="towards" type="Integer" />
+          <parameter name="setting" type="Boolean">
+            <value>
+              True
+            </value>
+          </parameter>
+        </parameters>
+      </procedure>
+      <function name="append_event" visibility="public">
+        <parameters>
+          <parameter name="event" type="TMIDI_Event" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="insert_event" visibility="public">
+        <parameters>
+          <parameter name="event" type="TMIDI_Event" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <property name="MIDI_Container" visibility="public" read="FMIDI_Container" type="TMIDI_Container" />
+      <property name="MIDI_Res_In" visibility="public" read="FMIDI_Res_In" type="TMIDI_Resources_In" />
+      <property name="MIDI_Res_Out" visibility="public" read="FMIDI_Res_Out" type="TMIDI_Resources_Out" />
+      <property name="MIDI_Player" visibility="public" read="FMIDI_Player" type="TMIDI_Player" />
+      <property name="MIDI_Recorder" visibility="public" read="FMIDI_Recorder" type="TMIDI_Recorder" />
+      <property name="MIDI_Controllers" visibility="public" read="FMIDI_Controllers" type="TController_Holder" />
+      <property name="Send_Controller_Event" visibility="public" write="send_controller" type="T7bit" />
+      <property name="Pitch_Bend" visibility="public" write="set_pitch_bend" type="Integer" />
+      <property name="Status" visibility="public" read="FStatus" write="set_status" type="TSequencer_Status" />
+      <property name="Port_In_Count" visibility="public" read="get_Port_In_Count" type="Integer" />
+      <property name="Port_Out_Count" visibility="public" read="get_Port_Out_Count" type="Integer" />
+      <property name="BPM" visibility="public" read="get_bpm" write="set_bpm" type="Integer" />
+      <property name="Beats" visibility="public" read="get_beats" write="set_beats" type="Byte" />
+      <property name="Denominator" visibility="public" read="get_denominator" write="set_denominator" type="Byte" />
+      <property name="Key" visibility="public" read="get_key" write="set_key" type="TMIDI_Key_Signature" />
+      <property name="Major" visibility="public" read="get_major" write="set_major" type="Boolean" />
+      <property name="Max_Time" visibility="public" read="get_max_time" type="Integer" />
+      <property name="Patch" visibility="public" write="set_patch" type="TMIDI_Patch_Range" />
+      <property name="Patch_Name" visibility="public" read="get_patch_name" type="string" />
+      <property name="Drum_Name" visibility="public" read="get_drum_name" type="string" />
+      <property name="Ctrl_Name" visibility="public" read="get_ctrl_name" type="string" />
+      <event name="OnTimeChange" visibility="public" read="get_Time_Change" write="set_time_change" type="TTime_Change_Event" />
+      <event name="OnTickChange" visibility="public" read="get_tick_change" write="set_tick_change" type="TTime_Change_Event" />
+      <event name="OnPrepare" visibility="public" read="get_prepare" write="set_prepare" type="TTime_Change_Event" />
+    </members>
+  </class>
+  <procedure name="Register" visibility="public">
+  </procedure>
+</namespace>

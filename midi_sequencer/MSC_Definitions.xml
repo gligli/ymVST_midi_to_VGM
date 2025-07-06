@@ -1,0 +1,1228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="MSC_Definitions">
+  <const name="C4bit" type="Integer">
+    <value>
+      $10
+    </value>
+  </const>
+  <const name="C5bit" type="Integer">
+    <value>
+      $20
+    </value>
+  </const>
+  <const name="C7bit" type="Integer">
+    <value>
+      $80
+    </value>
+  </const>
+  <const name="C8bit" type="Integer">
+    <value>
+      $100
+    </value>
+  </const>
+  <const name="C14bit" type="Integer">
+    <value>
+      $4000
+    </value>
+  </const>
+  <const name="nMidi_Channels" type="Integer">
+    <value>
+      $10
+    </value>
+  </const>
+  <const name="nPatches" type="Integer">
+    <value>
+      $80
+    </value>
+  </const>
+  <const name="nDrums" type="Integer">
+    <value>
+      $3D
+    </value>
+  </const>
+  <const name="nMIDI_Entries" type="Integer">
+    <value>
+      $4
+    </value>
+  </const>
+  <const name="nEvents" type="Integer">
+    <value>
+      $FF
+    </value>
+  </const>
+  <const name="nCtrls" type="Integer">
+    <value>
+      $80
+    </value>
+  </const>
+  <const name="drum_channel" type="Integer">
+    <value>
+      $A
+    </value>
+  </const>
+  <const name="mspq" type="Integer" visibility="public" />
+  <const name="MSC_Package_Name" type="string">
+    <value>
+      MIDI Sequencer Components
+    </value>
+  </const>
+  <const name="ic_Poly_Aftertouch" type="Integer">
+    <value>
+      $80
+    </value>
+  </const>
+  <const name="ic_Channel_Aftertouch" type="Integer">
+    <value>
+      $81
+    </value>
+  </const>
+  <const name="ic_Pitch_Wheel" type="Integer">
+    <value>
+      $82
+    </value>
+  </const>
+  <const name="max_midi_voices" type="Integer">
+    <value>
+      $20
+    </value>
+  </const>
+  <const name="entry_midi_notes" type="Integer">
+    <value>
+      $0
+    </value>
+  </const>
+  <const name="MIDI_Resolution" type="Integer">
+    <value>
+      $20
+    </value>
+  </const>
+  <const name="C_Center" type="Integer">
+    <value>
+      $3C
+    </value>
+  </const>
+  <const name="no_ports_available" type="Integer">
+    <value>
+      $FFFFFFFF
+    </value>
+  </const>
+  <const name="mc_MIDI_Reset_All_Controllers" type="Integer">
+    <value>
+      $79
+    </value>
+  </const>
+  <const name="mc_MIDI_All_Notes_Off" type="Integer">
+    <value>
+      $7B
+    </value>
+  </const>
+  <const name="mc_MIDI_Note_Off" type="Integer">
+    <value>
+      $80
+    </value>
+  </const>
+  <const name="mc_MIDI_Note_On" type="Integer">
+    <value>
+      $90
+    </value>
+  </const>
+  <const name="mc_MIDI_Polyphonic_Aftertouch" type="Integer">
+    <value>
+      $A0
+    </value>
+  </const>
+  <const name="mc_MIDI_Control_Change" type="Integer">
+    <value>
+      $B0
+    </value>
+  </const>
+  <const name="mc_MIDI_Program_Change" type="Integer">
+    <value>
+      $C0
+    </value>
+  </const>
+  <const name="mc_MIDI_Channel_Aftertouch" type="Integer">
+    <value>
+      $D0
+    </value>
+  </const>
+  <const name="mc_MIDI_Pitch_Bend" type="Integer">
+    <value>
+      $E0
+    </value>
+  </const>
+  <const name="mc_MIDI_System_Message" type="Integer">
+    <value>
+      $F0
+    </value>
+  </const>
+  <const name="mc_MIDI_Begin_SysEx" type="Integer">
+    <value>
+      $F0
+    </value>
+  </const>
+  <const name="mc_MIDI_MTC_Quarter_Frame" type="Integer">
+    <value>
+      $F1
+    </value>
+  </const>
+  <const name="mc_MIDI_Song_Pos_Ptr" type="Integer">
+    <value>
+      $F2
+    </value>
+  </const>
+  <const name="mc_MIDI_Song_Select" type="Integer">
+    <value>
+      $F3
+    </value>
+  </const>
+  <const name="mc_MIDI_End_SysEx" type="Integer">
+    <value>
+      $F7
+    </value>
+  </const>
+  <const name="mc_MIDI_Timing_Clock" type="Integer">
+    <value>
+      $F8
+    </value>
+  </const>
+  <const name="mc_MIDI_Start" type="Integer">
+    <value>
+      $FA
+    </value>
+  </const>
+  <const name="mc_MIDI_Continue" type="Integer">
+    <value>
+      $FB
+    </value>
+  </const>
+  <const name="mc_MIDI_Stop" type="Integer">
+    <value>
+      $FC
+    </value>
+  </const>
+  <const name="mc_MIDI_Active_Sensing" type="Integer">
+    <value>
+      $FE
+    </value>
+  </const>
+  <const name="mc_MIDI_Meta_Event" type="Integer">
+    <value>
+      $FF
+    </value>
+  </const>
+  <const name="mc_Meta_Sequence_Number" type="Integer">
+    <value>
+      $0
+    </value>
+  </const>
+  <const name="mc_Meta_Text_Event" type="Integer">
+    <value>
+      $1
+    </value>
+  </const>
+  <const name="mc_Meta_Copyright_Notice" type="Integer">
+    <value>
+      $2
+    </value>
+  </const>
+  <const name="mc_Meta_Track_Name" type="Integer">
+    <value>
+      $3
+    </value>
+  </const>
+  <const name="mc_Meta_Instrument_Name" type="Integer">
+    <value>
+      $4
+    </value>
+  </const>
+  <const name="mc_Meta_Lyric" type="Integer">
+    <value>
+      $5
+    </value>
+  </const>
+  <const name="mc_Meta_Marker" type="Integer">
+    <value>
+      $6
+    </value>
+  </const>
+  <const name="mc_Meta_Cue_Point" type="Integer">
+    <value>
+      $7
+    </value>
+  </const>
+  <const name="mc_Meta_Channel_Prefix" type="Integer">
+    <value>
+      $20
+    </value>
+  </const>
+  <const name="mc_Meta_End_Of_Track" type="Integer">
+    <value>
+      $2F
+    </value>
+  </const>
+  <const name="mc_Meta_Set_Tempo" type="Integer">
+    <value>
+      $51
+    </value>
+  </const>
+  <const name="mc_Meta_SMPTE_Offset" type="Integer">
+    <value>
+      $54
+    </value>
+  </const>
+  <const name="mc_Meta_Time_Signature" type="Integer">
+    <value>
+      $58
+    </value>
+  </const>
+  <const name="mc_Meta_Key_Signature" type="Integer">
+    <value>
+      $59
+    </value>
+  </const>
+  <const name="mc_Meta_Sequencer_Specific" type="Integer">
+    <value>
+      $7F
+    </value>
+  </const>
+  <const name="mc_Ctrl_modulation" type="Integer">
+    <value>
+      $1
+    </value>
+  </const>
+  <const name="mc_Ctrl_data_entry" type="Integer">
+    <value>
+      $6
+    </value>
+  </const>
+  <const name="mc_Ctrl_volume" type="Integer">
+    <value>
+      $7
+    </value>
+  </const>
+  <const name="mc_Ctrl_panpot" type="Integer">
+    <value>
+      $A
+    </value>
+  </const>
+  <const name="mc_Ctrl_expression" type="Integer">
+    <value>
+      $B
+    </value>
+  </const>
+  <const name="mc_Ctrl_damper_pedal" type="Integer">
+    <value>
+      $40
+    </value>
+  </const>
+  <const name="mc_Ctrl_portamento" type="Integer">
+    <value>
+      $41
+    </value>
+  </const>
+  <const name="mc_Ctrl_sostenuto" type="Integer">
+    <value>
+      $42
+    </value>
+  </const>
+  <const name="mc_Ctrl_soft_pedal" type="Integer">
+    <value>
+      $43
+    </value>
+  </const>
+  <const name="mc_Ctrl_general_4" type="Integer">
+    <value>
+      $44
+    </value>
+  </const>
+  <const name="mc_Ctrl_hold_2" type="Integer">
+    <value>
+      $45
+    </value>
+  </const>
+  <const name="mc_Ctrl_general_5" type="Integer">
+    <value>
+      $50
+    </value>
+  </const>
+  <const name="mc_Ctrl_general_6" type="Integer">
+    <value>
+      $51
+    </value>
+  </const>
+  <const name="mc_Ctrl_general_7" type="Integer">
+    <value>
+      $52
+    </value>
+  </const>
+  <const name="mc_Ctrl_general_8" type="Integer">
+    <value>
+      $53
+    </value>
+  </const>
+  <const name="mc_Ctrl_reverb_depth" type="Integer">
+    <value>
+      $5B
+    </value>
+  </const>
+  <const name="mc_Ctrl_tremolo_depth" type="Integer">
+    <value>
+      $5C
+    </value>
+  </const>
+  <const name="mc_Ctrl_chorus_depth" type="Integer">
+    <value>
+      $5D
+    </value>
+  </const>
+  <const name="mc_Ctrl_detune" type="Integer">
+    <value>
+      $5E
+    </value>
+  </const>
+  <const name="mc_Ctrl_phaser_depth" type="Integer">
+    <value>
+      $5F
+    </value>
+  </const>
+  <const name="mc_Ctrl_reset_all_controllers" type="Integer">
+    <value>
+      $79
+    </value>
+  </const>
+  <const name="mc_Ctrl_all_notes_off" type="Integer">
+    <value>
+      $7B
+    </value>
+  </const>
+  <const name="MIM_OVERFLOW" type="Integer">
+    <value>
+      $400
+    </value>
+  </const>
+  <const name="MOM_PLAYBACK_DONE" type="Integer">
+    <value>
+      $401
+    </value>
+  </const>
+  <const name="pcDisabled" type="TPort_Capability">
+    <value>
+      pcDisabled
+    </value>
+  </const>
+  <const name="pcMute" type="TPort_Capability">
+    <value>
+      pcMute
+    </value>
+  </const>
+  <const name="pcPlay" type="TPort_Capability">
+    <value>
+      pcPlay
+    </value>
+  </const>
+  <const name="ttMusic" type="TClip_Type">
+    <value>
+      ttMusic
+    </value>
+  </const>
+  <const name="ttDrum" type="TClip_Type">
+    <value>
+      ttDrum
+    </value>
+  </const>
+  <const name="ttCtrl" type="TClip_Type">
+    <value>
+      ttCtrl
+    </value>
+  </const>
+  <const name="ms_Note_Off" type="TMIDI_Status">
+    <value>
+      ms_Note_Off
+    </value>
+  </const>
+  <const name="ms_Note_On" type="TMIDI_Status">
+    <value>
+      ms_Note_On
+    </value>
+  </const>
+  <const name="ms_Polyphonic_Aftertouch" type="TMIDI_Status">
+    <value>
+      ms_Polyphonic_Aftertouch
+    </value>
+  </const>
+  <const name="ms_Controller_Change" type="TMIDI_Status">
+    <value>
+      ms_Controller_Change
+    </value>
+  </const>
+  <const name="ms_Program_Change" type="TMIDI_Status">
+    <value>
+      ms_Program_Change
+    </value>
+  </const>
+  <const name="ms_Channel_Aftertouch" type="TMIDI_Status">
+    <value>
+      ms_Channel_Aftertouch
+    </value>
+  </const>
+  <const name="ms_Pitch_Bend" type="TMIDI_Status">
+    <value>
+      ms_Pitch_Bend
+    </value>
+  </const>
+  <const name="ms_Begin_SysEx" type="TMIDI_Status">
+    <value>
+      ms_Begin_SysEx
+    </value>
+  </const>
+  <const name="ms_MTC_Quarter_Frame" type="TMIDI_Status">
+    <value>
+      ms_MTC_Quarter_Frame
+    </value>
+  </const>
+  <const name="ms_Song_Pos_Ptr" type="TMIDI_Status">
+    <value>
+      ms_Song_Pos_Ptr
+    </value>
+  </const>
+  <const name="ms_Song_Select" type="TMIDI_Status">
+    <value>
+      ms_Song_Select
+    </value>
+  </const>
+  <const name="ms_End_SysEx" type="TMIDI_Status">
+    <value>
+      ms_End_SysEx
+    </value>
+  </const>
+  <const name="ms_Timing_Clock" type="TMIDI_Status">
+    <value>
+      ms_Timing_Clock
+    </value>
+  </const>
+  <const name="ms_Start" type="TMIDI_Status">
+    <value>
+      ms_Start
+    </value>
+  </const>
+  <const name="ms_Continue" type="TMIDI_Status">
+    <value>
+      ms_Continue
+    </value>
+  </const>
+  <const name="ms_Stop" type="TMIDI_Status">
+    <value>
+      ms_Stop
+    </value>
+  </const>
+  <const name="ms_Unknown" type="TMIDI_Status">
+    <value>
+      ms_Unknown
+    </value>
+  </const>
+  <const name="ms_Active_Sensing" type="TMIDI_Status">
+    <value>
+      ms_Active_Sensing
+    </value>
+  </const>
+  <const name="ms_Meta" type="TMIDI_Status">
+    <value>
+      ms_Meta
+    </value>
+  </const>
+  <enum name="TPort_Capability">
+    <element name="pcDisabled" />
+    <element name="pcMute" />
+    <element name="pcPlay" />
+  </enum>
+  <array name="TMIDI_Patch_Names" low="0" high="127">
+    <element type="string" />
+  </array>
+  <array name="TMIDI_Drum_Names" low="0" high="60">
+    <element type="string" />
+  </array>
+  <array name="TMIDI_Event_Names" low="0" high="255">
+    <element type="string" />
+  </array>
+  <array name="TMIDI_Controller_names" low="0" high="127">
+    <element type="string" />
+  </array>
+  <array name="TPort_Array" low="1" high="16">
+    <element type="T5bit" />
+  </array>
+  <array name="TChannel_Port" low="1" high="16">
+    <array name="TChannel_Port" low="0" high="31">
+      <element type="TPort_Capability" />
+    </array>
+  </array>
+  <enum name="TClip_Type">
+    <element name="ttMusic" />
+    <element name="ttDrum" />
+    <element name="ttCtrl" />
+  </enum>
+  <class name="EMSC_Error">
+    <ancestor name="EInOutError" namespace="SysUtils">
+      <ancestor name="Exception" namespace="SysUtils">
+        <methodref name="SetInnerException" visibility="protected">
+        </methodref>
+        <methodref name="SetStackInfo" visibility="protected">
+        </methodref>
+        <methodref name="GetStackTrace" visibility="protected">
+        </methodref>
+        <methodref name="RaisingException" visibility="public">
+        </methodref>
+        <methodref name="Create" visibility="public">
+        </methodref>
+        <methodref name="CreateFmt" visibility="public">
+        </methodref>
+        <methodref name="CreateRes" visibility="public">
+        </methodref>
+        <methodref name="CreateRes" visibility="public">
+        </methodref>
+        <methodref name="CreateResFmt" visibility="public">
+        </methodref>
+        <methodref name="CreateResFmt" visibility="public">
+        </methodref>
+        <methodref name="CreateHelp" visibility="public">
+        </methodref>
+        <methodref name="CreateFmtHelp" visibility="public">
+        </methodref>
+        <methodref name="CreateResHelp" visibility="public">
+        </methodref>
+        <methodref name="CreateResHelp" visibility="public">
+        </methodref>
+        <methodref name="CreateResFmtHelp" visibility="public">
+        </methodref>
+        <methodref name="CreateResFmtHelp" visibility="public">
+        </methodref>
+        <methodref name="Destroy" visibility="public">
+        </methodref>
+        <methodref name="GetBaseException" visibility="public">
+        </methodref>
+        <methodref name="ToString" visibility="public">
+        </methodref>
+        <propertyref name="BaseException" visibility="public">
+        </propertyref>
+        <propertyref name="HelpContext" visibility="public">
+        </propertyref>
+        <propertyref name="InnerException" visibility="public">
+        </propertyref>
+        <propertyref name="Message" visibility="public">
+        </propertyref>
+        <propertyref name="StackTrace" visibility="public">
+        </propertyref>
+        <propertyref name="StackInfo" visibility="public">
+        </propertyref>
+        <methodref name="RaiseOuterException" visibility="public">
+        </methodref>
+        <methodref name="ThrowOuterException" visibility="public">
+        </methodref>
+        <ancestor name="TObject" namespace="System">
+          <methodref name="Create" visibility="public">
+          </methodref>
+          <methodref name="Free" visibility="public">
+          </methodref>
+          <methodref name="InitInstance" visibility="public">
+          </methodref>
+          <methodref name="CleanupInstance" visibility="public">
+          </methodref>
+          <methodref name="ClassType" visibility="public">
+          </methodref>
+          <methodref name="ClassName" visibility="public">
+          </methodref>
+          <methodref name="ClassNameIs" visibility="public">
+          </methodref>
+          <methodref name="ClassParent" visibility="public">
+          </methodref>
+          <methodref name="ClassInfo" visibility="public">
+          </methodref>
+          <methodref name="InstanceSize" visibility="public">
+          </methodref>
+          <methodref name="InheritsFrom" visibility="public">
+          </methodref>
+          <methodref name="MethodAddress" visibility="public">
+          </methodref>
+          <methodref name="MethodAddress" visibility="public">
+          </methodref>
+          <methodref name="MethodName" visibility="public">
+          </methodref>
+          <methodref name="FieldAddress" visibility="public">
+          </methodref>
+          <methodref name="FieldAddress" visibility="public">
+          </methodref>
+          <methodref name="GetInterface" visibility="public">
+          </methodref>
+          <methodref name="GetInterfaceEntry" visibility="public">
+          </methodref>
+          <methodref name="GetInterfaceTable" visibility="public">
+          </methodref>
+          <methodref name="UnitName" visibility="public">
+          </methodref>
+          <methodref name="Equals" visibility="public">
+          </methodref>
+          <methodref name="GetHashCode" visibility="public">
+          </methodref>
+          <methodref name="ToString" visibility="public">
+          </methodref>
+          <methodref name="SafeCallException" visibility="public">
+          </methodref>
+          <methodref name="AfterConstruction" visibility="public">
+          </methodref>
+          <methodref name="BeforeDestruction" visibility="public">
+          </methodref>
+          <methodref name="Dispatch" visibility="public">
+          </methodref>
+          <methodref name="DefaultHandler" visibility="public">
+          </methodref>
+          <methodref name="NewInstance" visibility="public">
+          </methodref>
+          <methodref name="FreeInstance" visibility="public">
+          </methodref>
+          <methodref name="Destroy" visibility="public">
+          </methodref>
+        </ancestor>
+      </ancestor>
+    </ancestor>
+  </class>
+  <enum name="TMIDI_Status">
+    <element name="ms_Note_Off" />
+    <element name="ms_Note_On" />
+    <element name="ms_Polyphonic_Aftertouch" />
+    <element name="ms_Controller_Change" />
+    <element name="ms_Program_Change" />
+    <element name="ms_Channel_Aftertouch" />
+    <element name="ms_Pitch_Bend" />
+    <element name="ms_Begin_SysEx" />
+    <element name="ms_MTC_Quarter_Frame" />
+    <element name="ms_Song_Pos_Ptr" />
+    <element name="ms_Song_Select" />
+    <element name="ms_End_SysEx" />
+    <element name="ms_Timing_Clock" />
+    <element name="ms_Start" />
+    <element name="ms_Continue" />
+    <element name="ms_Stop" />
+    <element name="ms_Unknown" />
+    <element name="ms_Active_Sensing" />
+    <element name="ms_Meta" />
+  </enum>
+  <array name="TMIDI_Status_Array_Names">
+    <element type="AnsiString" />
+  </array>
+  <array name="TMIDI_Status_Array_Bytes">
+    <element type="Byte" />
+  </array>
+  <const name="MIDI_Note_Translation" type="Array" visibility="public" />
+  <const name="MIDI_Note_Names" type=":2" visibility="public" />
+  <const name="MIDI_Status_Names" type="TMIDI_Status_Array_Names" visibility="public" />
+  <const name="MIDI_Status_Bytes" type="TMIDI_Status_Array_Bytes" visibility="public" />
+  <pointer name="PMidiCtlInfo" type="TMidiCtlInfo" indircnt="1" />
+  <struct name="TMidiCtlInfo">
+    <field name="hMem" type="Cardinal" visibility="public" />
+    <field name="PBuffer" type="PCircularBuffer" visibility="public" />
+    <field name="hWindow" type="HWND" visibility="public" />
+    <field name="SysexOnly" type="Boolean" visibility="public" />
+  </struct>
+  <pointer name="PMidiOutTimerInfo" type="TMidiOutTimerInfo" indircnt="1" />
+  <struct name="TMidiOutTimerInfo">
+    <field name="hMem" type="Cardinal" visibility="public" />
+    <field name="PBuffer" type="PCircularBuffer" visibility="public" />
+    <field name="hWindow" type="HWND" visibility="public" />
+    <field name="TimeToNextEvent" type="Cardinal" visibility="public" />
+    <field name="MIDIHandle" type="Integer" visibility="public" />
+    <field name="PeriodMin" type="Word" visibility="public" />
+    <field name="PeriodMax" type="Word" visibility="public" />
+    <field name="TimerId" type="Word" visibility="public" />
+  </struct>
+  <class name="TMIDI_Event">
+    <ancestor name="TPersistent" namespace="Classes">
+      <methodref name="AssignError" visibility="private">
+      </methodref>
+      <methodref name="AssignTo" visibility="public">
+      </methodref>
+      <methodref name="DefineProperties" visibility="public">
+      </methodref>
+      <methodref name="GetOwner" visibility="protected">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+      <methodref name="Assign" visibility="public">
+      </methodref>
+      <methodref name="GetNamePath" visibility="public">
+      </methodref>
+      <ancestor name="TObject" namespace="System">
+        <methodref name="Create" visibility="public">
+        </methodref>
+        <methodref name="Free" visibility="public">
+        </methodref>
+        <methodref name="InitInstance" visibility="public">
+        </methodref>
+        <methodref name="CleanupInstance" visibility="public">
+        </methodref>
+        <methodref name="ClassType" visibility="public">
+        </methodref>
+        <methodref name="ClassName" visibility="public">
+        </methodref>
+        <methodref name="ClassNameIs" visibility="public">
+        </methodref>
+        <methodref name="ClassParent" visibility="public">
+        </methodref>
+        <methodref name="ClassInfo" visibility="public">
+        </methodref>
+        <methodref name="InstanceSize" visibility="public">
+        </methodref>
+        <methodref name="InheritsFrom" visibility="public">
+        </methodref>
+        <methodref name="MethodAddress" visibility="public">
+        </methodref>
+        <methodref name="MethodAddress" visibility="public">
+        </methodref>
+        <methodref name="MethodName" visibility="public">
+        </methodref>
+        <methodref name="FieldAddress" visibility="public">
+        </methodref>
+        <methodref name="FieldAddress" visibility="public">
+        </methodref>
+        <methodref name="GetInterface" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceEntry" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceTable" visibility="public">
+        </methodref>
+        <methodref name="UnitName" visibility="public">
+        </methodref>
+        <methodref name="Equals" visibility="public">
+        </methodref>
+        <methodref name="GetHashCode" visibility="public">
+        </methodref>
+        <methodref name="ToString" visibility="public">
+        </methodref>
+        <methodref name="SafeCallException" visibility="public">
+        </methodref>
+        <methodref name="AfterConstruction" visibility="public">
+        </methodref>
+        <methodref name="BeforeDestruction" visibility="public">
+        </methodref>
+        <methodref name="Dispatch" visibility="public">
+        </methodref>
+        <methodref name="DefaultHandler" visibility="public">
+        </methodref>
+        <methodref name="NewInstance" visibility="public">
+        </methodref>
+        <methodref name="FreeInstance" visibility="public">
+        </methodref>
+        <methodref name="Destroy" visibility="public">
+        </methodref>
+      </ancestor>
+    </ancestor>
+    <members>
+      <field name="FMidiMessage" type="Byte" visibility="private" />
+      <field name="FData1" type="Byte" visibility="private" />
+      <field name="FData2" type="Byte" visibility="private" />
+      <field name="FTime" type="Cardinal" visibility="private" />
+      <field name="FPort" type="Integer" visibility="private" />
+      <function name="get_event_index" visibility="protected">
+        <parameters>
+          <retval type="TMIDI_Status" />
+        </parameters>
+      </function>
+      <function name="get_text_time" visibility="protected">
+        <parameters>
+          <retval type="AnsiString" />
+        </parameters>
+      </function>
+      <function name="get_text_event" visibility="public" procflags="virtual">
+        <parameters>
+          <retval type="AnsiString" />
+        </parameters>
+      </function>
+      <function name="get_text_channel" visibility="protected">
+        <parameters>
+          <retval type="AnsiString" />
+        </parameters>
+      </function>
+      <function name="get_text_data_byte1" visibility="public" procflags="virtual">
+        <parameters>
+          <retval type="AnsiString" />
+        </parameters>
+      </function>
+      <function name="get_text_data_byte2" visibility="public" procflags="virtual">
+        <parameters>
+          <retval type="AnsiString" />
+        </parameters>
+      </function>
+      <function name="get_size" visibility="public" procflags="virtual">
+        <parameters>
+          <retval type="Cardinal" />
+        </parameters>
+      </function>
+      <procedure name="set_time" visibility="protected">
+        <parameters>
+          <parameter name="time" type="Cardinal" />
+        </parameters>
+      </procedure>
+      <function name="get_event_type" visibility="protected">
+        <parameters>
+          <retval type="Byte" />
+        </parameters>
+      </function>
+      <procedure name="set_event_type" visibility="protected">
+        <parameters>
+          <parameter name="event" type="Byte" />
+        </parameters>
+      </procedure>
+      <function name="get_channel" visibility="protected">
+        <parameters>
+          <retval type="TMIDI_Range" />
+        </parameters>
+      </function>
+      <procedure name="set_channel" visibility="protected">
+        <parameters>
+          <parameter name="channel" type="TMIDI_Range" />
+        </parameters>
+      </procedure>
+      <procedure name="set_data_byte_1" visibility="protected">
+        <parameters>
+          <parameter name="b" type="Byte" />
+        </parameters>
+      </procedure>
+      <procedure name="set_data_byte_2" visibility="protected">
+        <parameters>
+          <parameter name="b" type="Byte" />
+        </parameters>
+      </procedure>
+      <procedure name="set_track" visibility="protected">
+        <parameters>
+          <parameter name="track" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="get_midi_status" visibility="protected">
+        <parameters>
+          <retval type="TMIDI_Status" />
+        </parameters>
+      </function>
+      <function name="get_text_text" visibility="public" procflags="virtual">
+        <parameters>
+          <retval type="AnsiString" />
+        </parameters>
+      </function>
+      <function name="get_text_translated" visibility="public" procflags="virtual">
+        <parameters>
+          <retval type="AnsiString" />
+        </parameters>
+      </function>
+      <field name="SysexLength" type="Word" visibility="public" />
+      <field name="Sysex" type="PWideChar" visibility="public" />
+      <constructor name="Create" visibility="public">
+        <parameters>
+        </parameters>
+      </constructor>
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="t" type="Integer" />
+          <parameter name="c" type="TMIDI_Range" />
+          <parameter name="e" type="Byte" />
+          <parameter name="v" type="Byte" />
+          <parameter name="s" type="Byte" />
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <procedure name="read_event" visibility="public">
+        <parameters>
+          <parameter name="f" type="TMIDI_File" paramflags="var" />
+        </parameters>
+      </procedure>
+      <procedure name="write_event" visibility="public" procflags="virtual">
+        <parameters>
+          <parameter name="f" type="TMIDI_File" paramflags="var" />
+        </parameters>
+      </procedure>
+      <function name="load" visibility="public">
+        <parameters>
+          <parameter name="input" type="Text" paramflags="var" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="save" visibility="public">
+        <parameters>
+          <parameter name="output" type="Text" paramflags="var" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="copy_event" visibility="public">
+        <parameters>
+          <retval type="TMIDI_Event" />
+        </parameters>
+      </function>
+      <property name="Size" visibility="public" read="get_size" type="Cardinal" />
+      <property name="Time" visibility="public" read="FTime" write="set_time" type="Cardinal" />
+      <property name="MIDI_Message" visibility="public" read="FMidiMessage" write="FMidiMessage" type="Byte" />
+      <property name="Event_Type" visibility="public" read="get_event_type" write="set_event_type" type="Byte" />
+      <property name="Channel" visibility="public" read="get_channel" write="set_channel" type="TMIDI_Range" />
+      <property name="Data_Byte_1" visibility="public" read="FData1" write="set_data_byte_1" type="Byte" />
+      <property name="Data_Byte_2" visibility="public" read="FData2" write="set_data_byte_2" type="Byte" />
+      <property name="Port" visibility="public" read="FPort" write="set_track" type="Integer" />
+      <property name="Status" visibility="public" read="get_midi_status" type="TMIDI_Status" />
+      <property name="Translated" visibility="public" read="get_text_translated" type="AnsiString" />
+    </members>
+  </class>
+  <class name="TMeta_Event">
+    <ancestor name="TMIDI_Event" namespace="MSC_Definitions">
+      <methodref name="get_event_index" visibility="protected" />
+      <methodref name="get_text_time" visibility="protected" />
+      <methodref name="get_text_event" visibility="public" />
+      <methodref name="get_text_channel" visibility="protected" />
+      <methodref name="get_text_data_byte1" visibility="public" />
+      <methodref name="get_text_data_byte2" visibility="public" />
+      <methodref name="get_size" visibility="public" />
+      <methodref name="set_time" visibility="protected" />
+      <methodref name="get_event_type" visibility="protected" />
+      <methodref name="set_event_type" visibility="protected" />
+      <methodref name="get_channel" visibility="protected" />
+      <methodref name="set_channel" visibility="protected" />
+      <methodref name="set_data_byte_1" visibility="protected" />
+      <methodref name="set_data_byte_2" visibility="protected" />
+      <methodref name="set_track" visibility="protected" />
+      <methodref name="get_midi_status" visibility="protected" />
+      <methodref name="get_text_text" visibility="public" />
+      <methodref name="get_text_translated" visibility="public" />
+      <methodref name="Create" visibility="public" />
+      <methodref name="Create" visibility="public" />
+      <methodref name="Destroy" visibility="public" />
+      <methodref name="read_event" visibility="public" />
+      <methodref name="write_event" visibility="public" />
+      <methodref name="load" visibility="public" />
+      <methodref name="save" visibility="public" />
+      <methodref name="copy_event" visibility="public" />
+      <propertyref name="Size" visibility="public" />
+      <propertyref name="Time" visibility="public" />
+      <propertyref name="MIDI_Message" visibility="public" />
+      <propertyref name="Event_Type" visibility="public" />
+      <propertyref name="Channel" visibility="public" />
+      <propertyref name="Data_Byte_1" visibility="public" />
+      <propertyref name="Data_Byte_2" visibility="public" />
+      <propertyref name="Port" visibility="public" />
+      <propertyref name="Status" visibility="public" />
+      <propertyref name="Translated" visibility="public" />
+      <ancestor name="TPersistent" namespace="Classes">
+        <methodref name="AssignError" visibility="private">
+        </methodref>
+        <methodref name="AssignTo" visibility="public">
+        </methodref>
+        <methodref name="DefineProperties" visibility="public">
+        </methodref>
+        <methodref name="GetOwner" visibility="protected">
+        </methodref>
+        <methodref name="Destroy" visibility="public">
+        </methodref>
+        <methodref name="Assign" visibility="public">
+        </methodref>
+        <methodref name="GetNamePath" visibility="public">
+        </methodref>
+        <ancestor name="TObject" namespace="System">
+          <methodref name="Create" visibility="public">
+          </methodref>
+          <methodref name="Free" visibility="public">
+          </methodref>
+          <methodref name="InitInstance" visibility="public">
+          </methodref>
+          <methodref name="CleanupInstance" visibility="public">
+          </methodref>
+          <methodref name="ClassType" visibility="public">
+          </methodref>
+          <methodref name="ClassName" visibility="public">
+          </methodref>
+          <methodref name="ClassNameIs" visibility="public">
+          </methodref>
+          <methodref name="ClassParent" visibility="public">
+          </methodref>
+          <methodref name="ClassInfo" visibility="public">
+          </methodref>
+          <methodref name="InstanceSize" visibility="public">
+          </methodref>
+          <methodref name="InheritsFrom" visibility="public">
+          </methodref>
+          <methodref name="MethodAddress" visibility="public">
+          </methodref>
+          <methodref name="MethodAddress" visibility="public">
+          </methodref>
+          <methodref name="MethodName" visibility="public">
+          </methodref>
+          <methodref name="FieldAddress" visibility="public">
+          </methodref>
+          <methodref name="FieldAddress" visibility="public">
+          </methodref>
+          <methodref name="GetInterface" visibility="public">
+          </methodref>
+          <methodref name="GetInterfaceEntry" visibility="public">
+          </methodref>
+          <methodref name="GetInterfaceTable" visibility="public">
+          </methodref>
+          <methodref name="UnitName" visibility="public">
+          </methodref>
+          <methodref name="Equals" visibility="public">
+          </methodref>
+          <methodref name="GetHashCode" visibility="public">
+          </methodref>
+          <methodref name="ToString" visibility="public">
+          </methodref>
+          <methodref name="SafeCallException" visibility="public">
+          </methodref>
+          <methodref name="AfterConstruction" visibility="public">
+          </methodref>
+          <methodref name="BeforeDestruction" visibility="public">
+          </methodref>
+          <methodref name="Dispatch" visibility="public">
+          </methodref>
+          <methodref name="DefaultHandler" visibility="public">
+          </methodref>
+          <methodref name="NewInstance" visibility="public">
+          </methodref>
+          <methodref name="FreeInstance" visibility="public">
+          </methodref>
+          <methodref name="Destroy" visibility="public">
+          </methodref>
+        </ancestor>
+      </ancestor>
+    </ancestor>
+    <members>
+      <field name="FText" type="AnsiString" visibility="private" />
+      <function name="get_length" visibility="protected">
+        <parameters>
+          <retval type="Cardinal" />
+        </parameters>
+      </function>
+      <function name="get_size" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Cardinal" />
+        </parameters>
+      </function>
+      <function name="get_text_text" visibility="public" procflags="override">
+        <parameters>
+          <retval type="AnsiString" />
+        </parameters>
+      </function>
+      <procedure name="set_text_text" visibility="protected">
+        <parameters>
+          <parameter name="value" type="AnsiString" />
+        </parameters>
+      </procedure>
+      <function name="get_text_translated" visibility="public" procflags="override">
+        <parameters>
+          <retval type="AnsiString" />
+        </parameters>
+      </function>
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="meta" type="Byte" />
+          <parameter name="text" type="AnsiString" />
+        </parameters>
+      </constructor>
+      <procedure name="write_event" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="f" type="TMIDI_File" paramflags="var" />
+        </parameters>
+      </procedure>
+      <property name="Text_Length" visibility="public" read="get_length" type="Cardinal" />
+      <property name="Text" visibility="public" read="get_text_text" write="set_text_text" type="AnsiString" />
+    </members>
+  </class>
+  <pointer name="PMyMidiEvent" type="TMIDI_Event" indircnt="1" />
+  <pointer name="PMyMidiHdr" type="TMyMidiHdr" indircnt="1" />
+  <class name="TMyMidiHdr">
+    <ancestor name="TObject" namespace="System">
+      <methodref name="Create" visibility="public">
+      </methodref>
+      <methodref name="Free" visibility="public">
+      </methodref>
+      <methodref name="InitInstance" visibility="public">
+      </methodref>
+      <methodref name="CleanupInstance" visibility="public">
+      </methodref>
+      <methodref name="ClassType" visibility="public">
+      </methodref>
+      <methodref name="ClassName" visibility="public">
+      </methodref>
+      <methodref name="ClassNameIs" visibility="public">
+      </methodref>
+      <methodref name="ClassParent" visibility="public">
+      </methodref>
+      <methodref name="ClassInfo" visibility="public">
+      </methodref>
+      <methodref name="InstanceSize" visibility="public">
+      </methodref>
+      <methodref name="InheritsFrom" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodName" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="GetInterface" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceEntry" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceTable" visibility="public">
+      </methodref>
+      <methodref name="UnitName" visibility="public">
+      </methodref>
+      <methodref name="Equals" visibility="public">
+      </methodref>
+      <methodref name="GetHashCode" visibility="public">
+      </methodref>
+      <methodref name="ToString" visibility="public">
+      </methodref>
+      <methodref name="SafeCallException" visibility="public">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public">
+      </methodref>
+      <methodref name="Dispatch" visibility="public">
+      </methodref>
+      <methodref name="DefaultHandler" visibility="public">
+      </methodref>
+      <methodref name="NewInstance" visibility="public">
+      </methodref>
+      <methodref name="FreeInstance" visibility="public">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+    </ancestor>
+    <members>
+      <field name="hdrHandle" type="Cardinal" visibility="public" />
+      <field name="hdrPointer" type="PMidiHdr" visibility="public" />
+      <field name="sysexHandle" type="Cardinal" visibility="public" />
+      <field name="sysexPointer" type="Pointer" visibility="public" />
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="BufferSize" type="Word" />
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+    </members>
+  </class>
+  <function name="is_note_off" visibility="public">
+    <parameters>
+      <parameter name="event" type="TMIDI_Event" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="is_note_on" visibility="public">
+    <parameters>
+      <parameter name="event" type="TMIDI_Event" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+</namespace>

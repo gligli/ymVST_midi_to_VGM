@@ -1,0 +1,1359 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="MSC_Resources">
+  <class name="EMSC_Resource_Error">
+    <ancestor name="EMSC_Error" namespace="MSC_Definitions">
+      <ancestor name="EInOutError" namespace="SysUtils">
+        <ancestor name="Exception" namespace="SysUtils">
+          <methodref name="SetInnerException" visibility="protected">
+          </methodref>
+          <methodref name="SetStackInfo" visibility="protected">
+          </methodref>
+          <methodref name="GetStackTrace" visibility="protected">
+          </methodref>
+          <methodref name="RaisingException" visibility="public">
+          </methodref>
+          <methodref name="Create" visibility="public">
+          </methodref>
+          <methodref name="CreateFmt" visibility="public">
+          </methodref>
+          <methodref name="CreateRes" visibility="public">
+          </methodref>
+          <methodref name="CreateRes" visibility="public">
+          </methodref>
+          <methodref name="CreateResFmt" visibility="public">
+          </methodref>
+          <methodref name="CreateResFmt" visibility="public">
+          </methodref>
+          <methodref name="CreateHelp" visibility="public">
+          </methodref>
+          <methodref name="CreateFmtHelp" visibility="public">
+          </methodref>
+          <methodref name="CreateResHelp" visibility="public">
+          </methodref>
+          <methodref name="CreateResHelp" visibility="public">
+          </methodref>
+          <methodref name="CreateResFmtHelp" visibility="public">
+          </methodref>
+          <methodref name="CreateResFmtHelp" visibility="public">
+          </methodref>
+          <methodref name="Destroy" visibility="public">
+          </methodref>
+          <methodref name="GetBaseException" visibility="public">
+          </methodref>
+          <methodref name="ToString" visibility="public">
+          </methodref>
+          <propertyref name="BaseException" visibility="public">
+          </propertyref>
+          <propertyref name="HelpContext" visibility="public">
+          </propertyref>
+          <propertyref name="InnerException" visibility="public">
+          </propertyref>
+          <propertyref name="Message" visibility="public">
+          </propertyref>
+          <propertyref name="StackTrace" visibility="public">
+          </propertyref>
+          <propertyref name="StackInfo" visibility="public">
+          </propertyref>
+          <methodref name="RaiseOuterException" visibility="public">
+          </methodref>
+          <methodref name="ThrowOuterException" visibility="public">
+          </methodref>
+          <ancestor name="TObject" namespace="System">
+            <methodref name="Create" visibility="public">
+            </methodref>
+            <methodref name="Free" visibility="public">
+            </methodref>
+            <methodref name="InitInstance" visibility="public">
+            </methodref>
+            <methodref name="CleanupInstance" visibility="public">
+            </methodref>
+            <methodref name="ClassType" visibility="public">
+            </methodref>
+            <methodref name="ClassName" visibility="public">
+            </methodref>
+            <methodref name="ClassNameIs" visibility="public">
+            </methodref>
+            <methodref name="ClassParent" visibility="public">
+            </methodref>
+            <methodref name="ClassInfo" visibility="public">
+            </methodref>
+            <methodref name="InstanceSize" visibility="public">
+            </methodref>
+            <methodref name="InheritsFrom" visibility="public">
+            </methodref>
+            <methodref name="MethodAddress" visibility="public">
+            </methodref>
+            <methodref name="MethodAddress" visibility="public">
+            </methodref>
+            <methodref name="MethodName" visibility="public">
+            </methodref>
+            <methodref name="FieldAddress" visibility="public">
+            </methodref>
+            <methodref name="FieldAddress" visibility="public">
+            </methodref>
+            <methodref name="GetInterface" visibility="public">
+            </methodref>
+            <methodref name="GetInterfaceEntry" visibility="public">
+            </methodref>
+            <methodref name="GetInterfaceTable" visibility="public">
+            </methodref>
+            <methodref name="UnitName" visibility="public">
+            </methodref>
+            <methodref name="Equals" visibility="public">
+            </methodref>
+            <methodref name="GetHashCode" visibility="public">
+            </methodref>
+            <methodref name="ToString" visibility="public">
+            </methodref>
+            <methodref name="SafeCallException" visibility="public">
+            </methodref>
+            <methodref name="AfterConstruction" visibility="public">
+            </methodref>
+            <methodref name="BeforeDestruction" visibility="public">
+            </methodref>
+            <methodref name="Dispatch" visibility="public">
+            </methodref>
+            <methodref name="DefaultHandler" visibility="public">
+            </methodref>
+            <methodref name="NewInstance" visibility="public">
+            </methodref>
+            <methodref name="FreeInstance" visibility="public">
+            </methodref>
+            <methodref name="Destroy" visibility="public">
+            </methodref>
+          </ancestor>
+        </ancestor>
+      </ancestor>
+    </ancestor>
+  </class>
+  <array name="TTrack_Array" low="1" high="16">
+    <element type="TPort_Capability" />
+  </array>
+  <class name="TMIDI_Resources">
+    <devnotes>
+      ////////////////////////////////////////////////////////////////////////////////////////
+    </devnotes>
+    <ancestor name="TMSC_Component" namespace="MSC_Component">
+      <ancestor name="TComponent" namespace="Classes">
+        <methodref name="GetComObject" visibility="private">
+        </methodref>
+        <methodref name="GetComponent" visibility="private">
+        </methodref>
+        <methodref name="GetComponentCount" visibility="private">
+        </methodref>
+        <methodref name="GetComponentIndex" visibility="private">
+        </methodref>
+        <methodref name="Insert" visibility="private">
+        </methodref>
+        <methodref name="ReadLeft" visibility="private">
+        </methodref>
+        <methodref name="ReadTop" visibility="private">
+        </methodref>
+        <methodref name="Remove" visibility="private">
+        </methodref>
+        <methodref name="RemoveNotification" visibility="private">
+        </methodref>
+        <methodref name="SetComponentIndex" visibility="private">
+        </methodref>
+        <methodref name="SetReference" visibility="private">
+        </methodref>
+        <methodref name="WriteLeft" visibility="private">
+        </methodref>
+        <methodref name="WriteTop" visibility="private">
+        </methodref>
+        <methodref name="IntfGetComponent" visibility="private">
+        </methodref>
+        <methodref name="ChangeName" visibility="protected">
+        </methodref>
+        <methodref name="DefineProperties" visibility="public">
+        </methodref>
+        <methodref name="GetChildren" visibility="protected">
+        </methodref>
+        <methodref name="GetChildOwner" visibility="protected">
+        </methodref>
+        <methodref name="GetChildParent" visibility="protected">
+        </methodref>
+        <methodref name="GetOwner" visibility="protected">
+        </methodref>
+        <methodref name="Loaded" visibility="public">
+        </methodref>
+        <methodref name="Notification" visibility="public">
+        </methodref>
+        <methodref name="PaletteCreated" visibility="protected">
+        </methodref>
+        <methodref name="ReadState" visibility="public">
+        </methodref>
+        <methodref name="SetAncestor" visibility="protected">
+        </methodref>
+        <methodref name="SetDesigning" visibility="protected">
+        </methodref>
+        <methodref name="SetInline" visibility="protected">
+        </methodref>
+        <methodref name="SetDesignInstance" visibility="protected">
+        </methodref>
+        <methodref name="SetName" visibility="public">
+        </methodref>
+        <methodref name="SetChildOrder" visibility="protected">
+        </methodref>
+        <methodref name="SetParentComponent" visibility="protected">
+        </methodref>
+        <methodref name="Updating" visibility="protected">
+        </methodref>
+        <methodref name="Updated" visibility="protected">
+        </methodref>
+        <methodref name="UpdateRegistry" visibility="public">
+        </methodref>
+        <methodref name="ValidateRename" visibility="public">
+        </methodref>
+        <methodref name="ValidateContainer" visibility="protected">
+        </methodref>
+        <methodref name="ValidateInsert" visibility="protected">
+        </methodref>
+        <methodref name="WriteState" visibility="public">
+        </methodref>
+        <methodref name="QueryInterface" visibility="public">
+        </methodref>
+        <methodref name="_AddRef" visibility="protected">
+        </methodref>
+        <methodref name="_Release" visibility="protected">
+        </methodref>
+        <methodref name="GetTypeInfoCount" visibility="protected">
+        </methodref>
+        <methodref name="GetTypeInfo" visibility="protected">
+        </methodref>
+        <methodref name="GetIDsOfNames" visibility="protected">
+        </methodref>
+        <methodref name="Invoke" visibility="protected">
+        </methodref>
+        <methodref name="Create" visibility="public">
+        </methodref>
+        <methodref name="Destroy" visibility="public">
+        </methodref>
+        <methodref name="BeforeDestruction" visibility="public">
+        </methodref>
+        <methodref name="DestroyComponents" visibility="public">
+        </methodref>
+        <methodref name="Destroying" visibility="public">
+        </methodref>
+        <methodref name="ExecuteAction" visibility="public">
+        </methodref>
+        <methodref name="FindComponent" visibility="public">
+        </methodref>
+        <methodref name="FreeNotification" visibility="public">
+        </methodref>
+        <methodref name="RemoveFreeNotification" visibility="public">
+        </methodref>
+        <methodref name="FreeOnRelease" visibility="public">
+        </methodref>
+        <methodref name="GetEnumerator" visibility="public">
+        </methodref>
+        <methodref name="GetParentComponent" visibility="public">
+        </methodref>
+        <methodref name="GetNamePath" visibility="public">
+        </methodref>
+        <methodref name="HasParent" visibility="public">
+        </methodref>
+        <methodref name="InsertComponent" visibility="public">
+        </methodref>
+        <methodref name="RemoveComponent" visibility="public">
+        </methodref>
+        <methodref name="SetSubComponent" visibility="public">
+        </methodref>
+        <methodref name="SafeCallException" visibility="public">
+        </methodref>
+        <methodref name="UpdateAction" visibility="public">
+        </methodref>
+        <methodref name="IsImplementorOf" visibility="public">
+        </methodref>
+        <methodref name="ReferenceInterface" visibility="public">
+        </methodref>
+        <propertyref name="ComObject" visibility="public">
+        </propertyref>
+        <propertyref name="Components" visibility="public">
+        </propertyref>
+        <propertyref name="ComponentCount" visibility="public">
+        </propertyref>
+        <propertyref name="ComponentIndex" visibility="public">
+        </propertyref>
+        <propertyref name="ComponentState" visibility="public">
+        </propertyref>
+        <propertyref name="ComponentStyle" visibility="public">
+        </propertyref>
+        <propertyref name="DesignInfo" visibility="public">
+        </propertyref>
+        <propertyref name="Owner" visibility="public">
+        </propertyref>
+        <propertyref name="VCLComObject" visibility="public">
+        </propertyref>
+        <propertyref name="Name" visibility="published">
+        </propertyref>
+        <propertyref name="Tag" visibility="published">
+        </propertyref>
+        <ancestor name="TPersistent" namespace="Classes">
+          <methodref name="AssignError" visibility="private">
+          </methodref>
+          <methodref name="AssignTo" visibility="public">
+          </methodref>
+          <methodref name="DefineProperties" visibility="public">
+          </methodref>
+          <methodref name="GetOwner" visibility="protected">
+          </methodref>
+          <methodref name="Destroy" visibility="public">
+          </methodref>
+          <methodref name="Assign" visibility="public">
+          </methodref>
+          <methodref name="GetNamePath" visibility="public">
+          </methodref>
+          <ancestor name="TObject" namespace="System">
+            <methodref name="Create" visibility="public">
+            </methodref>
+            <methodref name="Free" visibility="public">
+            </methodref>
+            <methodref name="InitInstance" visibility="public">
+            </methodref>
+            <methodref name="CleanupInstance" visibility="public">
+            </methodref>
+            <methodref name="ClassType" visibility="public">
+            </methodref>
+            <methodref name="ClassName" visibility="public">
+            </methodref>
+            <methodref name="ClassNameIs" visibility="public">
+            </methodref>
+            <methodref name="ClassParent" visibility="public">
+            </methodref>
+            <methodref name="ClassInfo" visibility="public">
+            </methodref>
+            <methodref name="InstanceSize" visibility="public">
+            </methodref>
+            <methodref name="InheritsFrom" visibility="public">
+            </methodref>
+            <methodref name="MethodAddress" visibility="public">
+            </methodref>
+            <methodref name="MethodAddress" visibility="public">
+            </methodref>
+            <methodref name="MethodName" visibility="public">
+            </methodref>
+            <methodref name="FieldAddress" visibility="public">
+            </methodref>
+            <methodref name="FieldAddress" visibility="public">
+            </methodref>
+            <methodref name="GetInterface" visibility="public">
+            </methodref>
+            <methodref name="GetInterfaceEntry" visibility="public">
+            </methodref>
+            <methodref name="GetInterfaceTable" visibility="public">
+            </methodref>
+            <methodref name="UnitName" visibility="public">
+            </methodref>
+            <methodref name="Equals" visibility="public">
+            </methodref>
+            <methodref name="GetHashCode" visibility="public">
+            </methodref>
+            <methodref name="ToString" visibility="public">
+            </methodref>
+            <methodref name="SafeCallException" visibility="public">
+            </methodref>
+            <methodref name="AfterConstruction" visibility="public">
+            </methodref>
+            <methodref name="BeforeDestruction" visibility="public">
+            </methodref>
+            <methodref name="Dispatch" visibility="public">
+            </methodref>
+            <methodref name="DefaultHandler" visibility="public">
+            </methodref>
+            <methodref name="NewInstance" visibility="public">
+            </methodref>
+            <methodref name="FreeInstance" visibility="public">
+            </methodref>
+            <methodref name="Destroy" visibility="public">
+            </methodref>
+          </ancestor>
+        </ancestor>
+      </ancestor>
+    </ancestor>
+    <members>
+      <field name="FCount" type="Integer" visibility="protected" />
+      <field name="FMIDI_Thru" type="Integer" visibility="protected" />
+      <field name="FCap" type=":TMIDI_Resources.:1" visibility="protected" />
+      <field name="MIDI_Ports" type="TStringList" visibility="protected" />
+      <field name="synchronization" type="Boolean" visibility="protected" />
+      <field name="closed" type=":TMIDI_Resources.:2" visibility="protected" />
+      <procedure name="set_port_capability" visibility="protected">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <parameter name="channel" type="TMIDI_Range" />
+          <parameter name="pc" type="TPort_Capability" />
+        </parameters>
+      </procedure>
+      <function name="get_port_capability" visibility="protected">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <parameter name="channel" type="TMIDI_Range" />
+          <retval type="TPort_Capability" />
+        </parameters>
+      </function>
+      <function name="get_port_name" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="string" />
+        </parameters>
+      </function>
+      <function name="get_port_names" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <parameter name="track" type="Integer" />
+          <retval type="string" />
+        </parameters>
+      </function>
+      <function name="get_version" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_technology" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="OutPortTech" />
+        </parameters>
+      </function>
+      <function name="get_driver_version" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_voices" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_notes" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_support" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Cardinal" />
+        </parameters>
+      </function>
+      <function name="allocated_port" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="get_status" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="set_midi_thru" visibility="protected">
+        <parameters>
+          <parameter name="port" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="get_port_device" visibility="protected">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="TMIDI_Device" />
+        </parameters>
+      </function>
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="AOwner" type="TComponent" />
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <procedure name="Open" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <parameter name="port" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="Close" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <parameter name="port" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="open_all" visibility="public">
+      </procedure>
+      <procedure name="close_all" visibility="public">
+      </procedure>
+      <procedure name="backup_and_close" visibility="public">
+      </procedure>
+      <procedure name="restore_and_open" visibility="public">
+      </procedure>
+      <procedure name="port_disable" visibility="public">
+        <parameters>
+          <parameter name="port" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="port_play" visibility="public">
+        <parameters>
+          <parameter name="port" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="port_mute" visibility="public">
+        <parameters>
+          <parameter name="port" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="port_exclusive_play" visibility="public">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="find_likely_default" visibility="public" procflags="abstract virtual">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <property name="Count" visibility="public" read="FCount" type="Integer" />
+      <property name="Capability" visibility="public" read="get_port_capability" write="set_port_capability" type="TPort_Capability" />
+      <property name="ProductName" visibility="public" read="get_port_name" type="string" />
+      <property name="ProductNames" visibility="public" read="get_port_names" type="string" />
+      <property name="DriverVersion" visibility="public" read="get_version" type="Integer" />
+      <property name="Technology" visibility="public" read="get_technology" type="OutPortTech" />
+      <property name="Voices" visibility="public" read="get_voices" type="Integer" />
+      <property name="Notes" visibility="public" read="get_notes" type="Integer" />
+      <property name="Support" visibility="public" read="get_support" type="Cardinal" />
+      <property name="Status" visibility="public" read="get_status" type="Integer" />
+      <property name="MIDI_Thru" visibility="public" read="FMIDI_Thru" write="set_midi_thru" type="Integer" />
+      <property name="Port_Device" visibility="public" read="get_port_device" type="TMIDI_Device" />
+    </members>
+  </class>
+  <class name="TMIDI_Resources_Out">
+    <devnotes>
+      ////////////////////////////////////////////////////////////////////////////////////////
+    </devnotes>
+    <ancestor name="TMIDI_Resources" namespace="MSC_Resources">
+      <methodref name="set_port_capability" visibility="protected" />
+      <methodref name="get_port_capability" visibility="protected" />
+      <methodref name="get_port_name" visibility="public" />
+      <methodref name="get_port_names" visibility="public" />
+      <methodref name="get_version" visibility="public" />
+      <methodref name="get_technology" visibility="public" />
+      <methodref name="get_driver_version" visibility="public" />
+      <methodref name="get_voices" visibility="public" />
+      <methodref name="get_notes" visibility="public" />
+      <methodref name="get_support" visibility="public" />
+      <methodref name="allocated_port" visibility="public" />
+      <methodref name="get_status" visibility="public" />
+      <methodref name="set_midi_thru" visibility="protected" />
+      <methodref name="get_port_device" visibility="protected" />
+      <methodref name="Create" visibility="public" />
+      <methodref name="Destroy" visibility="public" />
+      <methodref name="Open" visibility="public" />
+      <methodref name="Close" visibility="public" />
+      <methodref name="open_all" visibility="public" />
+      <methodref name="close_all" visibility="public" />
+      <methodref name="backup_and_close" visibility="public" />
+      <methodref name="restore_and_open" visibility="public" />
+      <methodref name="port_disable" visibility="public" />
+      <methodref name="port_play" visibility="public" />
+      <methodref name="port_mute" visibility="public" />
+      <methodref name="port_exclusive_play" visibility="public" />
+      <methodref name="find_likely_default" visibility="public" />
+      <propertyref name="Count" visibility="public" />
+      <propertyref name="Capability" visibility="public" />
+      <propertyref name="ProductName" visibility="public" />
+      <propertyref name="ProductNames" visibility="public" />
+      <propertyref name="DriverVersion" visibility="public" />
+      <propertyref name="Technology" visibility="public" />
+      <propertyref name="Voices" visibility="public" />
+      <propertyref name="Notes" visibility="public" />
+      <propertyref name="Support" visibility="public" />
+      <propertyref name="Status" visibility="public" />
+      <propertyref name="MIDI_Thru" visibility="public" />
+      <propertyref name="Port_Device" visibility="public" />
+      <ancestor name="TMSC_Component" namespace="MSC_Component">
+        <ancestor name="TComponent" namespace="Classes">
+          <methodref name="GetComObject" visibility="private">
+          </methodref>
+          <methodref name="GetComponent" visibility="private">
+          </methodref>
+          <methodref name="GetComponentCount" visibility="private">
+          </methodref>
+          <methodref name="GetComponentIndex" visibility="private">
+          </methodref>
+          <methodref name="Insert" visibility="private">
+          </methodref>
+          <methodref name="ReadLeft" visibility="private">
+          </methodref>
+          <methodref name="ReadTop" visibility="private">
+          </methodref>
+          <methodref name="Remove" visibility="private">
+          </methodref>
+          <methodref name="RemoveNotification" visibility="private">
+          </methodref>
+          <methodref name="SetComponentIndex" visibility="private">
+          </methodref>
+          <methodref name="SetReference" visibility="private">
+          </methodref>
+          <methodref name="WriteLeft" visibility="private">
+          </methodref>
+          <methodref name="WriteTop" visibility="private">
+          </methodref>
+          <methodref name="IntfGetComponent" visibility="private">
+          </methodref>
+          <methodref name="ChangeName" visibility="protected">
+          </methodref>
+          <methodref name="DefineProperties" visibility="public">
+          </methodref>
+          <methodref name="GetChildren" visibility="protected">
+          </methodref>
+          <methodref name="GetChildOwner" visibility="protected">
+          </methodref>
+          <methodref name="GetChildParent" visibility="protected">
+          </methodref>
+          <methodref name="GetOwner" visibility="protected">
+          </methodref>
+          <methodref name="Loaded" visibility="public">
+          </methodref>
+          <methodref name="Notification" visibility="public">
+          </methodref>
+          <methodref name="PaletteCreated" visibility="protected">
+          </methodref>
+          <methodref name="ReadState" visibility="public">
+          </methodref>
+          <methodref name="SetAncestor" visibility="protected">
+          </methodref>
+          <methodref name="SetDesigning" visibility="protected">
+          </methodref>
+          <methodref name="SetInline" visibility="protected">
+          </methodref>
+          <methodref name="SetDesignInstance" visibility="protected">
+          </methodref>
+          <methodref name="SetName" visibility="public">
+          </methodref>
+          <methodref name="SetChildOrder" visibility="protected">
+          </methodref>
+          <methodref name="SetParentComponent" visibility="protected">
+          </methodref>
+          <methodref name="Updating" visibility="protected">
+          </methodref>
+          <methodref name="Updated" visibility="protected">
+          </methodref>
+          <methodref name="UpdateRegistry" visibility="public">
+          </methodref>
+          <methodref name="ValidateRename" visibility="public">
+          </methodref>
+          <methodref name="ValidateContainer" visibility="protected">
+          </methodref>
+          <methodref name="ValidateInsert" visibility="protected">
+          </methodref>
+          <methodref name="WriteState" visibility="public">
+          </methodref>
+          <methodref name="QueryInterface" visibility="public">
+          </methodref>
+          <methodref name="_AddRef" visibility="protected">
+          </methodref>
+          <methodref name="_Release" visibility="protected">
+          </methodref>
+          <methodref name="GetTypeInfoCount" visibility="protected">
+          </methodref>
+          <methodref name="GetTypeInfo" visibility="protected">
+          </methodref>
+          <methodref name="GetIDsOfNames" visibility="protected">
+          </methodref>
+          <methodref name="Invoke" visibility="protected">
+          </methodref>
+          <methodref name="Create" visibility="public">
+          </methodref>
+          <methodref name="Destroy" visibility="public">
+          </methodref>
+          <methodref name="BeforeDestruction" visibility="public">
+          </methodref>
+          <methodref name="DestroyComponents" visibility="public">
+          </methodref>
+          <methodref name="Destroying" visibility="public">
+          </methodref>
+          <methodref name="ExecuteAction" visibility="public">
+          </methodref>
+          <methodref name="FindComponent" visibility="public">
+          </methodref>
+          <methodref name="FreeNotification" visibility="public">
+          </methodref>
+          <methodref name="RemoveFreeNotification" visibility="public">
+          </methodref>
+          <methodref name="FreeOnRelease" visibility="public">
+          </methodref>
+          <methodref name="GetEnumerator" visibility="public">
+          </methodref>
+          <methodref name="GetParentComponent" visibility="public">
+          </methodref>
+          <methodref name="GetNamePath" visibility="public">
+          </methodref>
+          <methodref name="HasParent" visibility="public">
+          </methodref>
+          <methodref name="InsertComponent" visibility="public">
+          </methodref>
+          <methodref name="RemoveComponent" visibility="public">
+          </methodref>
+          <methodref name="SetSubComponent" visibility="public">
+          </methodref>
+          <methodref name="SafeCallException" visibility="public">
+          </methodref>
+          <methodref name="UpdateAction" visibility="public">
+          </methodref>
+          <methodref name="IsImplementorOf" visibility="public">
+          </methodref>
+          <methodref name="ReferenceInterface" visibility="public">
+          </methodref>
+          <propertyref name="ComObject" visibility="public">
+          </propertyref>
+          <propertyref name="Components" visibility="public">
+          </propertyref>
+          <propertyref name="ComponentCount" visibility="public">
+          </propertyref>
+          <propertyref name="ComponentIndex" visibility="public">
+          </propertyref>
+          <propertyref name="ComponentState" visibility="public">
+          </propertyref>
+          <propertyref name="ComponentStyle" visibility="public">
+          </propertyref>
+          <propertyref name="DesignInfo" visibility="public">
+          </propertyref>
+          <propertyref name="Owner" visibility="public">
+          </propertyref>
+          <propertyref name="VCLComObject" visibility="public">
+          </propertyref>
+          <propertyref name="Name" visibility="published">
+          </propertyref>
+          <propertyref name="Tag" visibility="published">
+          </propertyref>
+          <ancestor name="TPersistent" namespace="Classes">
+            <methodref name="AssignError" visibility="private">
+            </methodref>
+            <methodref name="AssignTo" visibility="public">
+            </methodref>
+            <methodref name="DefineProperties" visibility="public">
+            </methodref>
+            <methodref name="GetOwner" visibility="protected">
+            </methodref>
+            <methodref name="Destroy" visibility="public">
+            </methodref>
+            <methodref name="Assign" visibility="public">
+            </methodref>
+            <methodref name="GetNamePath" visibility="public">
+            </methodref>
+            <ancestor name="TObject" namespace="System">
+              <methodref name="Create" visibility="public">
+              </methodref>
+              <methodref name="Free" visibility="public">
+              </methodref>
+              <methodref name="InitInstance" visibility="public">
+              </methodref>
+              <methodref name="CleanupInstance" visibility="public">
+              </methodref>
+              <methodref name="ClassType" visibility="public">
+              </methodref>
+              <methodref name="ClassName" visibility="public">
+              </methodref>
+              <methodref name="ClassNameIs" visibility="public">
+              </methodref>
+              <methodref name="ClassParent" visibility="public">
+              </methodref>
+              <methodref name="ClassInfo" visibility="public">
+              </methodref>
+              <methodref name="InstanceSize" visibility="public">
+              </methodref>
+              <methodref name="InheritsFrom" visibility="public">
+              </methodref>
+              <methodref name="MethodAddress" visibility="public">
+              </methodref>
+              <methodref name="MethodAddress" visibility="public">
+              </methodref>
+              <methodref name="MethodName" visibility="public">
+              </methodref>
+              <methodref name="FieldAddress" visibility="public">
+              </methodref>
+              <methodref name="FieldAddress" visibility="public">
+              </methodref>
+              <methodref name="GetInterface" visibility="public">
+              </methodref>
+              <methodref name="GetInterfaceEntry" visibility="public">
+              </methodref>
+              <methodref name="GetInterfaceTable" visibility="public">
+              </methodref>
+              <methodref name="UnitName" visibility="public">
+              </methodref>
+              <methodref name="Equals" visibility="public">
+              </methodref>
+              <methodref name="GetHashCode" visibility="public">
+              </methodref>
+              <methodref name="ToString" visibility="public">
+              </methodref>
+              <methodref name="SafeCallException" visibility="public">
+              </methodref>
+              <methodref name="AfterConstruction" visibility="public">
+              </methodref>
+              <methodref name="BeforeDestruction" visibility="public">
+              </methodref>
+              <methodref name="Dispatch" visibility="public">
+              </methodref>
+              <methodref name="DefaultHandler" visibility="public">
+              </methodref>
+              <methodref name="NewInstance" visibility="public">
+              </methodref>
+              <methodref name="FreeInstance" visibility="public">
+              </methodref>
+              <methodref name="Destroy" visibility="public">
+              </methodref>
+            </ancestor>
+          </ancestor>
+        </ancestor>
+      </ancestor>
+    </ancestor>
+    <members>
+      <function name="get_out_port" visibility="protected">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="TMIDI_Device_Output" />
+        </parameters>
+      </function>
+      <function name="get_port_name" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="string" />
+        </parameters>
+      </function>
+      <function name="get_port_names" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="track" type="Integer" />
+          <retval type="string" />
+        </parameters>
+      </function>
+      <function name="get_version" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_technology" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="OutPortTech" />
+        </parameters>
+      </function>
+      <function name="get_driver_version" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_voices" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_notes" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_support" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Cardinal" />
+        </parameters>
+      </function>
+      <function name="allocated_port" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="get_status" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="find_free_channel" visibility="protected">
+        <parameters>
+          <parameter name="track" type="Integer" paramflags="var" />
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="AOwner" type="TComponent" />
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <procedure name="Open" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="Close" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="get_MIDI_thru_port" visibility="public">
+        <parameters>
+          <retval type="TMIDI_Device_Output" />
+        </parameters>
+      </function>
+      <function name="MIDI_Thru_Open" visibility="public">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="find_likely_default" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="notes_off" visibility="public">
+      </procedure>
+      <procedure name="synchronize" visibility="public">
+        <parameters>
+          <parameter name="sync" type="Boolean" />
+        </parameters>
+      </procedure>
+      <procedure name="send_sync_signal" visibility="public">
+      </procedure>
+      <function name="synced" visibility="public">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <procedure name="send_sync_message" visibility="public">
+        <parameters>
+          <parameter name="MidiMessage" type="Byte" />
+          <parameter name="Data1" type="Byte" />
+          <parameter name="Data2" type="Byte" />
+        </parameters>
+      </procedure>
+      <procedure name="send_MIDI_message_to_port" visibility="public" procflags="overload">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <parameter name="MidiMessage" type="Byte" />
+          <parameter name="Data1" type="Byte" />
+          <parameter name="Data2" type="Byte" />
+        </parameters>
+      </procedure>
+      <procedure name="send_MIDI_message_to_port" visibility="public" procflags="overload">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <parameter name="event" type="TMIDI_Event" />
+        </parameters>
+      </procedure>
+      <procedure name="send_MIDI_message" visibility="public" procflags="overload">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <parameter name="MidiMessage" type="Byte" />
+          <parameter name="Data1" type="Byte" />
+          <parameter name="Data2" type="Byte" />
+        </parameters>
+      </procedure>
+      <procedure name="send_MIDI_message" visibility="public" procflags="overload">
+        <parameters>
+          <parameter name="event" type="TMIDI_Event" />
+        </parameters>
+      </procedure>
+      <property name="Port_Out" visibility="public" read="get_out_port" type="TMIDI_Device_Output" />
+    </members>
+  </class>
+  <class name="TMIDI_Resources_In">
+    <devnotes>
+      ////////////////////////////////////////////////////////////////////////////////////////
+    </devnotes>
+    <ancestor name="TMIDI_Resources" namespace="MSC_Resources">
+      <methodref name="set_port_capability" visibility="protected" />
+      <methodref name="get_port_capability" visibility="protected" />
+      <methodref name="get_port_name" visibility="public" />
+      <methodref name="get_port_names" visibility="public" />
+      <methodref name="get_version" visibility="public" />
+      <methodref name="get_technology" visibility="public" />
+      <methodref name="get_driver_version" visibility="public" />
+      <methodref name="get_voices" visibility="public" />
+      <methodref name="get_notes" visibility="public" />
+      <methodref name="get_support" visibility="public" />
+      <methodref name="allocated_port" visibility="public" />
+      <methodref name="get_status" visibility="public" />
+      <methodref name="set_midi_thru" visibility="protected" />
+      <methodref name="get_port_device" visibility="protected" />
+      <methodref name="Create" visibility="public" />
+      <methodref name="Destroy" visibility="public" />
+      <methodref name="Open" visibility="public" />
+      <methodref name="Close" visibility="public" />
+      <methodref name="open_all" visibility="public" />
+      <methodref name="close_all" visibility="public" />
+      <methodref name="backup_and_close" visibility="public" />
+      <methodref name="restore_and_open" visibility="public" />
+      <methodref name="port_disable" visibility="public" />
+      <methodref name="port_play" visibility="public" />
+      <methodref name="port_mute" visibility="public" />
+      <methodref name="port_exclusive_play" visibility="public" />
+      <methodref name="find_likely_default" visibility="public" />
+      <propertyref name="Count" visibility="public" />
+      <propertyref name="Capability" visibility="public" />
+      <propertyref name="ProductName" visibility="public" />
+      <propertyref name="ProductNames" visibility="public" />
+      <propertyref name="DriverVersion" visibility="public" />
+      <propertyref name="Technology" visibility="public" />
+      <propertyref name="Voices" visibility="public" />
+      <propertyref name="Notes" visibility="public" />
+      <propertyref name="Support" visibility="public" />
+      <propertyref name="Status" visibility="public" />
+      <propertyref name="MIDI_Thru" visibility="public" />
+      <propertyref name="Port_Device" visibility="public" />
+      <ancestor name="TMSC_Component" namespace="MSC_Component">
+        <ancestor name="TComponent" namespace="Classes">
+          <methodref name="GetComObject" visibility="private">
+          </methodref>
+          <methodref name="GetComponent" visibility="private">
+          </methodref>
+          <methodref name="GetComponentCount" visibility="private">
+          </methodref>
+          <methodref name="GetComponentIndex" visibility="private">
+          </methodref>
+          <methodref name="Insert" visibility="private">
+          </methodref>
+          <methodref name="ReadLeft" visibility="private">
+          </methodref>
+          <methodref name="ReadTop" visibility="private">
+          </methodref>
+          <methodref name="Remove" visibility="private">
+          </methodref>
+          <methodref name="RemoveNotification" visibility="private">
+          </methodref>
+          <methodref name="SetComponentIndex" visibility="private">
+          </methodref>
+          <methodref name="SetReference" visibility="private">
+          </methodref>
+          <methodref name="WriteLeft" visibility="private">
+          </methodref>
+          <methodref name="WriteTop" visibility="private">
+          </methodref>
+          <methodref name="IntfGetComponent" visibility="private">
+          </methodref>
+          <methodref name="ChangeName" visibility="protected">
+          </methodref>
+          <methodref name="DefineProperties" visibility="public">
+          </methodref>
+          <methodref name="GetChildren" visibility="protected">
+          </methodref>
+          <methodref name="GetChildOwner" visibility="protected">
+          </methodref>
+          <methodref name="GetChildParent" visibility="protected">
+          </methodref>
+          <methodref name="GetOwner" visibility="protected">
+          </methodref>
+          <methodref name="Loaded" visibility="public">
+          </methodref>
+          <methodref name="Notification" visibility="public">
+          </methodref>
+          <methodref name="PaletteCreated" visibility="protected">
+          </methodref>
+          <methodref name="ReadState" visibility="public">
+          </methodref>
+          <methodref name="SetAncestor" visibility="protected">
+          </methodref>
+          <methodref name="SetDesigning" visibility="protected">
+          </methodref>
+          <methodref name="SetInline" visibility="protected">
+          </methodref>
+          <methodref name="SetDesignInstance" visibility="protected">
+          </methodref>
+          <methodref name="SetName" visibility="public">
+          </methodref>
+          <methodref name="SetChildOrder" visibility="protected">
+          </methodref>
+          <methodref name="SetParentComponent" visibility="protected">
+          </methodref>
+          <methodref name="Updating" visibility="protected">
+          </methodref>
+          <methodref name="Updated" visibility="protected">
+          </methodref>
+          <methodref name="UpdateRegistry" visibility="public">
+          </methodref>
+          <methodref name="ValidateRename" visibility="public">
+          </methodref>
+          <methodref name="ValidateContainer" visibility="protected">
+          </methodref>
+          <methodref name="ValidateInsert" visibility="protected">
+          </methodref>
+          <methodref name="WriteState" visibility="public">
+          </methodref>
+          <methodref name="QueryInterface" visibility="public">
+          </methodref>
+          <methodref name="_AddRef" visibility="protected">
+          </methodref>
+          <methodref name="_Release" visibility="protected">
+          </methodref>
+          <methodref name="GetTypeInfoCount" visibility="protected">
+          </methodref>
+          <methodref name="GetTypeInfo" visibility="protected">
+          </methodref>
+          <methodref name="GetIDsOfNames" visibility="protected">
+          </methodref>
+          <methodref name="Invoke" visibility="protected">
+          </methodref>
+          <methodref name="Create" visibility="public">
+          </methodref>
+          <methodref name="Destroy" visibility="public">
+          </methodref>
+          <methodref name="BeforeDestruction" visibility="public">
+          </methodref>
+          <methodref name="DestroyComponents" visibility="public">
+          </methodref>
+          <methodref name="Destroying" visibility="public">
+          </methodref>
+          <methodref name="ExecuteAction" visibility="public">
+          </methodref>
+          <methodref name="FindComponent" visibility="public">
+          </methodref>
+          <methodref name="FreeNotification" visibility="public">
+          </methodref>
+          <methodref name="RemoveFreeNotification" visibility="public">
+          </methodref>
+          <methodref name="FreeOnRelease" visibility="public">
+          </methodref>
+          <methodref name="GetEnumerator" visibility="public">
+          </methodref>
+          <methodref name="GetParentComponent" visibility="public">
+          </methodref>
+          <methodref name="GetNamePath" visibility="public">
+          </methodref>
+          <methodref name="HasParent" visibility="public">
+          </methodref>
+          <methodref name="InsertComponent" visibility="public">
+          </methodref>
+          <methodref name="RemoveComponent" visibility="public">
+          </methodref>
+          <methodref name="SetSubComponent" visibility="public">
+          </methodref>
+          <methodref name="SafeCallException" visibility="public">
+          </methodref>
+          <methodref name="UpdateAction" visibility="public">
+          </methodref>
+          <methodref name="IsImplementorOf" visibility="public">
+          </methodref>
+          <methodref name="ReferenceInterface" visibility="public">
+          </methodref>
+          <propertyref name="ComObject" visibility="public">
+          </propertyref>
+          <propertyref name="Components" visibility="public">
+          </propertyref>
+          <propertyref name="ComponentCount" visibility="public">
+          </propertyref>
+          <propertyref name="ComponentIndex" visibility="public">
+          </propertyref>
+          <propertyref name="ComponentState" visibility="public">
+          </propertyref>
+          <propertyref name="ComponentStyle" visibility="public">
+          </propertyref>
+          <propertyref name="DesignInfo" visibility="public">
+          </propertyref>
+          <propertyref name="Owner" visibility="public">
+          </propertyref>
+          <propertyref name="VCLComObject" visibility="public">
+          </propertyref>
+          <propertyref name="Name" visibility="published">
+          </propertyref>
+          <propertyref name="Tag" visibility="published">
+          </propertyref>
+          <ancestor name="TPersistent" namespace="Classes">
+            <methodref name="AssignError" visibility="private">
+            </methodref>
+            <methodref name="AssignTo" visibility="public">
+            </methodref>
+            <methodref name="DefineProperties" visibility="public">
+            </methodref>
+            <methodref name="GetOwner" visibility="protected">
+            </methodref>
+            <methodref name="Destroy" visibility="public">
+            </methodref>
+            <methodref name="Assign" visibility="public">
+            </methodref>
+            <methodref name="GetNamePath" visibility="public">
+            </methodref>
+            <ancestor name="TObject" namespace="System">
+              <methodref name="Create" visibility="public">
+              </methodref>
+              <methodref name="Free" visibility="public">
+              </methodref>
+              <methodref name="InitInstance" visibility="public">
+              </methodref>
+              <methodref name="CleanupInstance" visibility="public">
+              </methodref>
+              <methodref name="ClassType" visibility="public">
+              </methodref>
+              <methodref name="ClassName" visibility="public">
+              </methodref>
+              <methodref name="ClassNameIs" visibility="public">
+              </methodref>
+              <methodref name="ClassParent" visibility="public">
+              </methodref>
+              <methodref name="ClassInfo" visibility="public">
+              </methodref>
+              <methodref name="InstanceSize" visibility="public">
+              </methodref>
+              <methodref name="InheritsFrom" visibility="public">
+              </methodref>
+              <methodref name="MethodAddress" visibility="public">
+              </methodref>
+              <methodref name="MethodAddress" visibility="public">
+              </methodref>
+              <methodref name="MethodName" visibility="public">
+              </methodref>
+              <methodref name="FieldAddress" visibility="public">
+              </methodref>
+              <methodref name="FieldAddress" visibility="public">
+              </methodref>
+              <methodref name="GetInterface" visibility="public">
+              </methodref>
+              <methodref name="GetInterfaceEntry" visibility="public">
+              </methodref>
+              <methodref name="GetInterfaceTable" visibility="public">
+              </methodref>
+              <methodref name="UnitName" visibility="public">
+              </methodref>
+              <methodref name="Equals" visibility="public">
+              </methodref>
+              <methodref name="GetHashCode" visibility="public">
+              </methodref>
+              <methodref name="ToString" visibility="public">
+              </methodref>
+              <methodref name="SafeCallException" visibility="public">
+              </methodref>
+              <methodref name="AfterConstruction" visibility="public">
+              </methodref>
+              <methodref name="BeforeDestruction" visibility="public">
+              </methodref>
+              <methodref name="Dispatch" visibility="public">
+              </methodref>
+              <methodref name="DefaultHandler" visibility="public">
+              </methodref>
+              <methodref name="NewInstance" visibility="public">
+              </methodref>
+              <methodref name="FreeInstance" visibility="public">
+              </methodref>
+              <methodref name="Destroy" visibility="public">
+              </methodref>
+            </ancestor>
+          </ancestor>
+        </ancestor>
+      </ancestor>
+    </ancestor>
+    <members>
+      <function name="get_in_port" visibility="protected">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="TMIDI_Device_Input" />
+        </parameters>
+      </function>
+      <function name="get_port_name" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="string" />
+        </parameters>
+      </function>
+      <function name="get_port_names" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="track" type="Integer" />
+          <retval type="string" />
+        </parameters>
+      </function>
+      <function name="get_version" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_technology" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="OutPortTech" />
+        </parameters>
+      </function>
+      <function name="get_driver_version" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_voices" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_notes" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_support" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Cardinal" />
+        </parameters>
+      </function>
+      <function name="allocated_port" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="get_status" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="set_onmidiinput" visibility="protected">
+        <parameters>
+          <parameter name="value" type="TOnMidiInput" />
+        </parameters>
+      </procedure>
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="AOwner" type="TComponent" />
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <procedure name="Open" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="Close" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="port" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="MIDI_Record" visibility="public">
+        <parameters>
+          <parameter name="Sender" type="TObject" />
+        </parameters>
+      </procedure>
+      <property name="Port_In" visibility="public" read="get_in_port" type="TMIDI_Device_Input" />
+      <event name="OnMidiInput" visibility="public" write="set_onmidiinput" type="TOnMidiInput" />
+    </members>
+  </class>
+  <procedure name="Register" visibility="public">
+  </procedure>
+</namespace>

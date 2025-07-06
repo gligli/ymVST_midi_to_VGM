@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="MSC_In_File">
+  <class name="EMIDI_In_File_Error">
+    <ancestor name="EMSC_Error" namespace="MSC_Definitions">
+      <ancestor name="EInOutError" namespace="SysUtils">
+        <ancestor name="Exception" namespace="SysUtils">
+          <methodref name="SetInnerException" visibility="protected">
+          </methodref>
+          <methodref name="SetStackInfo" visibility="protected">
+          </methodref>
+          <methodref name="GetStackTrace" visibility="protected">
+          </methodref>
+          <methodref name="RaisingException" visibility="public">
+          </methodref>
+          <methodref name="Create" visibility="public">
+          </methodref>
+          <methodref name="CreateFmt" visibility="public">
+          </methodref>
+          <methodref name="CreateRes" visibility="public">
+          </methodref>
+          <methodref name="CreateRes" visibility="public">
+          </methodref>
+          <methodref name="CreateResFmt" visibility="public">
+          </methodref>
+          <methodref name="CreateResFmt" visibility="public">
+          </methodref>
+          <methodref name="CreateHelp" visibility="public">
+          </methodref>
+          <methodref name="CreateFmtHelp" visibility="public">
+          </methodref>
+          <methodref name="CreateResHelp" visibility="public">
+          </methodref>
+          <methodref name="CreateResHelp" visibility="public">
+          </methodref>
+          <methodref name="CreateResFmtHelp" visibility="public">
+          </methodref>
+          <methodref name="CreateResFmtHelp" visibility="public">
+          </methodref>
+          <methodref name="Destroy" visibility="public">
+          </methodref>
+          <methodref name="GetBaseException" visibility="public">
+          </methodref>
+          <methodref name="ToString" visibility="public">
+          </methodref>
+          <propertyref name="BaseException" visibility="public">
+          </propertyref>
+          <propertyref name="HelpContext" visibility="public">
+          </propertyref>
+          <propertyref name="InnerException" visibility="public">
+          </propertyref>
+          <propertyref name="Message" visibility="public">
+          </propertyref>
+          <propertyref name="StackTrace" visibility="public">
+          </propertyref>
+          <propertyref name="StackInfo" visibility="public">
+          </propertyref>
+          <methodref name="RaiseOuterException" visibility="public">
+          </methodref>
+          <methodref name="ThrowOuterException" visibility="public">
+          </methodref>
+          <ancestor name="TObject" namespace="System">
+            <methodref name="Create" visibility="public">
+            </methodref>
+            <methodref name="Free" visibility="public">
+            </methodref>
+            <methodref name="InitInstance" visibility="public">
+            </methodref>
+            <methodref name="CleanupInstance" visibility="public">
+            </methodref>
+            <methodref name="ClassType" visibility="public">
+            </methodref>
+            <methodref name="ClassName" visibility="public">
+            </methodref>
+            <methodref name="ClassNameIs" visibility="public">
+            </methodref>
+            <methodref name="ClassParent" visibility="public">
+            </methodref>
+            <methodref name="ClassInfo" visibility="public">
+            </methodref>
+            <methodref name="InstanceSize" visibility="public">
+            </methodref>
+            <methodref name="InheritsFrom" visibility="public">
+            </methodref>
+            <methodref name="MethodAddress" visibility="public">
+            </methodref>
+            <methodref name="MethodAddress" visibility="public">
+            </methodref>
+            <methodref name="MethodName" visibility="public">
+            </methodref>
+            <methodref name="FieldAddress" visibility="public">
+            </methodref>
+            <methodref name="FieldAddress" visibility="public">
+            </methodref>
+            <methodref name="GetInterface" visibility="public">
+            </methodref>
+            <methodref name="GetInterfaceEntry" visibility="public">
+            </methodref>
+            <methodref name="GetInterfaceTable" visibility="public">
+            </methodref>
+            <methodref name="UnitName" visibility="public">
+            </methodref>
+            <methodref name="Equals" visibility="public">
+            </methodref>
+            <methodref name="GetHashCode" visibility="public">
+            </methodref>
+            <methodref name="ToString" visibility="public">
+            </methodref>
+            <methodref name="SafeCallException" visibility="public">
+            </methodref>
+            <methodref name="AfterConstruction" visibility="public">
+            </methodref>
+            <methodref name="BeforeDestruction" visibility="public">
+            </methodref>
+            <methodref name="Dispatch" visibility="public">
+            </methodref>
+            <methodref name="DefaultHandler" visibility="public">
+            </methodref>
+            <methodref name="NewInstance" visibility="public">
+            </methodref>
+            <methodref name="FreeInstance" visibility="public">
+            </methodref>
+            <methodref name="Destroy" visibility="public">
+            </methodref>
+          </ancestor>
+        </ancestor>
+      </ancestor>
+    </ancestor>
+  </class>
+  <class name="TMIDI_In_File">
+    <ancestor name="TObject" namespace="System">
+      <methodref name="Create" visibility="public">
+      </methodref>
+      <methodref name="Free" visibility="public">
+      </methodref>
+      <methodref name="InitInstance" visibility="public">
+      </methodref>
+      <methodref name="CleanupInstance" visibility="public">
+      </methodref>
+      <methodref name="ClassType" visibility="public">
+      </methodref>
+      <methodref name="ClassName" visibility="public">
+      </methodref>
+      <methodref name="ClassNameIs" visibility="public">
+      </methodref>
+      <methodref name="ClassParent" visibility="public">
+      </methodref>
+      <methodref name="ClassInfo" visibility="public">
+      </methodref>
+      <methodref name="InstanceSize" visibility="public">
+      </methodref>
+      <methodref name="InheritsFrom" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodName" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="GetInterface" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceEntry" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceTable" visibility="public">
+      </methodref>
+      <methodref name="UnitName" visibility="public">
+      </methodref>
+      <methodref name="Equals" visibility="public">
+      </methodref>
+      <methodref name="GetHashCode" visibility="public">
+      </methodref>
+      <methodref name="ToString" visibility="public">
+      </methodref>
+      <methodref name="SafeCallException" visibility="public">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public">
+      </methodref>
+      <methodref name="Dispatch" visibility="public">
+      </methodref>
+      <methodref name="DefaultHandler" visibility="public">
+      </methodref>
+      <methodref name="NewInstance" visibility="public">
+      </methodref>
+      <methodref name="FreeInstance" visibility="public">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+    </ancestor>
+    <members>
+      <field name="FRaw_Copy" type="TStringList" visibility="private" />
+      <field name="MIDI_In" type="TMIDI_File" visibility="private" />
+      <field name="Container" type="TMIDI_Container" visibility="private" />
+      <field name="bytes_to_be_read" type="Integer" visibility="private" />
+      <field name="MIDI_Format" type="Integer" visibility="private" />
+      <field name="n_tracks" type="Integer" visibility="private" />
+      <field name="nomerge" type="Boolean" visibility="private" />
+      <field name="line" type="AnsiString" visibility="private" />
+      <procedure name="read_header" visibility="private">
+      </procedure>
+      <procedure name="read_track_header" visibility="private">
+      </procedure>
+      <procedure name="read_track" visibility="private">
+        <parameters>
+          <parameter name="track" type="Integer" />
+        </parameters>
+      </procedure>
+      <function name="create_voice_message" visibility="private">
+        <parameters>
+          <parameter name="status" type="Integer" />
+          <parameter name="c1" type="Integer" />
+          <parameter name="c2" type="Integer" />
+          <retval type="TMIDI_Event" />
+        </parameters>
+      </function>
+      <function name="create_meta_event" visibility="private">
+        <parameters>
+          <parameter name="mtype" type="Integer" />
+          <parameter name="mess" type="AnsiString" />
+          <retval type="TMIDI_Event" />
+        </parameters>
+      </function>
+      <function name="get_string" visibility="private">
+        <parameters>
+          <parameter name="len" type="Integer" />
+          <retval type="AnsiString" />
+        </parameters>
+      </function>
+      <function name="get_var_integer" visibility="private">
+        <parameters>
+          <retval type="Cardinal" />
+        </parameters>
+      </function>
+      <function name="get_cardinal" visibility="private">
+        <parameters>
+          <retval type="Cardinal" />
+        </parameters>
+      </function>
+      <function name="get_integer" visibility="private">
+        <parameters>
+          <parameter name="size" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <function name="get_word" visibility="private">
+        <parameters>
+          <retval type="Word" />
+        </parameters>
+      </function>
+      <function name="get_byte" visibility="private">
+        <parameters>
+          <retval type="Byte" />
+        </parameters>
+      </function>
+      <procedure name="newline" visibility="private">
+      </procedure>
+      <procedure name="error" visibility="private">
+        <parameters>
+          <parameter name="text" type="string" />
+        </parameters>
+      </procedure>
+      <constructor name="open" visibility="public">
+        <parameters>
+          <parameter name="filename" type="string" />
+        </parameters>
+      </constructor>
+      <destructor name="close" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <procedure name="load" visibility="public">
+        <parameters>
+          <parameter name="container" type="TMIDI_Container" />
+          <parameter name="viewer" type="TStringList" />
+        </parameters>
+      </procedure>
+      <property name="Raw_Copy" visibility="public" read="FRaw_Copy" write="FRaw_Copy" type="TStringList" />
+    </members>
+  </class>
+</namespace>

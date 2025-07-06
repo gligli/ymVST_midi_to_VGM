@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="MSC_Delphi_MIDI_Callback">
+  <function name="CircbufPutEvent" visibility="public" callconv="stdcall">
+    <parameters>
+      <parameter name="PBuffer" type="PCircularBuffer" />
+      <parameter name="PTheEvent" type="PMidiBufferItem" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <procedure name="midiHandler" visibility="public" callconv="stdcall">
+    <parameters>
+      <parameter name="hMidiIn" type="Integer" />
+      <parameter name="wMsg" type="Cardinal" />
+      <parameter name="dwInstance" type="Cardinal" />
+      <parameter name="dwParam1" type="Cardinal" />
+      <parameter name="dwParam2" type="Cardinal" />
+    </parameters>
+  </procedure>
+</namespace>

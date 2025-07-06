@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="MSC_Circular_Buffer">
+  <struct name="TMidiBufferItem">
+    <field name="timestamp" type="Cardinal" visibility="public" />
+    <field name="data" type="Cardinal" visibility="public" />
+    <field name="sysex" type="PMidiHdr" visibility="public" />
+  </struct>
+  <pointer name="PMidiBufferItem" type="TMidiBufferItem" indircnt="1" />
+  <struct name="TCircularBuffer">
+    <field name="RecordHandle" type="Cardinal" visibility="public" />
+    <field name="BufferHandle" type="Cardinal" visibility="public" />
+    <field name="pStart" type="PMidiBufferItem" visibility="public" />
+    <field name="pEnd" type="PMidiBufferItem" visibility="public" />
+    <field name="pNextPut" type="PMidiBufferItem" visibility="public" />
+    <field name="pNextGet" type="PMidiBufferItem" visibility="public" />
+    <field name="Error" type="Word" visibility="public" />
+    <field name="Capacity" type="Word" visibility="public" />
+    <field name="EventCount" type="Word" visibility="public" />
+  </struct>
+  <pointer name="PCircularBuffer" type="TCircularBuffer" indircnt="1" />
+  <function name="GlobalSharedLockedAlloc" visibility="public">
+    <parameters>
+      <parameter name="Capacity" type="Word" />
+      <parameter name="hMem" type="Cardinal" paramflags="var" />
+      <retval type="Pointer" />
+    </parameters>
+  </function>
+  <procedure name="GlobalSharedLockedFree" visibility="public">
+    <parameters>
+      <parameter name="hMem" type="Cardinal" />
+      <parameter name="ptr" type="Pointer" />
+    </parameters>
+  </procedure>
+  <function name="CircbufAlloc" visibility="public">
+    <parameters>
+      <parameter name="Capacity" type="Word" />
+      <retval type="PCircularBuffer" />
+    </parameters>
+  </function>
+  <procedure name="CircbufFree" visibility="public">
+    <parameters>
+      <parameter name="PBuffer" type="PCircularBuffer" />
+    </parameters>
+  </procedure>
+  <function name="CircbufReadEvent" visibility="public">
+    <parameters>
+      <parameter name="PBuffer" type="PCircularBuffer" />
+      <parameter name="PEvent" type="PMidiBufferItem" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="CircbufRemoveEvent" visibility="public">
+    <parameters>
+      <parameter name="PBuffer" type="PCircularBuffer" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+</namespace>

@@ -1,0 +1,527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="MSC_In_Device">
+  <const name="misOpen" type="MidiInputState">
+    <value>
+      misOpen
+    </value>
+  </const>
+  <const name="misClosed" type="MidiInputState">
+    <value>
+      misClosed
+    </value>
+  </const>
+  <const name="misCreating" type="MidiInputState">
+    <value>
+      misCreating
+    </value>
+  </const>
+  <const name="misDestroying" type="MidiInputState">
+    <value>
+      misDestroying
+    </value>
+  </const>
+  <enum name="MidiInputState">
+    <element name="misOpen" />
+    <element name="misClosed" />
+    <element name="misCreating" />
+    <element name="misDestroying" />
+  </enum>
+  <class name="EMSC_Device_In_Error">
+    <ancestor name="EMSC_Device_Error" namespace="MSC_Device">
+      <ancestor name="EMSC_Error" namespace="MSC_Definitions">
+        <ancestor name="EInOutError" namespace="SysUtils">
+          <ancestor name="Exception" namespace="SysUtils">
+            <methodref name="SetInnerException" visibility="protected">
+            </methodref>
+            <methodref name="SetStackInfo" visibility="protected">
+            </methodref>
+            <methodref name="GetStackTrace" visibility="protected">
+            </methodref>
+            <methodref name="RaisingException" visibility="public">
+            </methodref>
+            <methodref name="Create" visibility="public">
+            </methodref>
+            <methodref name="CreateFmt" visibility="public">
+            </methodref>
+            <methodref name="CreateRes" visibility="public">
+            </methodref>
+            <methodref name="CreateRes" visibility="public">
+            </methodref>
+            <methodref name="CreateResFmt" visibility="public">
+            </methodref>
+            <methodref name="CreateResFmt" visibility="public">
+            </methodref>
+            <methodref name="CreateHelp" visibility="public">
+            </methodref>
+            <methodref name="CreateFmtHelp" visibility="public">
+            </methodref>
+            <methodref name="CreateResHelp" visibility="public">
+            </methodref>
+            <methodref name="CreateResHelp" visibility="public">
+            </methodref>
+            <methodref name="CreateResFmtHelp" visibility="public">
+            </methodref>
+            <methodref name="CreateResFmtHelp" visibility="public">
+            </methodref>
+            <methodref name="Destroy" visibility="public">
+            </methodref>
+            <methodref name="GetBaseException" visibility="public">
+            </methodref>
+            <methodref name="ToString" visibility="public">
+            </methodref>
+            <propertyref name="BaseException" visibility="public">
+            </propertyref>
+            <propertyref name="HelpContext" visibility="public">
+            </propertyref>
+            <propertyref name="InnerException" visibility="public">
+            </propertyref>
+            <propertyref name="Message" visibility="public">
+            </propertyref>
+            <propertyref name="StackTrace" visibility="public">
+            </propertyref>
+            <propertyref name="StackInfo" visibility="public">
+            </propertyref>
+            <methodref name="RaiseOuterException" visibility="public">
+            </methodref>
+            <methodref name="ThrowOuterException" visibility="public">
+            </methodref>
+            <ancestor name="TObject" namespace="System">
+              <methodref name="Create" visibility="public">
+              </methodref>
+              <methodref name="Free" visibility="public">
+              </methodref>
+              <methodref name="InitInstance" visibility="public">
+              </methodref>
+              <methodref name="CleanupInstance" visibility="public">
+              </methodref>
+              <methodref name="ClassType" visibility="public">
+              </methodref>
+              <methodref name="ClassName" visibility="public">
+              </methodref>
+              <methodref name="ClassNameIs" visibility="public">
+              </methodref>
+              <methodref name="ClassParent" visibility="public">
+              </methodref>
+              <methodref name="ClassInfo" visibility="public">
+              </methodref>
+              <methodref name="InstanceSize" visibility="public">
+              </methodref>
+              <methodref name="InheritsFrom" visibility="public">
+              </methodref>
+              <methodref name="MethodAddress" visibility="public">
+              </methodref>
+              <methodref name="MethodAddress" visibility="public">
+              </methodref>
+              <methodref name="MethodName" visibility="public">
+              </methodref>
+              <methodref name="FieldAddress" visibility="public">
+              </methodref>
+              <methodref name="FieldAddress" visibility="public">
+              </methodref>
+              <methodref name="GetInterface" visibility="public">
+              </methodref>
+              <methodref name="GetInterfaceEntry" visibility="public">
+              </methodref>
+              <methodref name="GetInterfaceTable" visibility="public">
+              </methodref>
+              <methodref name="UnitName" visibility="public">
+              </methodref>
+              <methodref name="Equals" visibility="public">
+              </methodref>
+              <methodref name="GetHashCode" visibility="public">
+              </methodref>
+              <methodref name="ToString" visibility="public">
+              </methodref>
+              <methodref name="SafeCallException" visibility="public">
+              </methodref>
+              <methodref name="AfterConstruction" visibility="public">
+              </methodref>
+              <methodref name="BeforeDestruction" visibility="public">
+              </methodref>
+              <methodref name="Dispatch" visibility="public">
+              </methodref>
+              <methodref name="DefaultHandler" visibility="public">
+              </methodref>
+              <methodref name="NewInstance" visibility="public">
+              </methodref>
+              <methodref name="FreeInstance" visibility="public">
+              </methodref>
+              <methodref name="Destroy" visibility="public">
+              </methodref>
+            </ancestor>
+          </ancestor>
+        </ancestor>
+      </ancestor>
+    </ancestor>
+  </class>
+  <class name="TMIDI_Device_Input">
+    <ancestor name="TMIDI_Device" namespace="MSC_Device">
+      <methodref name="SetDeviceID" visibility="public" />
+      <methodref name="SetProductName" visibility="public" />
+      <methodref name="Create" visibility="public" />
+      <methodref name="Destroy" visibility="public" />
+      <methodref name="Open" visibility="public" />
+      <methodref name="Close" visibility="public" />
+      <methodref name="is_opened" visibility="public" />
+      <methodref name="is_closed" visibility="public" />
+      <propertyref name="Error" visibility="public" />
+      <propertyref name="DriverVersion" visibility="public" />
+      <propertyref name="MID" visibility="public" />
+      <propertyref name="PID" visibility="public" />
+      <propertyref name="NumDevs" visibility="published" />
+      <propertyref name="DeviceID" visibility="published" />
+      <propertyref name="ProductName" visibility="published" />
+      <ancestor name="TMSC_Component" namespace="MSC_Component">
+        <ancestor name="TComponent" namespace="Classes">
+          <methodref name="GetComObject" visibility="private">
+          </methodref>
+          <methodref name="GetComponent" visibility="private">
+          </methodref>
+          <methodref name="GetComponentCount" visibility="private">
+          </methodref>
+          <methodref name="GetComponentIndex" visibility="private">
+          </methodref>
+          <methodref name="Insert" visibility="private">
+          </methodref>
+          <methodref name="ReadLeft" visibility="private">
+          </methodref>
+          <methodref name="ReadTop" visibility="private">
+          </methodref>
+          <methodref name="Remove" visibility="private">
+          </methodref>
+          <methodref name="RemoveNotification" visibility="private">
+          </methodref>
+          <methodref name="SetComponentIndex" visibility="private">
+          </methodref>
+          <methodref name="SetReference" visibility="private">
+          </methodref>
+          <methodref name="WriteLeft" visibility="private">
+          </methodref>
+          <methodref name="WriteTop" visibility="private">
+          </methodref>
+          <methodref name="IntfGetComponent" visibility="private">
+          </methodref>
+          <methodref name="ChangeName" visibility="protected">
+          </methodref>
+          <methodref name="DefineProperties" visibility="public">
+          </methodref>
+          <methodref name="GetChildren" visibility="protected">
+          </methodref>
+          <methodref name="GetChildOwner" visibility="protected">
+          </methodref>
+          <methodref name="GetChildParent" visibility="protected">
+          </methodref>
+          <methodref name="GetOwner" visibility="protected">
+          </methodref>
+          <methodref name="Loaded" visibility="public">
+          </methodref>
+          <methodref name="Notification" visibility="public">
+          </methodref>
+          <methodref name="PaletteCreated" visibility="protected">
+          </methodref>
+          <methodref name="ReadState" visibility="public">
+          </methodref>
+          <methodref name="SetAncestor" visibility="protected">
+          </methodref>
+          <methodref name="SetDesigning" visibility="protected">
+          </methodref>
+          <methodref name="SetInline" visibility="protected">
+          </methodref>
+          <methodref name="SetDesignInstance" visibility="protected">
+          </methodref>
+          <methodref name="SetName" visibility="public">
+          </methodref>
+          <methodref name="SetChildOrder" visibility="protected">
+          </methodref>
+          <methodref name="SetParentComponent" visibility="protected">
+          </methodref>
+          <methodref name="Updating" visibility="protected">
+          </methodref>
+          <methodref name="Updated" visibility="protected">
+          </methodref>
+          <methodref name="UpdateRegistry" visibility="public">
+          </methodref>
+          <methodref name="ValidateRename" visibility="public">
+          </methodref>
+          <methodref name="ValidateContainer" visibility="protected">
+          </methodref>
+          <methodref name="ValidateInsert" visibility="protected">
+          </methodref>
+          <methodref name="WriteState" visibility="public">
+          </methodref>
+          <methodref name="QueryInterface" visibility="public">
+          </methodref>
+          <methodref name="_AddRef" visibility="protected">
+          </methodref>
+          <methodref name="_Release" visibility="protected">
+          </methodref>
+          <methodref name="GetTypeInfoCount" visibility="protected">
+          </methodref>
+          <methodref name="GetTypeInfo" visibility="protected">
+          </methodref>
+          <methodref name="GetIDsOfNames" visibility="protected">
+          </methodref>
+          <methodref name="Invoke" visibility="protected">
+          </methodref>
+          <methodref name="Create" visibility="public">
+          </methodref>
+          <methodref name="Destroy" visibility="public">
+          </methodref>
+          <methodref name="BeforeDestruction" visibility="public">
+          </methodref>
+          <methodref name="DestroyComponents" visibility="public">
+          </methodref>
+          <methodref name="Destroying" visibility="public">
+          </methodref>
+          <methodref name="ExecuteAction" visibility="public">
+          </methodref>
+          <methodref name="FindComponent" visibility="public">
+          </methodref>
+          <methodref name="FreeNotification" visibility="public">
+          </methodref>
+          <methodref name="RemoveFreeNotification" visibility="public">
+          </methodref>
+          <methodref name="FreeOnRelease" visibility="public">
+          </methodref>
+          <methodref name="GetEnumerator" visibility="public">
+          </methodref>
+          <methodref name="GetParentComponent" visibility="public">
+          </methodref>
+          <methodref name="GetNamePath" visibility="public">
+          </methodref>
+          <methodref name="HasParent" visibility="public">
+          </methodref>
+          <methodref name="InsertComponent" visibility="public">
+          </methodref>
+          <methodref name="RemoveComponent" visibility="public">
+          </methodref>
+          <methodref name="SetSubComponent" visibility="public">
+          </methodref>
+          <methodref name="SafeCallException" visibility="public">
+          </methodref>
+          <methodref name="UpdateAction" visibility="public">
+          </methodref>
+          <methodref name="IsImplementorOf" visibility="public">
+          </methodref>
+          <methodref name="ReferenceInterface" visibility="public">
+          </methodref>
+          <propertyref name="ComObject" visibility="public">
+          </propertyref>
+          <propertyref name="Components" visibility="public">
+          </propertyref>
+          <propertyref name="ComponentCount" visibility="public">
+          </propertyref>
+          <propertyref name="ComponentIndex" visibility="public">
+          </propertyref>
+          <propertyref name="ComponentState" visibility="public">
+          </propertyref>
+          <propertyref name="ComponentStyle" visibility="public">
+          </propertyref>
+          <propertyref name="DesignInfo" visibility="public">
+          </propertyref>
+          <propertyref name="Owner" visibility="public">
+          </propertyref>
+          <propertyref name="VCLComObject" visibility="public">
+          </propertyref>
+          <propertyref name="Name" visibility="published">
+          </propertyref>
+          <propertyref name="Tag" visibility="published">
+          </propertyref>
+          <ancestor name="TPersistent" namespace="Classes">
+            <methodref name="AssignError" visibility="private">
+            </methodref>
+            <methodref name="AssignTo" visibility="public">
+            </methodref>
+            <methodref name="DefineProperties" visibility="public">
+            </methodref>
+            <methodref name="GetOwner" visibility="protected">
+            </methodref>
+            <methodref name="Destroy" visibility="public">
+            </methodref>
+            <methodref name="Assign" visibility="public">
+            </methodref>
+            <methodref name="GetNamePath" visibility="public">
+            </methodref>
+            <ancestor name="TObject" namespace="System">
+              <methodref name="Create" visibility="public">
+              </methodref>
+              <methodref name="Free" visibility="public">
+              </methodref>
+              <methodref name="InitInstance" visibility="public">
+              </methodref>
+              <methodref name="CleanupInstance" visibility="public">
+              </methodref>
+              <methodref name="ClassType" visibility="public">
+              </methodref>
+              <methodref name="ClassName" visibility="public">
+              </methodref>
+              <methodref name="ClassNameIs" visibility="public">
+              </methodref>
+              <methodref name="ClassParent" visibility="public">
+              </methodref>
+              <methodref name="ClassInfo" visibility="public">
+              </methodref>
+              <methodref name="InstanceSize" visibility="public">
+              </methodref>
+              <methodref name="InheritsFrom" visibility="public">
+              </methodref>
+              <methodref name="MethodAddress" visibility="public">
+              </methodref>
+              <methodref name="MethodAddress" visibility="public">
+              </methodref>
+              <methodref name="MethodName" visibility="public">
+              </methodref>
+              <methodref name="FieldAddress" visibility="public">
+              </methodref>
+              <methodref name="FieldAddress" visibility="public">
+              </methodref>
+              <methodref name="GetInterface" visibility="public">
+              </methodref>
+              <methodref name="GetInterfaceEntry" visibility="public">
+              </methodref>
+              <methodref name="GetInterfaceTable" visibility="public">
+              </methodref>
+              <methodref name="UnitName" visibility="public">
+              </methodref>
+              <methodref name="Equals" visibility="public">
+              </methodref>
+              <methodref name="GetHashCode" visibility="public">
+              </methodref>
+              <methodref name="ToString" visibility="public">
+              </methodref>
+              <methodref name="SafeCallException" visibility="public">
+              </methodref>
+              <methodref name="AfterConstruction" visibility="public">
+              </methodref>
+              <methodref name="BeforeDestruction" visibility="public">
+              </methodref>
+              <methodref name="Dispatch" visibility="public">
+              </methodref>
+              <methodref name="DefaultHandler" visibility="public">
+              </methodref>
+              <methodref name="NewInstance" visibility="public">
+              </methodref>
+              <methodref name="FreeInstance" visibility="public">
+              </methodref>
+              <methodref name="Destroy" visibility="public">
+              </methodref>
+            </ancestor>
+          </ancestor>
+        </ancestor>
+      </ancestor>
+    </ancestor>
+    <members>
+      <field name="FMIDIHandle" type="Integer" visibility="private" />
+      <field name="FState" type="MidiInputState" visibility="private" />
+      <field name="FSysexOnly" type="Boolean" visibility="private" />
+      <field name="FCapacity" type="Word" visibility="private" />
+      <field name="PBuffer" type="PCircularBuffer" visibility="private" />
+      <field name="FOnMIDIInput" type="TNotifyEvent" visibility="private" />
+      <field name="FOnOverflow" type="TNotifyEvent" visibility="private" />
+      <field name="FSysexBufferSize" type="Word" visibility="private" />
+      <field name="FSysexBufferCount" type="Word" visibility="private" />
+      <field name="MidiHdrs" type="TList" visibility="private" />
+      <field name="PCtlInfo" type="PMidiCtlInfo" visibility="private" />
+      <procedure name="Prepareheaders" visibility="protected">
+      </procedure>
+      <procedure name="UnprepareHeaders" visibility="protected">
+      </procedure>
+      <procedure name="AddBuffers" visibility="protected">
+      </procedure>
+      <procedure name="SetDeviceID" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="DeviceID" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="SetProductName" visibility="public" procflags="override">
+        <parameters>
+          <parameter name="NewProductName" type="string" />
+        </parameters>
+      </procedure>
+      <function name="GetEventCount" visibility="protected">
+        <parameters>
+          <retval type="Word" />
+        </parameters>
+      </function>
+      <procedure name="SetSysexBufferSize" visibility="protected">
+        <parameters>
+          <parameter name="BufferSize" type="Word" />
+        </parameters>
+      </procedure>
+      <procedure name="SetSysexBufferCount" visibility="protected">
+        <parameters>
+          <parameter name="BufferCount" type="Word" />
+        </parameters>
+      </procedure>
+      <procedure name="SetSysexOnly" visibility="protected">
+        <parameters>
+          <parameter name="bSysexOnly" type="Boolean" />
+        </parameters>
+      </procedure>
+      <function name="MidiInErrorString" visibility="protected">
+        <parameters>
+          <parameter name="WError" type="Word" />
+          <retval type="string" />
+        </parameters>
+      </function>
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="AOwner" type="TComponent" />
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <function name="Open" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="Close" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="is_opened" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <function name="is_closed" visibility="public" procflags="override">
+        <parameters>
+          <retval type="Boolean" />
+        </parameters>
+      </function>
+      <property name="MIDIHandle" visibility="public" read="FMIDIHandle" type="Integer" />
+      <property name="MessageCount" visibility="public" read="GetEventCount" type="Word" />
+      <procedure name="Start" visibility="public">
+      </procedure>
+      <procedure name="Stop" visibility="public">
+      </procedure>
+      <function name="Status" visibility="public">
+        <parameters>
+          <retval type="MidiInputState" />
+        </parameters>
+      </function>
+      <function name="GetMidiEvent" visibility="public">
+        <parameters>
+          <retval type="TMIDI_Event" />
+        </parameters>
+      </function>
+      <procedure name="MidiInput" visibility="public">
+        <parameters>
+          <parameter name="Message" type="TMessage" paramflags="var" />
+        </parameters>
+      </procedure>
+      <property name="Capacity" visibility="published" read="FCapacity" write="FCapacity" type="Word" default="1024" />
+      <property name="SysexBufferSize" visibility="published" read="FSysexBufferSize" write="SetSysexBufferSize" type="Word" default="10000" />
+      <property name="SysexBufferCount" visibility="published" read="FSysexBufferCount" write="SetSysexBufferCount" type="Word" default="16" />
+      <property name="SysexOnly" visibility="published" read="FSysexOnly" write="SetSysexOnly" type="Boolean" default="0" />
+      <event name="OnMidiInput" visibility="published" read="FOnMIDIInput" write="FOnMIDIInput" type="TNotifyEvent" />
+      <event name="OnOverflow" visibility="published" read="FOnOverflow" write="FOnOverflow" type="TNotifyEvent" />
+    </members>
+  </class>
+  <procedure name="Register" visibility="public">
+  </procedure>
+</namespace>
