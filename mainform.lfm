@@ -8,6 +8,7 @@ object FormMain: TFormMain
   ClientWidth = 640
   Constraints.MinHeight = 200
   Constraints.MinWidth = 640
+  Position = poScreenCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   object edInputMid: TEdit
@@ -17,7 +18,7 @@ object FormMain: TFormMain
     Width = 520
     Anchors = [akTop, akLeft, akRight]
     TabOrder = 0
-    Text = 'Project_44.mid'
+    Text = 'Project_46.mid'
   end
   object edOutputYM: TEdit
     Left = 8
@@ -26,7 +27,7 @@ object FormMain: TFormMain
     Width = 520
     Anchors = [akRight, akBottom]
     TabOrder = 3
-    Text = 'test.ym'
+    Text = 'Project_46.ym'
   end
   object btConvert: TButton
     Left = 560
@@ -36,10 +37,11 @@ object FormMain: TFormMain
     Anchors = [akRight, akBottom]
     Caption = 'Convert'
     TabOrder = 7
+    OnClick = btConvertClick
   end
   object lbChannels: TCheckListBox
     Left = 8
-    Height = 368
+    Height = 304
     Top = 72
     Width = 624
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -63,17 +65,18 @@ object FormMain: TFormMain
     OnClick = btLoadClick
   end
   object seBPM: TSpinEdit
-    Left = 48
+    Left = 104
     Height = 24
     Top = 40
     Width = 64
+    Enabled = False
     TabOrder = 4
   end
   object seLength: TFloatSpinEdit
-    Left = 232
+    Left = 312
     Height = 24
     Top = 40
-    Width = 128
+    Width = 80
     TabOrder = 5
   end
   object btInputBrowse: TButton
@@ -94,7 +97,7 @@ object FormMain: TFormMain
     Caption = 'BPM:'
   end
   object llTime: TLabel
-    Left = 128
+    Left = 200
     Height = 16
     Top = 44
     Width = 94
@@ -107,5 +110,36 @@ object FormMain: TFormMain
     Width = 220
     Anchors = [akTop, akRight]
     Caption = '(double-click the list to change patch file)'
+  end
+  object llAuthor: TLabel
+    Left = 8
+    Height = 16
+    Top = 420
+    Width = 40
+    Caption = 'Author:'
+    ParentColor = False
+  end
+  object llSongName: TLabel
+    Left = 8
+    Height = 16
+    Top = 388
+    Width = 62
+    Caption = 'Song name:'
+  end
+  object edSongName: TEdit
+    Left = 104
+    Height = 24
+    Top = 384
+    Width = 528
+    TabOrder = 8
+    Text = 'Loading...'
+  end
+  object edAuthor: TEdit
+    Left = 104
+    Height = 24
+    Top = 416
+    Width = 528
+    TabOrder = 9
+    Text = 'GliGli'
   end
 end

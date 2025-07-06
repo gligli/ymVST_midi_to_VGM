@@ -5,8 +5,8 @@ unit MainForm;
 interface
 
 uses
- Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, CheckLst, Spin,
- MSC_Definitions, MSC_Container;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, CheckLst, Spin,
+  MSC_Definitions, MSC_Container, ymexport;
 
 type
 
@@ -27,14 +27,19 @@ type
    btConvert: TButton;
    btInputBrowse: TButton;
    btLoad: TButton;
+   edAuthor: TEdit;
+   edSongName: TEdit;
    lbChannels: TCheckListBox;
    edInputMid: TEdit;
    edOutputYM: TEdit;
+   llAuthor: TLabel;
    llBPM: TLabel;
    llHint: TLabel;
+   llSongName: TLabel;
    llTime: TLabel;
    seBPM: TSpinEdit;
    seLength: TFloatSpinEdit;
+   procedure btConvertClick(Sender: TObject);
    procedure btInputBrowseClick(Sender: TObject);
    procedure btLoadClick(Sender: TObject);
    procedure FormCreate(Sender: TObject);
@@ -121,7 +126,29 @@ var
 begin
   fn := edInputMid.Text;
   if PromptForFileName(fn, '*.mid') then
+  begin
     edInputMid.Text := fn;
+    edOutputYM.Text := ChangeFileExt(fn, '.ym');
+  end;
+end;
+
+procedure TFormMain.btConvertClick(Sender: TObject);
+var
+  YMData: TYMData;
+  yme: TYMExporter;
+begin
+  YMData.FrameRate := 200;
+  YMData.SongName := edSongName.Text;
+  YMData.Author := edAuthor.Text;
+
+  SetLength(YMData.Frames, 200);
+
+  yme := TYMExporter.Create(edOutputYM.Text);
+  try
+    yme.Export(YMData);
+  finally
+    yme.Free;
+  end;
 end;
 
 procedure TFormMain.FormDestroy(Sender: TObject);
@@ -153,7 +180,7 @@ begin
   begin
     t := TTrack(lbChannels.Items.Objects[i]);
 
-    lbChannels.Items[i] := Format('Track: %2d, Name: %8s, NoteCount: %5d, PatchFile: %s', [t.Index, t.Name, t.NoteCount, t.PatchFileName]);
+    lbChannels.Items[i] := Format('Track: %2d, Name: %16s, NoteCount: %5d, PatchFile: %s', [t.Index, t.Name, t.NoteCount, t.PatchFileName]);
     lbChannels.Checked[i] := t.Export;
   end;
 end;
