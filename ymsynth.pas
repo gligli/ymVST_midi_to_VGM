@@ -56,7 +56,7 @@ type
     function GetTicksPerVBL: Byte;
 
     function GetVolumeAt(AVelocity: Byte; ARelativeFrame: Integer): Byte;
-    function GetPitchAt(ANote: Integer; ARelativeFrame: Integer): Word;
+    function GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
   end;
 
   TYMPatchList = specialize TFPGObjectList<TYMPatch>;
@@ -105,7 +105,7 @@ type
     FPatches: TYMPatchList;
     FVirtualVoices: TYMVirtualVoiceList;
   public
-    class function GetNoteHertz(ANote: Integer): Double;
+    class function GetNoteHertz(ANote: Double): Double;
     class function GetYMNote(AHertz: Double): Word;
 
     constructor Create(ASongLength: Double);
@@ -119,6 +119,11 @@ type
   end;
 
 implementation
+
+function lerp(x, y, alpha: Double): Double; inline;
+begin
+  Result := x + (y - x) * alpha;
+end;
 
 function ilerp(x, y, alpha, maxAlpha: Integer): Integer; inline;
 begin
@@ -234,9 +239,10 @@ begin
   Result := CVelocityToVolume[(AVelocity * Result) div High(ShortInt)];
 end;
 
-function TYMPatch.GetPitchAt(ANote: Integer; ARelativeFrame: Integer): Word;
+function TYMPatch.GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
 var
-  note, rate, depth: Integer;
+  rate, depth: Integer;
+  note: Double;
 begin
   Result := 0;
   rate := Parameters[yvpPitchBendRate] * IfThen(Parameters[yvpPitchBendDir] = 0, 1, -1);
@@ -245,18 +251,23 @@ begin
   if rate = 0 then
     note := ANote
   else if rate > 0 then
-    note := ilerp(ANote, ANote + depth, Max(0, rate - ARelativeFrame), rate)
+    note := lerp(ANote, ANote + depth, Max(0, rate - ARelativeFrame) / rate)
   else if rate < 0 then
-    note := ilerp(ANote + depth, ANote, Max(0, (-rate) - ARelativeFrame), -rate);
+    note := lerp(ANote + depth, ANote, Max(0, (-rate) - ARelativeFrame) / -rate);
+
+  rate := Parameters[yvpTremFreq];
+  depth := Parameters[yvpTremDepth];
+
+  note += 0.25 * Sin(AFrame / IntPower(2.0, rate) * 2.0 * Pi);
 
   Result := TYMSynth.GetYMNote(TYMSynth.GetNoteHertz(note));
 end;
 
 { TYMSynth }
 
-class function TYMSynth.GetNoteHertz(ANote: Integer): Double;
+class function TYMSynth.GetNoteHertz(ANote: Double): Double;
 begin
-  Result := 440.0 * Power(2.0, (ANote - 69) / 12.0);
+  Result := 440.0 * Power(2.0, (ANote - 69.0) / 12.0);
 end;
 
 class function TYMSynth.GetYMNote(AHertz: Double): Word;
@@ -305,7 +316,7 @@ begin
     if AssignedCount < Length(Assigned) then
     begin
       Assigned[AssignedCount] := True;
-      Pitch[AssignedCount] := n.VirtualVoice.PatchRef.GetPitchAt(n.Note, RelativeFrame);
+      Pitch[AssignedCount] := n.VirtualVoice.PatchRef.GetPitchAt(n.Note, RelativeFrame, AFrameIdx);
       Level[AssignedCount] := n.VirtualVoice.PatchRef.GetVolumeAt(n.Velocity, RelativeFrame);
       Inc(AssignedCount);
     end;

@@ -10,7 +10,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="3"/>
         <CursorPos Y="17"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="37"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -22,7 +22,7 @@
         <UnitName Value="MainForm"/>
         <TopLine Value="194"/>
         <CursorPos Y="212"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="37"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -94,7 +94,7 @@
         <Filename Value="midi_sequencer\MSC_Container.pas"/>
         <EditorIndex Value="1"/>
         <CursorPos X="17" Y="146"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -123,7 +123,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="5"/>
         <CursorPos Y="11"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -147,9 +147,9 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="237"/>
-        <CursorPos Y="252"/>
-        <UsageCount Value="32"/>
+        <TopLine Value="241"/>
+        <CursorPos X="54" Y="276"/>
+        <UsageCount Value="33"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -162,42 +162,6 @@
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="ymsynth.pas"/>
-        <Caret Line="136" Column="30" TopLine="134"/>
-      </Position>
-      <Position>
-        <Filename Value="ymsynth.pas"/>
-        <Caret Line="58" Column="13" TopLine="43"/>
-      </Position>
-      <Position>
-        <Filename Value="ymsynth.pas"/>
-        <Caret Line="232" Column="11" TopLine="203"/>
-      </Position>
-      <Position>
-        <Filename Value="ymsynth.pas"/>
-        <Caret Line="291" Column="138" TopLine="246"/>
-      </Position>
-      <Position>
-        <Filename Value="ymsynth.pas"/>
-        <Caret Line="57" Column="43" TopLine="27"/>
-      </Position>
-      <Position>
-        <Filename Value="ymsynth.pas"/>
-        <Caret Line="233" Column="27" TopLine="230"/>
-      </Position>
-      <Position>
-        <Filename Value="ymsynth.pas"/>
-        <Caret Line="295" Column="53" TopLine="266"/>
-      </Position>
-      <Position>
-        <Filename Value="ymsynth.pas"/>
-        <Caret Line="73" Column="25" TopLine="44"/>
-      </Position>
-      <Position>
-        <Filename Value="ymsynth.pas"/>
-        <Caret Line="109" TopLine="77"/>
-      </Position>
       <Position>
         <Filename Value="ymsynth.pas"/>
         <Caret Line="256" Column="2" TopLine="242"/>
@@ -281,6 +245,42 @@
       <Position>
         <Filename Value="ymsynth.pas"/>
         <Caret Line="59" Column="12" TopLine="29"/>
+      </Position>
+      <Position>
+        <Filename Value="ymsynth.pas"/>
+        <Caret Line="255" Column="26" TopLine="207"/>
+      </Position>
+      <Position>
+        <Filename Value="ymVST_midi_to_YM.lpr"/>
+        <Caret Line="17"/>
+      </Position>
+      <Position>
+        <Filename Value="ymsynth.pas"/>
+        <Caret Line="256" Column="50" TopLine="279"/>
+      </Position>
+      <Position>
+        <Filename Value="ymsynth.pas"/>
+        <Caret Line="59" Column="63" TopLine="28"/>
+      </Position>
+      <Position>
+        <Filename Value="ymsynth.pas"/>
+        <Caret Line="255" Column="39" TopLine="225"/>
+      </Position>
+      <Position>
+        <Filename Value="ymsynth.pas"/>
+        <Caret Line="240" Column="16" TopLine="213"/>
+      </Position>
+      <Position>
+        <Filename Value="ymsynth.pas"/>
+        <Caret Line="266" Column="55" TopLine="213"/>
+      </Position>
+      <Position>
+        <Filename Value="ymsynth.pas"/>
+        <Caret Line="263" Column="58" TopLine="233"/>
+      </Position>
+      <Position>
+        <Filename Value="ymsynth.pas"/>
+        <Caret Line="108" Column="46" TopLine="78"/>
       </Position>
     </JumpHistory>
     <RunParams>
