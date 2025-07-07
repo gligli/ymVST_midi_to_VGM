@@ -25,7 +25,7 @@ unit MSC_In_File;
 
 interface
 
-uses Classes, SysUtils, StdCtrls, ComCtrls, AnsiStrings,
+uses Classes, SysUtils, StdCtrls, ComCtrls,
      utilities_math, MSC_Definitions, MSC_Container;
 
 type

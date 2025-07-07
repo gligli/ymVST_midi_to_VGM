@@ -463,7 +463,7 @@ begin
             (event_.Data_Byte_2 > 0) then
          begin
             n [c] := event_.Data_Byte_1;
-            d [c] := find_duration (event_, i + 1) div rescaler;
+            d [c] := find_duration (event_, i) div rescaler;
             s [c] := event_.Data_Byte_2;
             t [c] := Int32 (event_.Time) div rescaler;
             c := c + 1;
@@ -675,6 +675,16 @@ begin
    if is_note_on (ev) then
    begin
       i := pos;
+      while i >= 0 do //gligli: note off may be at same time but before in events order
+      begin
+         event_ := get_event (i);
+         if event_.Time <> ev.Time then
+         begin
+            i := i + 1;
+            Break;
+         end;
+         i := i - 1;
+      end;
       found := false;
       while (i < Count) and not found do
       begin

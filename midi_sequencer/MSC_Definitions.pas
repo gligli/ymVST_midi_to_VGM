@@ -25,7 +25,7 @@ unit MSC_Definitions;
 
 interface
 
-uses Classes, windows, SysUtils, Messages, MMSystem, AnsiStrings,
+uses Classes, windows, SysUtils, Messages, MMSystem,
      utilities_math, MSC_Circular_Buffer;
 
 const
