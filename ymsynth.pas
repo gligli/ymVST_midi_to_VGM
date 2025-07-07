@@ -222,7 +222,7 @@ begin
     c.Value := Value;
 
     // take extents into account
-    c.Value := c.Value * (CymVSTParameterValueCount[c.Parameter] - 1) div High(ShortInt);
+    c.Value := Round(c.Value * (CymVSTParameterValueCount[c.Parameter] - 1) / High(ShortInt));
 
     c.Time := Round(Time * GetTicksPerVBL * CVBLPerSecond);
 
@@ -311,24 +311,37 @@ end;
 
 function TYMVirtualVoice.GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
 var
-  rate, depth: Integer;
+  rate, depth, step: Integer;
   note: Double;
 begin
   Result := 0;
+
+  // pitch envelope
+
   rate := GetIntParameter(yvpPitchBendRate, AFrame) * IfThen(GetIntParameter(yvpPitchBendDir, AFrame) = 0, 1, -1);
   depth := GetIntParameter(yvpPitchBendDepth, AFrame) - 48;
 
-  if rate = 0 then
-    note := ANote
-  else if rate > 0 then
+  note := ANote;
+  if rate > 0 then
     note := lerp(ANote, ANote + depth, Max(0, rate - ARelativeFrame) / rate)
   else if rate < 0 then
     note := lerp(ANote + depth, ANote, Max(0, (-rate) - ARelativeFrame) / -rate);
+
+  // tremolo
 
   rate := GetIntParameter(yvpTremFreq, AFrame);
   depth := GetIntParameter(yvpTremDepth, AFrame);
 
   note += depth * 0.25 * Sin(AFrame / IntPower(2.0, rate) * 2.0 * Pi);
+
+  // arpeggiator
+
+  if GetIntParameter(yvpArpOnOff, AFrame) = 0 then
+  begin
+    rate := GetIntParameter(yvpArpSpeed, AFrame);
+    if (GetIntParameter(yvpArpLen, AFrame) = 0) or (ARelativeFrame shr rate < GetIntParameter(yvpArpLen, AFrame)) then
+      note += GetIntParameter(TymVSTParameter(Ord(yvpStep0) + ((ARelativeFrame shr rate) mod 3)), AFrame);
+  end;
 
   Result := TYMSynth.GetYMNote(TYMSynth.GetNoteHertz(note));
 end;

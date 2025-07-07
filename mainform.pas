@@ -49,7 +49,7 @@ type
  private
    FMIDIContainer: TMIDI_Container;
 
-   procedure NameTracks;
+   procedure UpdateGUI;
  public
 
  end;
@@ -66,6 +66,15 @@ implementation
 procedure TFormMain.FormCreate(Sender: TObject);
 begin
   FMIDIContainer := TMIDI_Container.Create;
+
+{$IFNDEF DEBUG}
+  edInputMid.Text := '';
+  edAuthor.Text := '';
+  edSongName.Text := '';
+  edOutputYM.Text := '';
+{$ENDIF}
+
+  UpdateGUI;
 end;
 
 procedure TFormMain.btLoadClick(Sender: TObject);
@@ -112,13 +121,18 @@ begin
       t.NoteCount := FMIDIContainer.Voice_Count[iTrack];
       t.Name := FMIDIContainer.Track_Name[iTrack];
       t.PatchFileName := ChangeFileExt(t.Name,'.fxp');
+
+{$IFDEF DEBUG}
       t.Export := False;
+{$ELSE}
+      t.Export := True;
+{$ENDIF}
 
       lbTracks.AddItem('dummy', t);
     end;
   end;
 
-  NameTracks;
+  UpdateGUI;
 end;
 
 procedure TFormMain.btInputBrowseClick(Sender: TObject);
@@ -126,10 +140,11 @@ var
   fn: String;
 begin
   fn := edInputMid.Text;
-  if PromptForFileName(fn, '*.mid') then
+  if PromptForFileName(fn, 'MIDI|*.mid;*.midi') then
   begin
     edInputMid.Text := fn;
     edOutputYM.Text := ChangeFileExt(fn, '.ym');
+    UpdateGUI;
   end;
 end;
 
@@ -151,7 +166,7 @@ begin
     begin
       trk := TTrack(lbTracks.Items.Objects[iTrack]);
 
-      if trk.Export then
+      if trk.Export and FileExists(trk.PatchFileName) then
       begin
         p := TYMPatch.Create;
         yms.Patches.Add(p);
@@ -169,6 +184,8 @@ begin
           t[iNote] := FMIDIContainer.time_to_seconds(Round(t[iNote]));
         end;
 
+        vv.LoadFromMSCVectors(n, d, s, t);
+
         for iEvent := 0 to FMIDIContainer.Count - 1 do
         begin
           e := FMIDIContainer.Event[iEvent];
@@ -176,8 +193,6 @@ begin
           if (e.Channel = trk.Index) and (e.Event_Type = mc_MIDI_Control_Change) then
             vv.AddController(e.Data_Byte_1, e.Data_Byte_2, FMIDIContainer.time_to_seconds(e.Time));
         end;
-
-        vv.LoadFromMSCVectors(n, d, s, t);
       end;
     end;
 
@@ -218,7 +233,7 @@ begin
   begin
     t := TTrack(lbTracks.Items.Objects[iTrack]);
     t.Export := not t.Export;
-    NameTracks;
+    UpdateGUI;
   end;
 end;
 
@@ -232,12 +247,12 @@ begin
   if iTrack >= 0 then
   begin
     t := TTrack(lbTracks.Items.Objects[iTrack]);
-    if PromptForFileName(t.PatchFileName) then
-      NameTracks;
+    if PromptForFileName(t.PatchFileName,'Cubase FXP|*.fxp') then
+      UpdateGUI;
   end;
 end;
 
-procedure TFormMain.NameTracks;
+procedure TFormMain.UpdateGUI;
 var
   iTrack: Integer;
   t: TTrack;
@@ -249,11 +264,13 @@ begin
     t := TTrack(lbTracks.Items.Objects[iTrack]);
 
     lbTracks.Items[iTrack] := Format('Track: %2d, Name: %16s, NoteCount: %5d, PatchFile: %s', [t.Index, t.Name, t.NoteCount, t.PatchFileName]);
-    lbTracks.Checked[iTrack] := t.Export;
+    lbTracks.ItemEnabled[iTrack] := FileExists(t.PatchFileName);
+    lbTracks.Checked[iTrack] := t.Export and lbTracks.ItemEnabled[iTrack];
 
-    ok := ok or t.Export;
+    ok := ok or lbTracks.Checked[iTrack];
   end;
 
+  btLoad.Enabled := FileExists(edInputMid.Text);
   btConvert.Enabled := ok;
 end;
 

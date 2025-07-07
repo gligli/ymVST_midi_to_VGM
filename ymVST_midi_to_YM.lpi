@@ -28,6 +28,11 @@
             <OtherUnitFiles Value="midi_sequencer"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <IncludeAssertionCode Value="True"/>
+            </SyntaxOptions>
+          </Parsing>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
             <Optimizations>
@@ -41,6 +46,11 @@
               <StripSymbols Value="True"/>
             </Debugging>
             <LinkSmart Value="True"/>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
           </Linking>
         </CompilerOptions>
       </Item>
@@ -115,6 +125,9 @@
         <TrashVariables Value="True"/>
       </Debugging>
     </Linking>
+    <Other>
+      <CustomOptions Value="-dDEBUG"/>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions>

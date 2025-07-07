@@ -25,7 +25,7 @@ object FormMain: TFormMain
     Height = 24
     Top = 448
     Width = 520
-    Anchors = [akRight, akBottom]
+    Anchors = [akLeft, akRight, akBottom]
     TabOrder = 8
     Text = 'Project_47.ym'
   end
@@ -119,6 +119,7 @@ object FormMain: TFormMain
     Height = 16
     Top = 420
     Width = 40
+    Anchors = [akLeft, akBottom]
     Caption = 'Author:'
     ParentColor = False
   end
@@ -127,6 +128,7 @@ object FormMain: TFormMain
     Height = 16
     Top = 388
     Width = 62
+    Anchors = [akLeft, akBottom]
     Caption = 'Song name:'
   end
   object edSongName: TEdit
@@ -134,6 +136,7 @@ object FormMain: TFormMain
     Height = 24
     Top = 384
     Width = 528
+    Anchors = [akLeft, akRight, akBottom]
     TabOrder = 6
     Text = 'Loading...'
   end
@@ -142,6 +145,7 @@ object FormMain: TFormMain
     Height = 24
     Top = 416
     Width = 528
+    Anchors = [akLeft, akRight, akBottom]
     TabOrder = 7
     Text = 'GliGli'
   end
