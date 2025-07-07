@@ -569,6 +569,7 @@ begin
    Track_Count [event.Channel] := Track_Count [event.Channel] + 1;
    if is_note_on (event)
       then Voice_Count [event.Channel] := Voice_Count [event.Channel] + 1;
+{$if 0}
    if Count = 0 then
    begin
       Event_List.InsertObject (0, '', event);
@@ -644,6 +645,11 @@ begin
       Last_Index := index;
       last_time  := event.Time;
    end; // if
+{$else}
+   index := Event_List.AddObject ('', event);
+   Last_Index := index;
+   last_time  := event.Time;
+{$endif}
    Result := index;
 end; // store_event //
 
@@ -675,23 +681,13 @@ begin
    if is_note_on (ev) then
    begin
       i := pos;
-      while i >= 0 do //gligli: note off may be at same time but before in events order
-      begin
-         event_ := get_event (i);
-         if event_.Time <> ev.Time then
-         begin
-            i := i + 1;
-            Break;
-         end;
-         i := i - 1;
-      end;
       found := false;
       while (i < Count) and not found do
       begin
          event_ := get_event (i);
          if (event_ <> nil) and is_note_off (event_) and
             (event_.Data_Byte_1 = ev.Data_Byte_1) and
-            (event_.Channel = ev.Channel) and
+            (event_.Channel = ev.Channel) and // gligli: bugfix
             (event_.Port = ev.Port) then
          begin
             found := true;
