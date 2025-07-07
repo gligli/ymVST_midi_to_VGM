@@ -691,6 +691,7 @@ begin
          event_ := get_event (i);
          if (event_ <> nil) and is_note_off (event_) and
             (event_.Data_Byte_1 = ev.Data_Byte_1) and
+            (event_.Channel = ev.Channel) and
             (event_.Port = ev.Port) then
          begin
             found := true;
