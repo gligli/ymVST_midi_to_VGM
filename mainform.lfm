@@ -18,7 +18,7 @@ object FormMain: TFormMain
     Width = 520
     Anchors = [akTop, akLeft, akRight]
     TabOrder = 0
-    Text = 'Project_46.mid'
+    Text = 'Project_47.mid'
   end
   object edOutputYM: TEdit
     Left = 8
@@ -27,7 +27,7 @@ object FormMain: TFormMain
     Width = 520
     Anchors = [akRight, akBottom]
     TabOrder = 8
-    Text = 'Project_46.ym'
+    Text = 'Project_47.ym'
   end
   object btConvert: TButton
     Left = 560

@@ -135,13 +135,14 @@ end;
 
 procedure TFormMain.btConvertClick(Sender: TObject);
 var
-  iTrack, iNote: Integer;
+  iTrack, iNote, iEvent: Integer;
   YMData: TYMData;
   trk: TTrack;
   p: TYMPatch;
   vv: TYMVirtualVoice;
   yms: TYMSynth;
   yme: TYMExporter;
+  e: TMIDI_Event;
   n, d, s, t: TReal_Array;
 begin
   yms := TYMSynth.Create(seLength.Value);
@@ -166,6 +167,14 @@ begin
         begin
           d[iNote] := FMIDIContainer.time_to_seconds(Round(d[iNote]));
           t[iNote] := FMIDIContainer.time_to_seconds(Round(t[iNote]));
+        end;
+
+        for iEvent := 0 to FMIDIContainer.Count - 1 do
+        begin
+          e := FMIDIContainer.Event[iEvent];
+
+          if (e.Channel = trk.Index) and (e.Event_Type = mc_MIDI_Control_Change) then
+            vv.AddController(e.Data_Byte_1, e.Data_Byte_2, FMIDIContainer.time_to_seconds(e.Time));
         end;
 
         vv.LoadFromMSCVectors(n, d, s, t);

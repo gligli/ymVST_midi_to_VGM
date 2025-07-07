@@ -7,6 +7,25 @@ interface
 uses
   windows, Classes, SysUtils, StrUtils, Math, Types, fgl, ymexport;
 
+type
+  TymVSTParameter = (
+    yvpNone = -1,
+    yvpInternalpatchName = 0,
+    yvpArpLen, yvpArpOnOff, yvpArpSpeed, yvpArpSync,
+    yvpE0, yvpE1, yvpE2, yvpE3, yvpE4, yvpE5, yvpE6, yvpE7, yvpE8, yvpE9,
+    yvpEnvSpeed, yvpHardDetune, yvpHardLength, yvpHardOnOff, yvpHardSync, yvpHardwareMainTune, yvpHardwareForm,
+    yvpMasterVol,
+    yvpNoiseBendDepth, yvpNoiseBendRate, yvpNoiseFreq, yvpNoiseLength, yvpNoiseOnOff,
+    yvpPitchBendDepth, yvpPitchBendDir, yvpPitchBendRate,
+    yvpPortamento,
+    yvpSIDDetune, yvpSIDOnOff,
+    yvpScope,
+    yvpSquareLength, yvpSquareOnOff, yvpSquareSync,
+    yvpStep0, yvpStep1, yvpStep2,
+    yvpTimer,
+    yvpTremDepth, yvpTremFreq
+  );
+
 const
   CYMBaseFreq = 125000;
   CVBLPerSecond = 50;
@@ -24,39 +43,66 @@ const
   );
 
 
-type
-  TymVSTParameter = (
-    yvpInternalpatchName,
-    yvpArpLen, yvpArpOnOff, yvpArpSpeed, yvpArpSync,
-    yvpE0, yvpE1, yvpE2, yvpE3, yvpE4, yvpE5, yvpE6, yvpE7, yvpE8, yvpE9,
-    yvpEnvSpeed, yvpHardDetune, yvpHardLength, yvpHardOnOff, yvpHardSync, yvpHardwareMainTune, yvpHardwareForm,
-    yvpMasterVol,
-    yvpNoiseBendDepth, yvpNoiseBendRate, yvpNoiseFreq, yvpNoiseLength, yvpNoiseOnOff,
-    yvpPitchBendDepth, yvpPitchBendDir, yvpPitchBendRate,
-    yvpPortamento,
-    yvpSIDDetune, yvpSIDOnOff,
-    yvpScope,
-    yvpSquareLength, yvpSquareOnOff, yvpSquareSync,
-    yvpStep0, yvpStep1, yvpStep2,
-    yvpTimer,
-    yvpTremDepth, yvpTremFreq
+  CymVSTCCToParameter: array[0 .. High(ShortInt)] of TymVSTParameter = (
+    yvpNone, yvpTremDepth, yvpNone, yvpHardwareMainTune, yvpNone, yvpPortamento, yvpNone, yvpNone, // 0
+    yvpNone, yvpNoiseFreq, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, // 8
+    yvpNoiseLength, yvpSquareLength, yvpHardLength, yvpArpLen, yvpE0, yvpE1, yvpE2, yvpE3, // 16
+    yvpE4, yvpE5, yvpE6, yvpE7, yvpE8, yvpE9, yvpNoiseBendDepth, yvpNoiseBendRate, // 24
+    yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, // 32
+    yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, // 40
+    yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, // 48
+    yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, // 56
+    yvpEnvSpeed, yvpNone, yvpNone, yvpNone, yvpPitchBendDir, yvpNone, yvpHardwareForm, yvpPitchBendRate, // 64
+    yvpPitchBendDepth, yvpNone, yvpNone, yvpSquareSync, yvpHardSync, yvpArpSync, yvpSIDOnOff, yvpTimer, // 72
+    yvpNoiseOnOff, yvpSquareOnOff, yvpHardOnOff, yvpArpOnOff, yvpNone, yvpNone, yvpNone, yvpArpSpeed, // 80
+    yvpStep0, yvpStep1, yvpStep2, yvpNone, yvpTremFreq, yvpNone, yvpHardDetune, yvpSIDDetune, // 88
+    yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, // 96
+    yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, // 104
+    yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, // 112
+    yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone, yvpNone  // 120
   );
+
+  CymVSTParameterValueCount: array[TymVSTParameter] of Integer = (
+    1,
+    1,
+    11,2,9,2,
+    16,16,16,16,16,16,16,16,16,16,
+    9,16,11,2,2,73,4,
+    1,
+    63,16,32,11,2,
+    97,2,16,
+    16,
+    16,2,
+    1,
+    11,2,2,
+    37,37,37,
+    3,
+    16,9
+  );
+
+
+type
 
   TYMSynth = class;
   TYMVirtualVoice = class;
 
+  { TYMController }
+
+  TYMController = class
+    Parameter: TymVSTParameter;
+    Value: Byte;
+    Time: Cardinal;
+  end;
+
+  TYMControllerList = specialize TFPGObjectList<TYMController>;
+
   { TYMPatch }
 
   TYMPatch = class
-    Parameters: array[TymVSTParameter] of Integer;
-    ParametersFloat: array[TymVSTParameter] of Double;
-
+  private
+    FParameters: array[TymVSTParameter] of Double;
+  public
     procedure LoadFromCubaseFXP(AFileName: String);
-
-    function GetTicksPerVBL: Byte;
-
-    function GetVolumeAt(AVelocity: Byte; ARelativeFrame: Integer): Byte;
-    function GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
   end;
 
   TYMPatchList = specialize TFPGObjectList<TYMPatch>;
@@ -81,17 +127,27 @@ type
     FSynth: TYMSynth;
     FPatchRef: TYMPatch;
     FNotes: TYMNoteList;
+    FControllers: TYMControllerList;
     FTicksDiv: Integer;
   public
     constructor Create(ASynth: TYMSynth; APatchRef: TYMPatch);
     destructor Destroy; override;
 
+    procedure AddController(CC, Value: Byte; Time: Double);
     procedure LoadFromMSCVectors(const n, d, s, t: TDoubleDynArray);
     function GetNoteAtTime(ATime: Cardinal): TYMNote;
+
+    function GetIntParameter(AYVP: TymVSTParameter; AFrame: Integer): Integer;
+    function GetFloatParameter(AYVP: TymVSTParameter; AFrame: Integer): Double;
+
+    function GetTicksPerVBL: Byte;
+    function GetVolumeAt(AVelocity: Byte; ARelativeFrame, AFrame: Integer): Byte;
+    function GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
 
     property Synth: TYMSynth read FSynth;
     property PatchRef: TYMPatch read FPatchRef;
     property Notes: TYMNoteList read FNotes;
+    property Controllers: TYMControllerList read FControllers;
     property TicksDiv: Integer read FTicksDiv write FTicksDiv;
   end;
 
@@ -144,12 +200,39 @@ begin
   FSynth := ASynth;
   FPatchRef := APatchRef;
   FNotes := TYMNoteList.Create;
+  FControllers := TYMControllerList.Create;
 end;
 
 destructor TYMVirtualVoice.Destroy;
 begin
+  FControllers.Free;
   FNotes.Free;
   inherited Destroy;
+end;
+
+procedure TYMVirtualVoice.AddController(CC, Value: Byte; Time: Double);
+var
+  c: TYMController;
+begin
+  if CymVSTCCToParameter[CC] <> yvpNone then
+  begin
+    c := TYMController.Create;
+
+    c.Parameter := CymVSTCCToParameter[CC];
+    c.Value := Value;
+
+    // take extents into account
+    c.Value := c.Value * (CymVSTParameterValueCount[c.Parameter] - 1) div High(ShortInt);
+
+    c.Time := Round(Time * GetTicksPerVBL * CVBLPerSecond);
+
+    if (Controllers.Count = 0) or (Controllers.Last.Parameter <> c.Parameter) or
+        (Controllers.Last.Time <> c.Time) or
+        (Controllers.Last.Value <> c.Value) then
+      Controllers.Add(c)
+    else
+      c.Free;
+  end;
 end;
 
 procedure TYMVirtualVoice.LoadFromMSCVectors(const n, d, s, t: TDoubleDynArray);
@@ -163,8 +246,8 @@ begin
 
     note.Note := Round(n[iNote]);
     note.Velocity := Round(s[iNote]);
-    note.StartTime := Round(t[iNote] * PatchRef.GetTicksPerVBL * CVBLPerSecond);
-    note.EndTime := Round((t[iNote] + d[iNote]) * PatchRef.GetTicksPerVBL * CVBLPerSecond);
+    note.StartTime := Round(t[iNote] * GetTicksPerVBL * CVBLPerSecond);
+    note.EndTime := Round((t[iNote] + d[iNote]) * GetTicksPerVBL * CVBLPerSecond);
 
     Notes.Add(note);
   end;
@@ -185,6 +268,69 @@ begin
       Break;
     end;
   end;
+end;
+
+function TYMVirtualVoice.GetIntParameter(AYVP: TymVSTParameter; AFrame: Integer): Integer;
+begin
+  Result := Round(GetFloatParameter(AYVP, AFrame));
+end;
+
+function TYMVirtualVoice.GetFloatParameter(AYVP: TymVSTParameter; AFrame: Integer): Double;
+var
+  iCtrlr: Integer;
+  c: TYMController;
+begin
+  Result := PatchRef.FParameters[AYVP];
+
+  if AFrame >= 0 then
+    for iCtrlr := 0 to FControllers.Count - 1 do
+    begin
+      c := FControllers[iCtrlr];
+      if (c.Parameter = AYVP) and (c.Time <= AFrame) then
+      begin
+        Result := c.Value;
+      end;
+    end;
+end;
+
+function TYMVirtualVoice.GetTicksPerVBL: Byte;
+begin
+  Result := 1 shl (2 - GetIntParameter(yvpTimer, -1)); //TODO: automating this sounds crazy...
+end;
+
+function TYMVirtualVoice.GetVolumeAt(AVelocity: Byte; ARelativeFrame, AFrame: Integer): Byte;
+begin
+  Assert(InRange(AVelocity, 0, High(ShortInt)));
+
+  Result := Round(GetFloatParameter(TymVSTParameter(Ord(yvpE0) + Min(9, ARelativeFrame shr GetIntParameter(yvpEnvSpeed, AFrame))), AFrame) * High(ShortInt) / 15);
+
+  Assert(InRange(Result, 0, High(ShortInt)));
+
+  Result := CVelocityToVolume[(AVelocity * Result) div High(ShortInt)];
+end;
+
+function TYMVirtualVoice.GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
+var
+  rate, depth: Integer;
+  note: Double;
+begin
+  Result := 0;
+  rate := GetIntParameter(yvpPitchBendRate, AFrame) * IfThen(GetIntParameter(yvpPitchBendDir, AFrame) = 0, 1, -1);
+  depth := GetIntParameter(yvpPitchBendDepth, AFrame) - 48;
+
+  if rate = 0 then
+    note := ANote
+  else if rate > 0 then
+    note := lerp(ANote, ANote + depth, Max(0, rate - ARelativeFrame) / rate)
+  else if rate < 0 then
+    note := lerp(ANote + depth, ANote, Max(0, (-rate) - ARelativeFrame) / -rate);
+
+  rate := GetIntParameter(yvpTremFreq, AFrame);
+  depth := GetIntParameter(yvpTremDepth, AFrame);
+
+  note += depth * 0.25 * Sin(AFrame / IntPower(2.0, rate) * 2.0 * Pi);
+
+  Result := TYMSynth.GetYMNote(TYMSynth.GetNoteHertz(note));
 end;
 
 { TYMPatch }
@@ -209,58 +355,17 @@ begin
 
     fs.Seek($f4, soFromBeginning);
 
-    for yvp := Low(TymVSTParameter) to High(TymVSTParameter) do
+    for yvp := Succ(Low(TymVSTParameter)) to High(TymVSTParameter) do
     begin
       v := fs.ReadByte;
       SetLength(s, v);
       fs.Read(s[1], v);
-      ParametersFloat[yvp] := StrToFloatDef(s, 0, InvariantFormatSettings);
-      Parameters[yvp] := Round(ParametersFloat[yvp]);
+      FParameters[yvp] := StrToFloatDef(s, 0, InvariantFormatSettings);
     end;
 
   finally
     fs.Free;
   end;
-end;
-
-function TYMPatch.GetTicksPerVBL: Byte;
-begin
-  Result := 1 shl (2 - Parameters[yvpTimer]);
-end;
-
-function TYMPatch.GetVolumeAt(AVelocity: Byte; ARelativeFrame: Integer): Byte;
-begin
-  Assert(InRange(AVelocity, 0, High(ShortInt)));
-
-  Result := Round(ParametersFloat[TymVSTParameter(Ord(yvpE0) + Min(9, ARelativeFrame shr Parameters[yvpEnvSpeed]))] * High(ShortInt) / 15);
-
-  Assert(InRange(Result, 0, High(ShortInt)));
-
-  Result := CVelocityToVolume[(AVelocity * Result) div High(ShortInt)];
-end;
-
-function TYMPatch.GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
-var
-  rate, depth: Integer;
-  note: Double;
-begin
-  Result := 0;
-  rate := Parameters[yvpPitchBendRate] * IfThen(Parameters[yvpPitchBendDir] = 0, 1, -1);
-  depth := Parameters[yvpPitchBendDepth] - 48;
-
-  if rate = 0 then
-    note := ANote
-  else if rate > 0 then
-    note := lerp(ANote, ANote + depth, Max(0, rate - ARelativeFrame) / rate)
-  else if rate < 0 then
-    note := lerp(ANote + depth, ANote, Max(0, (-rate) - ARelativeFrame) / -rate);
-
-  rate := Parameters[yvpTremFreq];
-  depth := Parameters[yvpTremDepth];
-
-  note += 0.25 * Sin(AFrame / IntPower(2.0, rate) * 2.0 * Pi);
-
-  Result := TYMSynth.GetYMNote(TYMSynth.GetNoteHertz(note));
 end;
 
 { TYMSynth }
@@ -291,7 +396,7 @@ end;
 
 function TYMSynth.NotesToRegSet(ANotes: array of TYMNote; ANoteCnt, AFrameIdx: Integer): TYMRegSet;
 var
-  iNote, iVoice, RelativeFrame: Integer;
+  iNote, iVoice, Frame, RelativeFrame: Integer;
   n: TYMNote;
   Assigned: array[0 .. 2] of Boolean;
   Pitch: array[0 .. 2] of Word;
@@ -311,13 +416,14 @@ begin
   begin
     n := ANotes[iNote];
 
-    RelativeFrame := AFrameIdx div n.VirtualVoice.TicksDiv - n.StartTime;
+    Frame := AFrameIdx div n.VirtualVoice.TicksDiv;
+    RelativeFrame := Frame - n.StartTime;
 
     if AssignedCount < Length(Assigned) then
     begin
       Assigned[AssignedCount] := True;
-      Pitch[AssignedCount] := n.VirtualVoice.PatchRef.GetPitchAt(n.Note, RelativeFrame, AFrameIdx);
-      Level[AssignedCount] := n.VirtualVoice.PatchRef.GetVolumeAt(n.Velocity, RelativeFrame);
+      Pitch[AssignedCount] := n.VirtualVoice.GetPitchAt(n.Note, RelativeFrame, Frame);
+      Level[AssignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, RelativeFrame, Frame);
       Inc(AssignedCount);
     end;
   end;
@@ -346,7 +452,7 @@ begin
 
   TicksPerVBL := 1;
   for iVV := 0 to VirtualVoices.Count - 1 do
-    TicksPerVBL := Max(TicksPerVBL, VirtualVoices[ivv].PatchRef.GetTicksPerVBL);
+    TicksPerVBL := Max(TicksPerVBL, VirtualVoices[ivv].GetTicksPerVBL);
 
   // devise VoiceTicksDiv
 
@@ -354,7 +460,7 @@ begin
   begin
     vv := VirtualVoices[iVV];
 
-    vv.TicksDiv := TicksPerVBL div vv.PatchRef.GetTicksPerVBL;
+    vv.TicksDiv := TicksPerVBL div vv.GetTicksPerVBL;
   end;
 
   // properties
