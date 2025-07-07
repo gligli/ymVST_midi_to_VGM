@@ -27,6 +27,7 @@ type
    btConvert: TButton;
    btInputBrowse: TButton;
    btLoad: TButton;
+   chkAutomations: TCheckBox;
    edAuthor: TEdit;
    edSongName: TEdit;
    lbTracks: TCheckListBox;
@@ -162,6 +163,8 @@ var
 begin
   yms := TYMSynth.Create(seLength.Value);
   try
+    yms.EnableAutomations := chkAutomations.Checked;
+
     for iTrack := 0 to lbTracks.Count - 1 do
     begin
       trk := TTrack(lbTracks.Items.Objects[iTrack]);

@@ -157,6 +157,7 @@ type
 
   TYMSynth = class
   private
+    FEnableAutomations: Boolean;
     FSongLength: Double;
     FPatches: TYMPatchList;
     FVirtualVoices: TYMVirtualVoiceList;
@@ -170,6 +171,7 @@ type
     function NotesToRegSet(ANotes: array of TYMNote; ANoteCnt, AFrameIdx: Integer): TYMRegSet;
     function Render: TYMData;
 
+    property EnableAutomations: Boolean read FEnableAutomations write FEnableAutomations;
     property Patches: TYMPatchList read FPatches;
     property VirtualVoices: TYMVirtualVoiceList read FVirtualVoices;
   end;
@@ -282,7 +284,7 @@ var
 begin
   Result := PatchRef.FParameters[AYVP];
 
-  if AFrame >= 0 then
+  if Synth.EnableAutomations and (AFrame >= 0) then
     for iCtrlr := 0 to FControllers.Count - 1 do
     begin
       c := FControllers[iCtrlr];
@@ -311,7 +313,7 @@ end;
 
 function TYMVirtualVoice.GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
 var
-  rate, depth, step: Integer;
+  rate, depth, frm: Integer;
   note: Double;
 begin
   Result := 0;
@@ -340,7 +342,10 @@ begin
   begin
     rate := GetIntParameter(yvpArpSpeed, AFrame);
     if (GetIntParameter(yvpArpLen, AFrame) = 0) or (ARelativeFrame shr rate < GetIntParameter(yvpArpLen, AFrame)) then
-      note += GetIntParameter(TymVSTParameter(Ord(yvpStep0) + ((ARelativeFrame shr rate) mod 3)), AFrame);
+    begin
+      frm := IfThen(GetIntParameter(yvpArpSync, AFrame) = 0, ARelativeFrame, AFrame);
+      note += GetIntParameter(TymVSTParameter(Ord(yvpStep0) + ((frm shr rate) mod 3)), AFrame);
+    end;
   end;
 
   Result := TYMSynth.GetYMNote(TYMSynth.GetNoteHertz(note));
@@ -395,6 +400,7 @@ end;
 
 constructor TYMSynth.Create(ASongLength: Double);
 begin
+  FEnableAutomations := True;
   FSongLength := ASongLength;
   FPatches := TYMPatchList.Create;
   FVirtualVoices := TYMVirtualVoiceList.Create;

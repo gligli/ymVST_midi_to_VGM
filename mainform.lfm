@@ -26,7 +26,7 @@ object FormMain: TFormMain
     Top = 448
     Width = 520
     Anchors = [akLeft, akRight, akBottom]
-    TabOrder = 8
+    TabOrder = 9
     Text = 'Project_47.ym'
   end
   object btConvert: TButton
@@ -36,13 +36,13 @@ object FormMain: TFormMain
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Convert'
-    TabOrder = 9
+    TabOrder = 10
     OnClick = btConvertClick
   end
   object lbTracks: TCheckListBox
     Left = 8
-    Height = 304
-    Top = 72
+    Height = 280
+    Top = 96
     Width = 624
     Anchors = [akTop, akLeft, akRight, akBottom]
     Font.CharSet = ANSI_CHARSET
@@ -51,7 +51,7 @@ object FormMain: TFormMain
     Font.Quality = fqDraft
     ItemHeight = 0
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 6
     OnClickCheck = lbTracksClickCheck
     OnDblClick = lbTracksDblClick
   end
@@ -137,7 +137,7 @@ object FormMain: TFormMain
     Top = 384
     Width = 528
     Anchors = [akLeft, akRight, akBottom]
-    TabOrder = 6
+    TabOrder = 7
     Text = 'Loading...'
   end
   object edAuthor: TEdit
@@ -146,7 +146,17 @@ object FormMain: TFormMain
     Top = 416
     Width = 528
     Anchors = [akLeft, akRight, akBottom]
-    TabOrder = 7
+    TabOrder = 8
     Text = 'GliGli'
+  end
+  object chkAutomations: TCheckBox
+    Left = 8
+    Height = 20
+    Top = 72
+    Width = 345
+    Caption = 'Enable parameters automations through MIDI control changes'
+    Checked = True
+    State = cbChecked
+    TabOrder = 5
   end
 end
