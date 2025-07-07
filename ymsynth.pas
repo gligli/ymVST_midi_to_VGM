@@ -135,7 +135,7 @@ type
 
     procedure AddController(CC, Value: Byte; Time: Double);
     procedure LoadFromMSCVectors(const n, d, s, t: TDoubleDynArray);
-    function GetNoteAtTime(ATime: Cardinal): TYMNote;
+    function GetNoteAtTime(AFrame: Integer): TYMNote;
 
     function GetIntParameter(AYVP: TymVSTParameter; AFrame: Integer): Integer;
     function GetFloatParameter(AYVP: TymVSTParameter; AFrame: Integer): Double;
@@ -168,7 +168,7 @@ type
     constructor Create(ASongLength: Double);
     destructor Destroy; override;
 
-    function NotesToRegSet(ANotes: array of TYMNote; ANoteCnt, AFrameIdx: Integer): TYMRegSet;
+    function NotesToRegSet(ANotes: array of TYMNote; ANoteCnt, AFrame: Integer): TYMRegSet;
     function Render: TYMData;
 
     property EnableAutomations: Boolean read FEnableAutomations write FEnableAutomations;
@@ -255,16 +255,18 @@ begin
   end;
 end;
 
-function TYMVirtualVoice.GetNoteAtTime(ATime: Cardinal): TYMNote;
+function TYMVirtualVoice.GetNoteAtTime(AFrame: Integer): TYMNote;
 var
   iNote: Integer;
   note: TYMNote;
 begin
+  AFrame := AFrame div TicksDiv;
+
   Result := nil;
   for iNote := 0 to Notes.Count - 1 do
   begin
     note := Notes[iNote];
-    if (note.StartTime <= ATime) and (note.EndTime > ATime) then
+    if (note.StartTime <= AFrame) and (note.EndTime > AFrame) then
     begin
       Result := note;
       Break;
@@ -413,7 +415,7 @@ begin
   inherited Destroy;
 end;
 
-function TYMSynth.NotesToRegSet(ANotes: array of TYMNote; ANoteCnt, AFrameIdx: Integer): TYMRegSet;
+function TYMSynth.NotesToRegSet(ANotes: array of TYMNote; ANoteCnt, AFrame: Integer): TYMRegSet;
 var
   iNote, iVoice, Frame, RelativeFrame: Integer;
   n: TYMNote;
@@ -435,7 +437,7 @@ begin
   begin
     n := ANotes[iNote];
 
-    Frame := AFrameIdx div n.VirtualVoice.TicksDiv;
+    Frame := AFrame div n.VirtualVoice.TicksDiv;
     RelativeFrame := Frame - n.StartTime;
 
     if AssignedCount < Length(Assigned) then
@@ -478,7 +480,6 @@ begin
   for iVV := 0 to VirtualVoices.Count - 1 do
   begin
     vv := VirtualVoices[iVV];
-
     vv.TicksDiv := TicksPerVBL div vv.GetTicksPerVBL;
   end;
 
@@ -501,7 +502,7 @@ begin
     begin
       vv := VirtualVoices[iVV];
 
-      Notes[noteCnt] := vv.GetNoteAtTime(iFrame div vv.TicksDiv);
+      Notes[noteCnt] := vv.GetNoteAtTime(iFrame);
       if Assigned(Notes[noteCnt]) then
         Inc(noteCnt);
     end;
