@@ -133,6 +133,8 @@ type
     FNotes: TYMNoteList;
     FControllers: TYMControllerList;
     FTicksDiv: Integer;
+    FPrevSquareNote: Byte;
+    FPortamentoNote: Byte;
   public
     constructor Create(ASynth: TYMSynth; APatchRef: TYMPatch);
     destructor Destroy; override;
@@ -140,12 +142,13 @@ type
     procedure AddController(CC, Value: Byte; Time: Double);
     procedure LoadFromMSCVectors(const n, d, s, t: TDoubleDynArray);
     function GetNoteAtTime(AFrame: Integer): TYMNote;
+    function GetNoteCountAtTime(AFrame: Integer): Integer;
 
     function GetIntParameter(AYVP: TymVSTParameter; AFrame: Integer): Integer;
     function GetFloatParameter(AYVP: TymVSTParameter; AFrame: Integer): Double;
 
     function GetTicksPerVBL: Byte;
-    function GetVolumeAt(AVelocity: Byte; ARelativeFrame, AFrame: Integer): Byte;
+    function GetVolumeAt(AVelocity: Byte; ARelativeFrame, AFrame: Integer; AIsNoise: Boolean): Byte;
     function GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
     function GetNoiseFreqAt(ARelativeFrame, AFrame: Integer): Byte;
     function GetBuzzAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Integer;
@@ -275,10 +278,23 @@ begin
   begin
     note := Notes[iNote];
     if (note.StartTime <= AFrame) and (note.EndTime > AFrame) then
-    begin
       Result := note;
-      Break;
-    end;
+  end;
+end;
+
+function TYMVirtualVoice.GetNoteCountAtTime(AFrame: Integer): Integer;
+var
+  iNote: Integer;
+  note: TYMNote;
+begin
+  AFrame := AFrame div TicksDiv;
+
+  Result := 0;
+  for iNote := 0 to Notes.Count - 1 do
+  begin
+    note := Notes[iNote];
+    if (note.StartTime <= AFrame) and (note.EndTime >= AFrame) then
+      Inc(Result);
   end;
 end;
 
@@ -310,7 +326,7 @@ begin
   Result := 1 shl (2 - GetIntParameter(yvpTimer, -1)); //TODO: automating this sounds crazy...
 end;
 
-function TYMVirtualVoice.GetVolumeAt(AVelocity: Byte; ARelativeFrame, AFrame: Integer): Byte;
+function TYMVirtualVoice.GetVolumeAt(AVelocity: Byte; ARelativeFrame, AFrame: Integer; AIsNoise: Boolean): Byte;
 var
   yvpLen: TymVSTParameter;
 begin
@@ -324,7 +340,10 @@ begin
 
     Result := CVelocityToLevel[(AVelocity * Result) div High(ShortInt)];
 
-    yvpLen := yvpSquareLength;
+    if AIsNoise then
+      yvpLen := yvpNoiseLength
+    else
+      yvpLen := yvpSquareLength;
   end
   else
   begin
@@ -339,28 +358,43 @@ end;
 
 function TYMVirtualVoice.GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
 var
-  rate, depth, frm: Integer;
+  rate, depth, frm, porta: Integer;
   note: Double;
 begin
   Result := 0;
+
+  note := ANote;
+
+  // portamento
+
+  porta := GetIntParameter(yvpPortamento, AFrame);
+
+  if (ARelativeFrame = 0) and (porta > 0) and (GetNoteCountAtTime(AFrame * TicksDiv) > 1) then
+    FPortamentoNote := FPrevSquareNote;
+
+  if FPortamentoNote <> 0 then
+  begin
+    note := lerp(note, FPortamentoNote, Max(0, porta - ARelativeFrame * GetTicksPerVBL) / porta);
+    if ARelativeFrame >= porta then
+      FPortamentoNote := 0;
+  end;
 
   // pitch envelope
 
   rate := (GetIntParameter(yvpPitchBendRate, AFrame) + 1) * IfThen(GetIntParameter(yvpPitchBendDir, AFrame) = 0, 1, -1);
   depth := GetIntParameter(yvpPitchBendDepth, AFrame) - 48;
 
-  note := ANote;
   if rate > 0 then
-    note := lerp(ANote, ANote + depth, Max(0, rate - ARelativeFrame) / rate)
+    note := lerp(note, note + depth, Max(0, rate - ARelativeFrame) / rate)
   else if rate < 0 then
-    note := lerp(ANote + depth, ANote, Max(0, (-rate) - ARelativeFrame) / -rate);
+    note := lerp(note + depth, note, Max(0, (-rate) - ARelativeFrame) / -rate);
 
   // tremolo
 
   rate := GetIntParameter(yvpTremFreq, AFrame);
   depth := GetIntParameter(yvpTremDepth, AFrame);
 
-  note += depth * 0.25 * Sin(AFrame / IntPower(2.0, rate) * 2.0 * Pi);
+  note += depth * 0.125 * Sin(AFrame / IntPower(2.0, rate) * 2.0 * Pi);
 
   // arpeggiator
 
@@ -533,7 +567,7 @@ begin
     begin
       AssignedBuzz[assignedCount] := True;
       buzz := n.VirtualVoice.GetBuzzAt(n.Note, relativeFrame, frame);
-      Level[assignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame);
+      Level[assignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame, False);
       Inc(assignedCount);
     end;
   end;
@@ -551,8 +585,11 @@ begin
     begin
       AssignedSquare[assignedCount] := True;
       Pitch[assignedCount] := n.VirtualVoice.GetPitchAt(n.Note, relativeFrame, frame);
-      Level[assignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame);
+      Level[assignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame, False);
       Inc(assignedCount);
+
+      // for portamento
+      n.VirtualVoice.FPrevSquareNote := n.Note;
     end;
   end;
 
@@ -568,7 +605,7 @@ begin
     if (n.VirtualVoice.GetIntParameter(yvpNoiseOnOff, frame) = 0) and (noiseFreq < 0) then
     begin
       noiseFreq := n.VirtualVoice.GetNoiseFreqAt(relativeFrame, frame);
-      noiseLvl := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame);
+      noiseLvl := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame, True);
 
       if assignedCount < Length(AssignedNoise) then
       begin
@@ -586,7 +623,7 @@ begin
         begin
           lvlDiff := Abs(CLevelToVelocity[Level[iVoice]] - CLevelToVelocity[noiseLvl]);
 
-          if lvlDiff < bestLvlDiff then
+          if lvlDiff <= bestLvlDiff then
           begin
             bestVoice := iVoice;
             bestLvlDiff := lvlDiff;
