@@ -569,7 +569,6 @@ begin
    Track_Count [event.Channel] := Track_Count [event.Channel] + 1;
    if is_note_on (event)
       then Voice_Count [event.Channel] := Voice_Count [event.Channel] + 1;
-{$if 0}
    if Count = 0 then
    begin
       Event_List.InsertObject (0, '', event);
@@ -645,11 +644,6 @@ begin
       Last_Index := index;
       last_time  := event.Time;
    end; // if
-{$else}
-   index := Event_List.AddObject ('', event);
-   Last_Index := index;
-   last_time  := event.Time;
-{$endif}
    Result := index;
 end; // store_event //
 

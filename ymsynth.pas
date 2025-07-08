@@ -32,11 +32,13 @@ const
   CYMBuzzFreq = CYMBaseFreq / 256;
 
   CVelocityToVolume: array[0 .. High(ShortInt)] of Byte = (
-    0, 1, 2, 3, 4, 4, 5, 5, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10,
-    10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12,
-    12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13,
-    13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 14,
-    14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15
+    0, 1, 2, 3, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 10, 10,
+    10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12,
+    12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 13, 13,
+    13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14,
+    14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
+    14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 15, 15, 15, 15, 15, 15,
+    15, 15, 15, 15, 15, 15, 15, 15
   );
 
   CVolumeToVelocity: array[0 .. 15] of Byte = (
@@ -144,6 +146,7 @@ type
     function GetTicksPerVBL: Byte;
     function GetVolumeAt(AVelocity: Byte; ARelativeFrame, AFrame: Integer): Byte;
     function GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
+    function GetNoiseFreqAt(ARelativeFrame, AFrame: Integer): Byte;
     function GetBuzzAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Integer;
 
     property Synth: TYMSynth read FSynth;
@@ -342,7 +345,7 @@ begin
 
   // pitch envelope
 
-  rate := GetIntParameter(yvpPitchBendRate, AFrame) * IfThen(GetIntParameter(yvpPitchBendDir, AFrame) = 0, 1, -1);
+  rate := (GetIntParameter(yvpPitchBendRate, AFrame) + 1) * IfThen(GetIntParameter(yvpPitchBendDir, AFrame) = 0, 1, -1);
   depth := GetIntParameter(yvpPitchBendDepth, AFrame) - 48;
 
   note := ANote;
@@ -374,6 +377,22 @@ begin
 
   if (ARelativeFrame = 0) and (GetIntParameter(yvpSquareSync, AFrame) = 0) then
     Result := Result or $1000;
+end;
+
+function TYMVirtualVoice.GetNoiseFreqAt(ARelativeFrame, AFrame: Integer): Byte;
+var
+  rate, depth: Integer;
+begin
+  Result := GetIntParameter(yvpNoiseFreq, AFrame);
+
+  // noise pitch envelope
+
+  rate := (GetIntParameter(yvpNoiseBendRate, AFrame) + 1) * 4;
+  depth := GetIntParameter(yvpNoiseBendDepth, AFrame) - 31;
+
+  Result := EnsureRange(Round(lerp(Result, Result + depth, Max(0, rate - ARelativeFrame) / rate)), 0, 31);
+
+  Result := 31 - Result;
 end;
 
 function TYMVirtualVoice.GetBuzzAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Integer;
@@ -476,22 +495,27 @@ function TYMSynth.NotesToRegSet(ANotes: array of TYMNote; ANoteCnt, AFrame: Inte
 var
   iNote, iVoice, frame, relativeFrame: Integer;
   n: TYMNote;
-  Assigned: array[0 .. 2] of Boolean;
+  AssignedSquare: array[0 .. 2] of Boolean;
+  AssignedNoise: array[0 .. 2] of Boolean;
   Pitch: array[0 .. 2] of Word;
   Level: array[0 .. 2] of Byte;
-  NoiseFreq: Byte;
+  NoiseFreq: ShortInt;
   Buzz: Integer;
-  AssignedSquareCount: Byte;
+  AssignedCount: Byte;
 begin
+  // init
+
   FillChar(Result, SizeOf(Result), 0);
-  FillChar(Assigned, SizeOf(Assigned), 0);
+  FillChar(AssignedSquare, SizeOf(AssignedSquare), 0);
+  FillChar(AssignedNoise, SizeOf(AssignedNoise), 0);
   FillChar(Pitch, SizeOf(Pitch), 0);
   FillChar(Level, SizeOf(Level), 0);
+  NoiseFreq := -1;
+  Buzz := -1;
 
   // assign notes
 
-  Buzz := -1;
-  AssignedSquareCount := 0;
+  AssignedCount := 0;
   for iNote := 0 to ANoteCnt - 1 do
   begin
     n := ANotes[iNote];
@@ -499,27 +523,45 @@ begin
     frame := AFrame div n.VirtualVoice.TicksDiv;
     relativeFrame := frame - n.StartTime;
 
-    if Buzz < 0 then
-      Buzz := n.VirtualVoice.GetBuzzAt(n.Note, relativeFrame, frame);
-
-    if AssignedSquareCount < Length(Assigned) then
+    if (n.VirtualVoice.GetIntParameter(yvpHardOnOff, frame) = 0) and (AssignedCount < Length(AssignedSquare)) then
     begin
-      Assigned[AssignedSquareCount] := True;
-      Pitch[AssignedSquareCount] := n.VirtualVoice.GetPitchAt(n.Note, relativeFrame, frame);
-      Level[AssignedSquareCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame);
-      Inc(AssignedSquareCount);
+      if Buzz < 0 then
+        Buzz := n.VirtualVoice.GetBuzzAt(n.Note, relativeFrame, frame);
+      Level[AssignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame);
+      Inc(AssignedCount);
+    end;
+
+    if (n.VirtualVoice.GetIntParameter(yvpSquareOnOff, frame) = 0) and (AssignedCount < Length(AssignedSquare)) then
+    begin
+      AssignedSquare[AssignedCount] := True;
+      Pitch[AssignedCount] := n.VirtualVoice.GetPitchAt(n.Note, relativeFrame, frame);
+      Level[AssignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame);
+      Inc(AssignedCount);
+    end;
+
+    if (n.VirtualVoice.GetIntParameter(yvpNoiseOnOff, frame) = 0) and (AssignedCount < Length(AssignedNoise)) then
+    begin
+      AssignedNoise[AssignedCount] := True;
+      if NoiseFreq < 0 then
+        NoiseFreq := n.VirtualVoice.GetNoiseFreqAt(relativeFrame, frame);
+      Level[AssignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame);
+      Inc(AssignedCount);
     end;
   end;
 
   // generate regset
 
-  Result[7] := $38;
-  for iVoice := 0 to High(Assigned) do
+  for iVoice := 0 to High(AssignedSquare) do
   begin
     Result[iVoice * 2 + 0] := Pitch[iVoice] and $ff;
     Result[iVoice * 2 + 1] := (Pitch[iVoice] shr 8) and $1f;
-    Result[7] := Result[7] or (Ord(not Assigned[iVoice]) shl iVoice);
+    Result[7] := Result[7] or (Ord(not AssignedNoise[iVoice]) shl (iVoice + 3)) or (Ord(not AssignedSquare[iVoice]) shl iVoice);
     Result[iVoice + 8] := Level[iVoice];
+  end;
+
+  if NoiseFreq >= 0 then
+  begin
+    Result[6] := NoiseFreq;
   end;
 
   Result[13] := $ff; // do not reset the envelope by default

@@ -92,7 +92,7 @@ var
   end;
 
 var
-  iFrame, iReg, iVoice, gd3SizePos, actualWait: Integer;
+  iFrame, iReg, iVoice, gd3SizePos, actualWait, ymSquareSyncCnt: Integer;
   reg, maskedReg: Byte;
   ymSamplePos, ymPrevSamplePos: Double;
   ymAnyChanged: Boolean;
@@ -116,7 +116,7 @@ begin
     fs.Seek($74, soBeginning);
     fs.WriteDWord(CYMFrequency); // AY8910 clock
     fs.WriteByte($10); // AY8910 Chip Type (YM2149)
-    fs.WriteByte($03); // AY8910 Flags (Legacy + Single)
+    fs.WriteByte($02); // AY8910 Flags (Single)
     fs.WriteByte($00); // YM2203/AY8910 Flags (none)
     fs.WriteByte($00); // YM2608/AY8910 Flags (none)
     fs.WriteByte($00); // Volume Modifier (100%)
@@ -140,25 +140,7 @@ begin
 
     for iFrame := 0 to High(AYMData.Frames) do
     begin
-      // handle square sync
-
-      for iVoice := 0 to 2 do
-        if AYMData.Frames[iFrame, iVoice * 2 + 1] and $10 <> 0 then
-        begin
-          ymState[iVoice * 2 + 0] := 0;
-
-          fs.WriteByte($a0);
-          fs.WriteByte(iVoice * 2 + 0);
-          fs.WriteByte(0);
-
-          ymState[iVoice * 2 + 1] := 0;
-
-          fs.WriteByte($a0);
-          fs.WriteByte(iVoice * 2 + 1);
-          fs.WriteByte(0);
-        end;
-
-      // parse frames
+      // parse frame data
 
       for iReg := 0 to High(ymState) do
       begin
@@ -199,7 +181,27 @@ begin
         end;
       end;
 
+      // handle square sync
+
+      ymSquareSyncCnt := 0;
+      for iVoice := 0 to 2 do
+        if AYMData.Frames[iFrame, iVoice * 2 + 1] and $10 <> 0 then
+        begin
+          fs.WriteByte($a0);
+          fs.WriteByte(iVoice * 2 + 0);
+          fs.WriteByte($ff);
+
+          fs.WriteByte($a0);
+          fs.WriteByte(iVoice * 2 + 1);
+          fs.WriteByte($0f);
+
+          fs.WriteByte($70); // wait 1 sample
+
+          Inc(ymSquareSyncCnt, 1);
+        end;
+
       // write frame data
+
       for iReg := 0 to High(ymState) do
         if ymRegChanged[iReg] then
         begin
@@ -212,7 +214,7 @@ begin
 
       // update VGM position
 
-      ymSamplePos += CVGMSampleRate / AYMData.FrameRate;
+      ymSamplePos += CVGMSampleRate / AYMData.FrameRate - ymSquareSyncCnt;
     end;
 
     fs.WriteByte($66);
