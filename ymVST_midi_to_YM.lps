@@ -8,9 +8,10 @@
       <Unit>
         <Filename Value="ymVST_midi_to_YM.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="6"/>
         <CursorPos Y="17"/>
-        <UsageCount Value="52"/>
+        <UsageCount Value="75"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="mainform.pas"/>
@@ -19,27 +20,29 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="MainForm"/>
-        <TopLine Value="65"/>
-        <CursorPos X="27" Y="93"/>
-        <UsageCount Value="52"/>
+        <TopLine Value="175"/>
+        <CursorPos X="50" Y="205"/>
+        <UsageCount Value="75"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="ymexport.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="6"/>
-        <CursorPos Y="11"/>
-        <UsageCount Value="50"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="159"/>
+        <CursorPos X="11" Y="209"/>
+        <UsageCount Value="73"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="ymsynth.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="243"/>
-        <CursorPos X="23" Y="297"/>
-        <UsageCount Value="49"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="478"/>
+        <CursorPos Y="526"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -48,15 +51,14 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="16"/>
       </Unit>
       <Unit>
         <Filename Value="midi_sequencer\MSC_In_File.pas"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="185"/>
         <CursorPos X="11" Y="180"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\lcl\forms.pp"/>
@@ -64,219 +66,257 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="601"/>
         <CursorPos X="3" Y="511"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="midi_sequencer\MSC_Definitions.pas"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="225"/>
         <CursorPos X="19" Y="255"/>
-        <UsageCount Value="16"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="14"/>
       </Unit>
       <Unit>
         <Filename Value="midi_sequencer\MSC_Circular_Buffer.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="13" Y="24"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="ansistrings.pas"/>
         <UnitName Value="AnsiStrings"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="25" Y="9"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="16"/>
       </Unit>
       <Unit>
         <Filename Value="midi_sequencer\utilities_logging.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="50"/>
         <CursorPos X="24" Y="80"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="midi_sequencer\Publish_Subscribe.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="84"/>
         <CursorPos X="61" Y="119"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\inc\objpash.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="186"/>
         <CursorPos X="23" Y="206"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="625"/>
-        <CursorPos X="23" Y="651"/>
-        <UsageCount Value="23"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="117"/>
+        <CursorPos X="17" Y="150"/>
+        <UsageCount Value="21"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\inc\systemh.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="389"/>
         <CursorPos X="3" Y="419"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="midi_sequencer\MSC_Out_File.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="93"/>
         <CursorPos X="7" Y="123"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32listsl.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="505"/>
         <CursorPos Y="535"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\objpas\classes\classesh.inc"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="813"/>
-        <CursorPos X="3" Y="816"/>
-        <UsageCount Value="22"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="992"/>
+        <CursorPos X="14" Y="1022"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\objpas\classes\streams.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="444"/>
-        <CursorPos X="5" Y="450"/>
-        <UsageCount Value="22"/>
+        <EditorIndex Value="8"/>
+        <TopLine Value="539"/>
+        <CursorPos X="15" Y="542"/>
+        <UsageCount Value="23"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\objpas\fgl.pp"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1047"/>
         <CursorPos Y="1079"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="15"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\lazarus\components\chmhelp\lhelp\chmcontentprovider.pas"/>
+        <UnitName Value="ChmContentProvider"/>
+        <EditorIndex Value="9"/>
+        <TopLine Value="705"/>
+        <CursorPos X="13" Y="735"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\lazarus\lcl\stdctrls.pp"/>
+        <UnitName Value="StdCtrls"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="958"/>
+        <CursorPos X="14" Y="987"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\lazarus\lcl\controls.pp"/>
+        <UnitName Value="Controls"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="1549"/>
+        <CursorPos X="14" Y="1579"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\lazarus\lcl\lcltype.pp"/>
+        <UnitName Value="LCLType"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="39"/>
+        <CursorPos X="3" Y="68"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="28">
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="689" TopLine="652"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="165" TopLine="137"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="691" TopLine="652"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="166" TopLine="137"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="692" TopLine="652"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="165" TopLine="137"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="693" TopLine="652"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="166" TopLine="137"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="694" TopLine="652"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="165" TopLine="137"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="696" TopLine="652"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="183" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="189" Column="27" TopLine="158"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="185" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="146" Column="17" TopLine="117"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="186" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="467" Column="17" TopLine="432"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="188" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="99" Column="17" TopLine="77"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="190" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="108" Column="13" TopLine="77"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="192" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="189" Column="27" TopLine="65"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="194" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="154" Column="17" TopLine="125"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="195" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="736" Column="4" TopLine="701"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="196" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_In_File.pas"/>
-        <Caret Line="63" Column="17" TopLine="33"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="198" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_In_File.pas"/>
-        <Caret Line="90" Column="4" TopLine="78"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="183" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="736" Column="4" TopLine="701"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="185" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="93" Column="27" TopLine="65"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="186" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="154" Column="17" TopLine="125"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="188" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="736" Column="4" TopLine="701"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="190" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_In_File.pas"/>
-        <Caret Line="63" Column="17" TopLine="33"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="192" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_In_File.pas"/>
-        <Caret Line="90" Column="4" TopLine="87"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="194" TopLine="146"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_In_File.pas"/>
-        <Caret Line="48" Column="17" TopLine="57"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="203" TopLine="151"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_In_File.pas"/>
-        <Caret Line="149" Column="4" TopLine="154"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="139" TopLine="109"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_In_File.pas"/>
-        <Caret Line="180" Column="11" TopLine="185"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="143" TopLine="109"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="148" Column="17" TopLine="118"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="156" Column="149" TopLine="127"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="587" Column="10" TopLine="566"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="98" Column="15" TopLine="66"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="600" Column="29" TopLine="563"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="142" Column="46" TopLine="102"/>
       </Position>
       <Position>
-        <Filename Value="midi_sequencer\MSC_Container.pas"/>
-        <Caret Line="578" TopLine="536"/>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="99" Column="42" TopLine="69"/>
+      </Position>
+      <Position>
+        <Filename Value="ymVST_midi_to_YM.lpr"/>
+        <Caret Line="17"/>
       </Position>
     </JumpHistory>
     <RunParams>

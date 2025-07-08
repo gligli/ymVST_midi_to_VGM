@@ -5,7 +5,7 @@ unit ymsynth;
 interface
 
 uses
-  windows, Classes, SysUtils, StrUtils, Math, Types, fgl, ymexport;
+ Classes, SysUtils, StrUtils, Math, Types, fgl, ymexport;
 
 type
   TymVSTParameter = (
@@ -27,8 +27,9 @@ type
   );
 
 const
-  CYMBaseFreq = 125000;
-  CVBLPerSecond = 50;
+  CYMBaseFreq = 2000000;
+  CYMSquareFreq = CYMBaseFreq / 16;
+  CYMBuzzFreq = CYMBaseFreq / 256;
 
   CVelocityToVolume: array[0 .. High(ShortInt)] of Byte = (
     0, 1, 2, 3, 4, 4, 5, 5, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10,
@@ -143,6 +144,7 @@ type
     function GetTicksPerVBL: Byte;
     function GetVolumeAt(AVelocity: Byte; ARelativeFrame, AFrame: Integer): Byte;
     function GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
+    function GetBuzzAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Integer;
 
     property Synth: TYMSynth read FSynth;
     property PatchRef: TYMPatch read FPatchRef;
@@ -161,9 +163,11 @@ type
     FSongLength: Double;
     FPatches: TYMPatchList;
     FVirtualVoices: TYMVirtualVoiceList;
+    FPrevBuzz: Integer;
   public
     class function GetNoteHertz(ANote: Double): Double;
-    class function GetYMNote(AHertz: Double): Word;
+    class function GetYMSquareNote(AHertz: Double): Word;
+    class function GetYMBuzzNote(AHertz: Double): Cardinal;
 
     constructor Create(ASongLength: Double);
     destructor Destroy; override;
@@ -303,14 +307,30 @@ begin
 end;
 
 function TYMVirtualVoice.GetVolumeAt(AVelocity: Byte; ARelativeFrame, AFrame: Integer): Byte;
+var
+  yvpLen: TymVSTParameter;
 begin
-  Assert(InRange(AVelocity, 0, High(ShortInt)));
+  if GetIntParameter(yvpHardOnOff, AFrame) <> 0 then
+  begin
+    Assert(InRange(AVelocity, 0, High(ShortInt)));
 
-  Result := Round(GetFloatParameter(TymVSTParameter(Ord(yvpE0) + Min(9, ARelativeFrame shr GetIntParameter(yvpEnvSpeed, AFrame))), AFrame) * High(ShortInt) / 15);
+    Result := Round(GetFloatParameter(TymVSTParameter(Ord(yvpE0) + Min(9, ARelativeFrame shr GetIntParameter(yvpEnvSpeed, AFrame))), AFrame) * High(ShortInt) / 15);
 
-  Assert(InRange(Result, 0, High(ShortInt)));
+    Assert(InRange(Result, 0, High(ShortInt)));
 
-  Result := CVelocityToVolume[(AVelocity * Result) div High(ShortInt)];
+    Result := CVelocityToVolume[(AVelocity * Result) div High(ShortInt)];
+
+    yvpLen := yvpSquareLength;
+  end
+  else
+  begin
+    Result := 16;
+
+    yvpLen := yvpHardLength;
+  end;
+
+  if (GetIntParameter(yvpLen, AFrame) <> 0) and (ARelativeFrame >= GetIntParameter(yvpLen, AFrame)) then
+    Result := 0;
 end;
 
 function TYMVirtualVoice.GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
@@ -350,7 +370,41 @@ begin
     end;
   end;
 
-  Result := TYMSynth.GetYMNote(TYMSynth.GetNoteHertz(note));
+  Result := TYMSynth.GetYMSquareNote(TYMSynth.GetNoteHertz(note));
+
+  if (ARelativeFrame = 0) and (GetIntParameter(yvpSquareSync, AFrame) = 0) then
+    Result := Result or $1000;
+end;
+
+function TYMVirtualVoice.GetBuzzAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Integer;
+var
+  note: Double;
+begin
+  if GetIntParameter(yvpHardOnOff, AFrame) = 0 then
+  begin
+    note := ANote;
+    note += GetIntParameter(yvpHardwareMainTune, AFrame) - 36;
+    note += GetIntParameter(yvpHardDetune, AFrame) * 0.02 * 4.0 / 3.0;
+
+    if GetIntParameter(yvpHardwareForm, AFrame) >= 2 then // tri is half speed
+      note += 12;
+
+    Result := TYMSynth.GetYMBuzzNote(TYMSynth.GetNoteHertz(note));
+
+    case GetIntParameter(yvpHardwareForm, AFrame) of
+      0: Result := Result or $c0000;
+      1: Result := Result or $80000;
+      2: Result := Result or $e0000;
+      3: Result := Result or $a0000;
+    end;
+
+    if (ARelativeFrame = 0) and (GetIntParameter(yvpHardSync, AFrame) = 0) then
+      Result := Result or $1000000;
+  end
+  else
+  begin
+    Result := -1;
+  end;
 end;
 
 { TYMPatch }
@@ -361,10 +415,7 @@ var
   fs: TFileStream;
   s: String;
   v: Cardinal;
-  InvariantFormatSettings: TFormatSettings;
 begin
-  GetLocaleFormatSettings(LOCALE_INVARIANT, InvariantFormatSettings);
-
   fs := TFileStream.Create(AFileName, fmOpenRead or fmShareDenyNone);
   try
     v := fs.ReadDWord;
@@ -395,9 +446,14 @@ begin
   Result := 440.0 * Power(2.0, (ANote - 69.0) / 12.0);
 end;
 
-class function TYMSynth.GetYMNote(AHertz: Double): Word;
+class function TYMSynth.GetYMSquareNote(AHertz: Double): Word;
 begin
-  Result := EnsureRange(round(CYMBaseFreq / AHertz), 0, 4095);
+  Result := EnsureRange(round(CYMSquareFreq / AHertz), 0, 4095);
+end;
+
+class function TYMSynth.GetYMBuzzNote(AHertz: Double): Cardinal;
+begin
+  Result := EnsureRange(round(CYMBuzzFreq / AHertz), 0, High(Word));
 end;
 
 constructor TYMSynth.Create(ASongLength: Double);
@@ -406,6 +462,7 @@ begin
   FSongLength := ASongLength;
   FPatches := TYMPatchList.Create;
   FVirtualVoices := TYMVirtualVoiceList.Create;
+  FPrevBuzz := -1;
 end;
 
 destructor TYMSynth.Destroy;
@@ -417,13 +474,14 @@ end;
 
 function TYMSynth.NotesToRegSet(ANotes: array of TYMNote; ANoteCnt, AFrame: Integer): TYMRegSet;
 var
-  iNote, iVoice, Frame, RelativeFrame: Integer;
+  iNote, iVoice, frame, relativeFrame: Integer;
   n: TYMNote;
   Assigned: array[0 .. 2] of Boolean;
   Pitch: array[0 .. 2] of Word;
   Level: array[0 .. 2] of Byte;
   NoiseFreq: Byte;
-  AssignedCount: Byte;
+  Buzz: Integer;
+  AssignedSquareCount: Byte;
 begin
   FillChar(Result, SizeOf(Result), 0);
   FillChar(Assigned, SizeOf(Assigned), 0);
@@ -432,32 +490,49 @@ begin
 
   // assign notes
 
-  AssignedCount := 0;
+  Buzz := -1;
+  AssignedSquareCount := 0;
   for iNote := 0 to ANoteCnt - 1 do
   begin
     n := ANotes[iNote];
 
-    Frame := AFrame div n.VirtualVoice.TicksDiv;
-    RelativeFrame := Frame - n.StartTime;
+    frame := AFrame div n.VirtualVoice.TicksDiv;
+    relativeFrame := frame - n.StartTime;
 
-    if AssignedCount < Length(Assigned) then
+    if Buzz < 0 then
+      Buzz := n.VirtualVoice.GetBuzzAt(n.Note, relativeFrame, frame);
+
+    if AssignedSquareCount < Length(Assigned) then
     begin
-      Assigned[AssignedCount] := True;
-      Pitch[AssignedCount] := n.VirtualVoice.GetPitchAt(n.Note, RelativeFrame, Frame);
-      Level[AssignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, RelativeFrame, Frame);
-      Inc(AssignedCount);
+      Assigned[AssignedSquareCount] := True;
+      Pitch[AssignedSquareCount] := n.VirtualVoice.GetPitchAt(n.Note, relativeFrame, frame);
+      Level[AssignedSquareCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame);
+      Inc(AssignedSquareCount);
     end;
   end;
 
   // generate regset
 
+  Result[7] := $38;
   for iVoice := 0 to High(Assigned) do
   begin
     Result[iVoice * 2 + 0] := Pitch[iVoice] and $ff;
-    Result[iVoice * 2 + 1] := Pitch[iVoice] shr 8;
+    Result[iVoice * 2 + 1] := (Pitch[iVoice] shr 8) and $1f;
     Result[7] := Result[7] or (Ord(not Assigned[iVoice]) shl iVoice);
     Result[iVoice + 8] := Level[iVoice];
   end;
+
+  Result[13] := $ff; // do not reset the envelope by default
+  if Buzz >= 0 then
+  begin
+    Result[11] := Buzz and $ff;
+    Result[12] := (Buzz shr 8) and $ff;
+
+    if ((Buzz shr 16) and $0f <> (FPrevBuzz shr 16) and $0f) or ((Buzz shr 24) and $01 <> 0) then
+      Result[13] := (Buzz shr 16) and $0f;
+  end;
+
+  FPrevBuzz := Buzz;
 end;
 
 function TYMSynth.Render: TYMData;

@@ -22,6 +22,7 @@ begin
  {$POP}
  Application.Initialize;
  Application.CreateForm(TFormMain, FormMain);
+ Application.Title := FormMain.Caption;
  Application.Run;
 end.
 

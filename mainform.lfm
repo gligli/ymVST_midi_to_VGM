@@ -3,7 +3,7 @@ object FormMain: TFormMain
   Height = 480
   Top = 30
   Width = 640
-  Caption = 'GliGli''s midi + ymVST patch to YM converter'
+  Caption = 'GliGli''s midi + ymVST patch to VGM converter'
   ClientHeight = 480
   ClientWidth = 640
   Constraints.MinHeight = 200
@@ -27,7 +27,7 @@ object FormMain: TFormMain
     Width = 520
     Anchors = [akLeft, akRight, akBottom]
     TabOrder = 9
-    Text = 'Project_47.ym'
+    Text = 'Project_47.vgm'
   end
   object btConvert: TButton
     Left = 560
@@ -109,7 +109,7 @@ object FormMain: TFormMain
   object llHint: TLabel
     Left = 412
     Height = 16
-    Top = 44
+    Top = 74
     Width = 220
     Anchors = [akTop, akRight]
     Caption = '(double-click the list to change patch file)'

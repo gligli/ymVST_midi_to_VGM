@@ -144,7 +144,7 @@ begin
   if PromptForFileName(fn, 'MIDI|*.mid;*.midi') then
   begin
     edInputMid.Text := fn;
-    edOutputYM.Text := ChangeFileExt(fn, '.ym');
+    edOutputYM.Text := ChangeFileExt(fn, '.vgm');
     UpdateGUI;
   end;
 end;
@@ -157,7 +157,7 @@ var
   p: TYMPatch;
   vv: TYMVirtualVoice;
   yms: TYMSynth;
-  yme: TYMExporter;
+  yme: TYMVGMExporter;
   e: TMIDI_Event;
   n, d, s, t: TReal_Array;
 begin
@@ -201,13 +201,13 @@ begin
 
     YMData := yms.Render;
 
-    YMData.SongName := edSongName.Text;
-    YMData.Author := edAuthor.Text;
+    YMData.SongName := UnicodeString(edSongName.Text);
+    YMData.Author := UnicodeString(edAuthor.Text);
   finally
     yms.Free;
   end;
 
-  yme := TYMExporter.Create(edOutputYM.Text);
+  yme := TYMVGMExporter.Create(edOutputYM.Text);
   try
     yme.Export(YMData);
   finally
@@ -251,7 +251,10 @@ begin
   begin
     t := TTrack(lbTracks.Items.Objects[iTrack]);
     if PromptForFileName(t.PatchFileName,'Cubase FXP|*.fxp') then
+    begin
+      t.Export := True;
       UpdateGUI;
+    end;
   end;
 end;
 
