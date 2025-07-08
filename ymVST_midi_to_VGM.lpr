@@ -1,4 +1,4 @@
-program ymVST_midi_to_YM;
+program ymVST_midi_to_VGM;
 
 {$mode objfpc}{$H+}
 

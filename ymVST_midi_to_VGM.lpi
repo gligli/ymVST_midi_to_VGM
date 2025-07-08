@@ -5,7 +5,7 @@
     <PathDelim Value="\"/>
     <General>
       <SessionStorage Value="InProjectDir"/>
-      <Title Value="ymVST_midi_to_YM"/>
+      <Title Value="ymVST_midi_to_VGM"/>
       <Scaled Value="True"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
@@ -21,7 +21,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="ymVST_midi_to_YM"/>
+            <Filename Value="ymVST_midi_to_VGM"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -69,7 +69,7 @@
     </RequiredPackages>
     <Units>
       <Unit>
-        <Filename Value="ymVST_midi_to_YM.lpr"/>
+        <Filename Value="ymVST_midi_to_VGM.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
