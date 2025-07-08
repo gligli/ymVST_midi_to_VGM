@@ -31,7 +31,7 @@ const
   CYMSquareFreq = CYMBaseFreq / 16;
   CYMBuzzFreq = CYMBaseFreq / 256;
 
-  CVelocityToVolume: array[0 .. High(ShortInt)] of Byte = (
+  CVelocityToLevel: array[0 .. High(ShortInt)] of Byte = (
     0, 1, 2, 3, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 10, 10,
     10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12,
     12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 13, 13,
@@ -41,8 +41,9 @@ const
     15, 15, 15, 15, 15, 15, 15, 15
   );
 
-  CVolumeToVelocity: array[0 .. 15] of Byte = (
-    0, 1, 2, 3, 4, 5, 7, 10, 14, 19, 27, 36, 51, 68, 96, 127
+  CLevelToVelocity: array[0 .. 31] of Byte = (
+    0, 1, 2, 3, 4, 5, 7, 10, 14, 19, 27, 36, 51, 68, 96, 127,
+    127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127
   );
 
 
@@ -321,7 +322,7 @@ begin
 
     Assert(InRange(Result, 0, High(ShortInt)));
 
-    Result := CVelocityToVolume[(AVelocity * Result) div High(ShortInt)];
+    Result := CVelocityToLevel[(AVelocity * Result) div High(ShortInt)];
 
     yvpLen := yvpSquareLength;
   end
@@ -493,29 +494,34 @@ end;
 
 function TYMSynth.NotesToRegSet(ANotes: array of TYMNote; ANoteCnt, AFrame: Integer): TYMRegSet;
 var
-  iNote, iVoice, frame, relativeFrame: Integer;
+  iNote, iVoice, frame, relativeFrame, lvlDiff, bestLvlDiff, bestVoice: Integer;
   n: TYMNote;
   AssignedSquare: array[0 .. 2] of Boolean;
   AssignedNoise: array[0 .. 2] of Boolean;
+  AssignedBuzz: array[0 .. 2] of Boolean;
   Pitch: array[0 .. 2] of Word;
   Level: array[0 .. 2] of Byte;
-  NoiseFreq: ShortInt;
-  Buzz: Integer;
-  AssignedCount: Byte;
+  noiseFreq, noiseLvl: ShortInt;
+  buzz: Integer;
+  assignedCount: Byte;
 begin
   // init
 
   FillChar(Result, SizeOf(Result), 0);
   FillChar(AssignedSquare, SizeOf(AssignedSquare), 0);
   FillChar(AssignedNoise, SizeOf(AssignedNoise), 0);
+  FillChar(AssignedBuzz, SizeOf(AssignedBuzz), 0);
   FillChar(Pitch, SizeOf(Pitch), 0);
   FillChar(Level, SizeOf(Level), 0);
-  NoiseFreq := -1;
-  Buzz := -1;
+  noiseFreq := -1;
+  buzz := -1;
 
   // assign notes
 
-  AssignedCount := 0;
+  assignedCount := 0;
+
+    // buzz
+
   for iNote := 0 to ANoteCnt - 1 do
   begin
     n := ANotes[iNote];
@@ -523,29 +529,75 @@ begin
     frame := AFrame div n.VirtualVoice.TicksDiv;
     relativeFrame := frame - n.StartTime;
 
-    if (n.VirtualVoice.GetIntParameter(yvpHardOnOff, frame) = 0) and (AssignedCount < Length(AssignedSquare)) then
+    if (n.VirtualVoice.GetIntParameter(yvpHardOnOff, frame) = 0) and (buzz < 0) and (assignedCount < Length(AssignedBuzz)) then
     begin
-      if Buzz < 0 then
-        Buzz := n.VirtualVoice.GetBuzzAt(n.Note, relativeFrame, frame);
-      Level[AssignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame);
-      Inc(AssignedCount);
+      AssignedBuzz[assignedCount] := True;
+      buzz := n.VirtualVoice.GetBuzzAt(n.Note, relativeFrame, frame);
+      Level[assignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame);
+      Inc(assignedCount);
     end;
+  end;
 
-    if (n.VirtualVoice.GetIntParameter(yvpSquareOnOff, frame) = 0) and (AssignedCount < Length(AssignedSquare)) then
+    // square
+
+  for iNote := 0 to ANoteCnt - 1 do
+  begin
+    n := ANotes[iNote];
+
+    frame := AFrame div n.VirtualVoice.TicksDiv;
+    relativeFrame := frame - n.StartTime;
+
+    if (n.VirtualVoice.GetIntParameter(yvpSquareOnOff, frame) = 0) and (assignedCount < Length(AssignedSquare)) then
     begin
-      AssignedSquare[AssignedCount] := True;
-      Pitch[AssignedCount] := n.VirtualVoice.GetPitchAt(n.Note, relativeFrame, frame);
-      Level[AssignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame);
-      Inc(AssignedCount);
+      AssignedSquare[assignedCount] := True;
+      Pitch[assignedCount] := n.VirtualVoice.GetPitchAt(n.Note, relativeFrame, frame);
+      Level[assignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame);
+      Inc(assignedCount);
     end;
+  end;
 
-    if (n.VirtualVoice.GetIntParameter(yvpNoiseOnOff, frame) = 0) and (AssignedCount < Length(AssignedNoise)) then
+    // noise
+
+  for iNote := 0 to ANoteCnt - 1 do
+  begin
+    n := ANotes[iNote];
+
+    frame := AFrame div n.VirtualVoice.TicksDiv;
+    relativeFrame := frame - n.StartTime;
+
+    if (n.VirtualVoice.GetIntParameter(yvpNoiseOnOff, frame) = 0) and (noiseFreq < 0) then
     begin
-      AssignedNoise[AssignedCount] := True;
-      if NoiseFreq < 0 then
-        NoiseFreq := n.VirtualVoice.GetNoiseFreqAt(relativeFrame, frame);
-      Level[AssignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame);
-      Inc(AssignedCount);
+      noiseFreq := n.VirtualVoice.GetNoiseFreqAt(relativeFrame, frame);
+      noiseLvl := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame);
+
+      if assignedCount < Length(AssignedNoise) then
+      begin
+        AssignedNoise[assignedCount] := True;
+        Level[assignedCount] := noiseLvl;
+        Inc(assignedCount);
+      end
+      else
+      begin
+        // pair with the voice closest in volume
+
+        bestVoice := -1;
+        bestLvlDiff := MaxInt;
+        for iVoice := 0 to High(AssignedSquare) do
+        begin
+          lvlDiff := Abs(CLevelToVelocity[Level[iVoice]] - CLevelToVelocity[noiseLvl]);
+
+          if lvlDiff < bestLvlDiff then
+          begin
+            bestVoice := iVoice;
+            bestLvlDiff := lvlDiff;
+          end;
+        end;
+
+        Assert(bestVoice >= 0);
+
+        AssignedNoise[bestVoice] := True;
+        Level[bestVoice] := noiseLvl;
+      end;
     end;
   end;
 
@@ -559,22 +611,22 @@ begin
     Result[iVoice + 8] := Level[iVoice];
   end;
 
-  if NoiseFreq >= 0 then
+  if noiseFreq >= 0 then
   begin
-    Result[6] := NoiseFreq;
+    Result[6] := noiseFreq;
   end;
 
   Result[13] := $ff; // do not reset the envelope by default
-  if Buzz >= 0 then
+  if buzz >= 0 then
   begin
-    Result[11] := Buzz and $ff;
-    Result[12] := (Buzz shr 8) and $ff;
+    Result[11] := buzz and $ff;
+    Result[12] := (buzz shr 8) and $ff;
 
-    if ((Buzz shr 16) and $0f <> (FPrevBuzz shr 16) and $0f) or ((Buzz shr 24) and $01 <> 0) then
-      Result[13] := (Buzz shr 16) and $0f;
+    if ((buzz shr 16) and $0f <> (FPrevBuzz shr 16) and $0f) or ((buzz shr 24) and $01 <> 0) then
+      Result[13] := (buzz shr 16) and $0f;
   end;
 
-  FPrevBuzz := Buzz;
+  FPrevBuzz := buzz;
 end;
 
 function TYMSynth.Render: TYMData;
