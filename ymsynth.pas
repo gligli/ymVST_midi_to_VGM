@@ -32,17 +32,17 @@ const
   CYMBuzzFreq = CYMBaseFreq / 256;
 
   CVelocityToLevel: array[0 .. High(ShortInt)] of Byte = (
-    0, 1, 2, 3, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 10, 10,
-    10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12,
-    12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 13, 13,
-    13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14,
-    14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
-    14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 15, 15, 15, 15, 15, 15,
-    15, 15, 15, 15, 15, 15, 15, 15
+    0, 1, 2, 3, 4, 5, 5, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9,
+    10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
+    11, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 13,
+    13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13,
+    13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
+    14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 15, 15, 15, 15,
+    15, 15
   );
 
   CLevelToVelocity: array[0 .. 31] of Byte = (
-    0, 1, 2, 3, 4, 5, 7, 10, 14, 19, 27, 36, 51, 68, 96, 127,
+    0, 1, 2, 3, 4, 5, 7, 10, 14, 18, 26, 34, 48, 64, 91, 120,
     127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127
   );
 
@@ -173,6 +173,7 @@ type
     FPrevBuzz: Integer;
   public
     class function GetNoteHertz(ANote: Double): Double;
+    class function GetHertzNote(AHertz: Double): Double;
     class function GetYMSquareNote(AHertz: Double): Word;
     class function GetYMBuzzNote(AHertz: Double): Cardinal;
 
@@ -334,7 +335,7 @@ begin
   begin
     Assert(InRange(AVelocity, 0, High(ShortInt)));
 
-    Result := Round(GetFloatParameter(TymVSTParameter(Ord(yvpE0) + Min(9, ARelativeFrame shr GetIntParameter(yvpEnvSpeed, AFrame))), AFrame) * High(ShortInt) / 15);
+    Result := Round(GetFloatParameter(TymVSTParameter(Ord(yvpE0) + Min(9, ARelativeFrame shr GetIntParameter(yvpEnvSpeed, AFrame))), AFrame) - 0.25) * High(ShortInt) div 15;
 
     Assert(InRange(Result, 0, High(ShortInt)));
 
@@ -358,8 +359,8 @@ end;
 
 function TYMVirtualVoice.GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
 var
-  rate, depth, frm, porta: Integer;
-  note: Double;
+  depth, frm, porta, speed: Integer;
+  rate, note: Double;
 begin
   Result := 0;
 
@@ -367,44 +368,44 @@ begin
 
   // portamento
 
-  porta := GetIntParameter(yvpPortamento, AFrame);
+  porta := GetIntParameter(yvpPortamento, AFrame) * 4;
 
   if (ARelativeFrame = 0) and (porta > 0) and (GetNoteCountAtTime(AFrame * TicksDiv) > 1) then
     FPortamentoNote := FPrevSquareNote;
 
   if FPortamentoNote <> 0 then
   begin
-    note := lerp(note, FPortamentoNote, Max(0, porta - ARelativeFrame * GetTicksPerVBL) / porta);
+    note := lerp(note, FPortamentoNote, Max(0, porta - ARelativeFrame / GetTicksPerVBL) / porta);
     if ARelativeFrame >= porta then
       FPortamentoNote := 0;
   end;
 
   // pitch envelope
 
-  rate := (GetIntParameter(yvpPitchBendRate, AFrame) + 1) * IfThen(GetIntParameter(yvpPitchBendDir, AFrame) = 0, 1, -1);
+  rate := (GetIntParameter(yvpPitchBendRate, AFrame) + 1) * IfThen(GetIntParameter(yvpPitchBendDir, AFrame) = 0, 0.5, -0.5);
   depth := GetIntParameter(yvpPitchBendDepth, AFrame) - 48;
 
   if rate > 0 then
-    note := lerp(note, note + depth, Max(0, rate - ARelativeFrame) / rate)
+    note := TYMSynth.GetHertzNote(lerp(TYMSynth.GetNoteHertz(note), TYMSynth.GetNoteHertz(note + depth), Max(0, rate - ARelativeFrame / GetTicksPerVBL) / rate))
   else if rate < 0 then
-    note := lerp(note + depth, note, Max(0, (-rate) - ARelativeFrame) / -rate);
+    note := TYMSynth.GetHertzNote(lerp(TYMSynth.GetNoteHertz(note + depth), TYMSynth.GetNoteHertz(note), Max(0, (-rate) - ARelativeFrame / GetTicksPerVBL) / -rate));
 
   // tremolo
 
-  rate := GetIntParameter(yvpTremFreq, AFrame);
+  speed := GetIntParameter(yvpTremFreq, AFrame);
   depth := GetIntParameter(yvpTremDepth, AFrame);
 
-  note += depth * 0.125 * Sin(AFrame / IntPower(2.0, rate) * 2.0 * Pi);
+  note += depth * 0.125 * Sin(AFrame / (1 shl speed) * 2.0 * Pi);
 
   // arpeggiator
 
   if GetIntParameter(yvpArpOnOff, AFrame) = 0 then
   begin
-    rate := GetIntParameter(yvpArpSpeed, AFrame);
-    if (GetIntParameter(yvpArpLen, AFrame) = 0) or (ARelativeFrame shr rate < GetIntParameter(yvpArpLen, AFrame)) then
+    speed := GetIntParameter(yvpArpSpeed, AFrame);
+    if (GetIntParameter(yvpArpLen, AFrame) = 0) or (ARelativeFrame shr speed < GetIntParameter(yvpArpLen, AFrame)) then
     begin
       frm := IfThen(GetIntParameter(yvpArpSync, AFrame) = 0, ARelativeFrame, AFrame);
-      note += GetIntParameter(TymVSTParameter(Ord(yvpStep0) + ((frm shr rate) mod 3)), AFrame);
+      note += GetIntParameter(TymVSTParameter(Ord(yvpStep0) + ((frm shr speed) mod 3)), AFrame);
     end;
   end;
 
@@ -416,16 +417,17 @@ end;
 
 function TYMVirtualVoice.GetNoiseFreqAt(ARelativeFrame, AFrame: Integer): Byte;
 var
-  rate, depth: Integer;
+  depth: Integer;
+  rate: Double;
 begin
   Result := GetIntParameter(yvpNoiseFreq, AFrame);
 
   // noise pitch envelope
 
-  rate := (GetIntParameter(yvpNoiseBendRate, AFrame) + 1) * 4;
+  rate := (GetIntParameter(yvpNoiseBendRate, AFrame) + 1) * 2.0;
   depth := GetIntParameter(yvpNoiseBendDepth, AFrame) - 31;
 
-  Result := EnsureRange(Round(lerp(Result, Result + depth, Max(0, rate - ARelativeFrame) / rate)), 0, 31);
+  Result := EnsureRange(Round(lerp(Result, Result + depth, Max(0, rate - ARelativeFrame / GetTicksPerVBL) / rate)), 0, 31);
 
   Result := 31 - Result;
 end;
@@ -498,6 +500,11 @@ end;
 class function TYMSynth.GetNoteHertz(ANote: Double): Double;
 begin
   Result := 440.0 * Power(2.0, (ANote - 69.0) / 12.0);
+end;
+
+class function TYMSynth.GetHertzNote(AHertz: Double): Double;
+begin
+  Result := 12.0 * Log2(AHertz / 440.0) + 69.0;
 end;
 
 class function TYMSynth.GetYMSquareNote(AHertz: Double): Word;
