@@ -31,8 +31,8 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="172"/>
-        <CursorPos X="27" Y="197"/>
+        <TopLine Value="195"/>
+        <CursorPos X="11" Y="223"/>
         <UsageCount Value="89"/>
         <Loaded Value="True"/>
       </Unit>
@@ -189,23 +189,7 @@
         <UsageCount Value="16"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="28">
-      <Position>
-        <Filename Value="ymsynth.pas"/>
-        <Caret Line="372" TopLine="347"/>
-      </Position>
-      <Position>
-        <Filename Value="ymsynth.pas"/>
-        <Caret Line="136" Column="5" TopLine="106"/>
-      </Position>
-      <Position>
-        <Filename Value="ymsynth.pas"/>
-        <Caret Line="152" Column="26" TopLine="106"/>
-      </Position>
-      <Position>
-        <Filename Value="ymsynth.pas"/>
-        <Caret Line="374" Column="38" TopLine="356"/>
-      </Position>
+    <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="ymsynth.pas"/>
         <Caret Line="369" Column="79" TopLine="339"/>
@@ -305,6 +289,26 @@
       <Position>
         <Filename Value="mainform.pas"/>
         <Caret Line="36" Column="66" TopLine="28"/>
+      </Position>
+      <Position>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="115" TopLine="64"/>
+      </Position>
+      <Position>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="96" Column="25" TopLine="72"/>
+      </Position>
+      <Position>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="227" TopLine="179"/>
+      </Position>
+      <Position>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="99" TopLine="69"/>
+      </Position>
+      <Position>
+        <Filename Value="ymexport.pas"/>
+        <Caret Line="100" TopLine="69"/>
       </Position>
     </JumpHistory>
     <RunParams>

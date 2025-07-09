@@ -75,6 +75,8 @@ end;
 procedure TYMVGMExporter.Export(const AYMData: TYMData);
 var
   fs: TFileStream;
+  ymSamplePos, ymPrevSamplePos: Double;
+  ymAnyChanged: Boolean;
 
   procedure WriteString(AString: UnicodeString);
   var
@@ -91,11 +93,34 @@ var
     end;
   end;
 
+  procedure HandleVGMWaits(AForce: Boolean);
+  var
+    actualWait: Integer;
+  begin
+    if (ymAnyChanged or AForce) and not SameValue(ymSamplePos, ymPrevSamplePos) then
+    begin
+      actualWait := Round(ymSamplePos - ymPrevSamplePos);
+      ymPrevSamplePos += actualWait;
+      ymAnyChanged := False;
+
+      while actualWait >= High(Word) do
+      begin
+        fs.WriteByte($61);
+        fs.WriteWord(High(Word));
+        actualWait -= High(Word);
+      end;
+
+      if actualWait > 0 then
+      begin
+        fs.WriteByte($61);
+        fs.WriteWord(actualWait);
+      end;
+    end;
+  end;
+
 var
-  iFrame, iReg, iVoice, gd3SizePos, actualWait, ymSquareSyncCnt: Integer;
+  iFrame, iReg, iVoice, gd3SizePos, ymSquareSyncCnt: Integer;
   reg, maskedReg: Byte;
-  ymSamplePos, ymPrevSamplePos: Double;
-  ymAnyChanged: Boolean;
   ymRegChanged: array[0 .. High(TYMRegSet)] of Boolean;
   ymState: TYMRegSet;
 begin
@@ -161,25 +186,7 @@ begin
 
       // handle VGM waits
 
-      if ymAnyChanged and not SameValue(ymSamplePos, ymPrevSamplePos) then
-      begin
-        actualWait := Round(ymSamplePos - ymPrevSamplePos);
-        ymPrevSamplePos += actualWait;
-        ymAnyChanged := False;
-
-        while actualWait >= High(Word) do
-        begin
-          fs.WriteByte($61);
-          fs.WriteWord(High(Word));
-          actualWait -= High(Word);
-        end;
-
-        if actualWait > 0 then
-        begin
-          fs.WriteByte($61);
-          fs.WriteWord(actualWait);
-        end;
-      end;
+      HandleVGMWaits(False);
 
       // handle square sync
 
@@ -216,6 +223,8 @@ begin
 
       ymSamplePos += CVGMSampleRate / AYMData.FrameRate - ymSquareSyncCnt;
     end;
+
+    HandleVGMWaits(True);
 
     fs.WriteByte($66);
 
