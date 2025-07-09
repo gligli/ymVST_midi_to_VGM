@@ -110,7 +110,11 @@ var
         actualWait -= High(Word);
       end;
 
-      if actualWait > 0 then
+      if actualWait = 882 then
+      begin
+        fs.WriteByte($63);
+      end
+      else if actualWait > 0 then
       begin
         fs.WriteByte($61);
         fs.WriteWord(actualWait);
