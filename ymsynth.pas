@@ -359,8 +359,8 @@ end;
 
 function TYMVirtualVoice.GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
 var
-  depth, frm, porta, speed: Integer;
-  rate, note: Double;
+  depth, frm, speed: Integer;
+  porta, rate, note: Double;
 begin
   Result := 0;
 
@@ -368,7 +368,7 @@ begin
 
   // portamento
 
-  porta := GetIntParameter(yvpPortamento, AFrame) * 4;
+  porta := GetIntParameter(yvpPortamento, AFrame) * 0.25;
 
   if (ARelativeFrame = 0) and (porta > 0) and (GetNoteCountAtTime(AFrame * TicksDiv) > 1) then
     FPortamentoNote := FPrevSquareNote;

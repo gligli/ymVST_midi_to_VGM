@@ -9,7 +9,7 @@
         <Filename Value="ymVST_midi_to_VGM.lpr"/>
         <IsPartOfProject Value="True"/>
         <CursorPos X="42" Y="28"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="46"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -22,7 +22,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="28"/>
         <CursorPos X="66" Y="36"/>
-        <UsageCount Value="101"/>
+        <UsageCount Value="102"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -32,7 +32,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="20"/>
         <CursorPos X="15" Y="50"/>
-        <UsageCount Value="99"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -40,9 +40,9 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="409"/>
-        <CursorPos Y="430"/>
-        <UsageCount Value="98"/>
+        <TopLine Value="341"/>
+        <CursorPos X="68" Y="386"/>
+        <UsageCount Value="99"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -189,11 +189,7 @@
         <UsageCount Value="15"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="28">
-      <Position>
-        <Filename Value="ymsynth.pas"/>
-        <Caret Line="370" Column="26" TopLine="345"/>
-      </Position>
+    <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="ymsynth.pas"/>
         <Caret Line="381" Column="18" TopLine="345"/>
@@ -308,7 +304,11 @@
       </Position>
       <Position>
         <Filename Value="ymsynth.pas"/>
-        <Caret Line="45" Column="16" TopLine="61"/>
+        <Caret Line="378" Column="165" TopLine="349"/>
+      </Position>
+      <Position>
+        <Filename Value="ymsynth.pas"/>
+        <Caret Line="371" Column="56" TopLine="345"/>
       </Position>
     </JumpHistory>
     <RunParams>
