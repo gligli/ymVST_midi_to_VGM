@@ -5,7 +5,7 @@ unit MainForm;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, CheckLst, Spin,
+  Classes, SysUtils, Math, Forms, Controls, Graphics, Dialogs, StdCtrls, CheckLst, Spin,
   MSC_Definitions, MSC_Container, ymexport, ymsynth;
 
 type
@@ -25,8 +25,10 @@ type
 
  TFormMain = class(TForm)
    btConvert: TButton;
+   btDn: TButton;
    btInputBrowse: TButton;
    btLoad: TButton;
+   btUp: TButton;
    chkAutomations: TCheckBox;
    edAuthor: TEdit;
    edSongName: TEdit;
@@ -41,12 +43,15 @@ type
    seBPM: TSpinEdit;
    seLength: TFloatSpinEdit;
    procedure btConvertClick(Sender: TObject);
+   procedure btDnClick(Sender: TObject);
    procedure btInputBrowseClick(Sender: TObject);
    procedure btLoadClick(Sender: TObject);
+   procedure btUpClick(Sender: TObject);
    procedure FormCreate(Sender: TObject);
    procedure FormDestroy(Sender: TObject);
    procedure lbTracksClickCheck(Sender: TObject);
    procedure lbTracksDblClick(Sender: TObject);
+   procedure lbTracksSelectionChange(Sender: TObject; User: boolean);
  private
    FMIDIContainer: TMIDI_Container;
 
@@ -136,6 +141,13 @@ begin
   UpdateGUI;
 end;
 
+procedure TFormMain.btUpClick(Sender: TObject);
+begin
+  lbTracks.Exchange(lbTracks.ItemIndex, lbTracks.ItemIndex - 1);
+  lbTracks.ItemIndex := lbTracks.ItemIndex - 1;
+  UpdateGUI;
+end;
+
 procedure TFormMain.btInputBrowseClick(Sender: TObject);
 var
   fn: String;
@@ -215,6 +227,13 @@ begin
   end;
 end;
 
+procedure TFormMain.btDnClick(Sender: TObject);
+begin
+  lbTracks.Exchange(lbTracks.ItemIndex, lbTracks.ItemIndex + 1);
+  lbTracks.ItemIndex := lbTracks.ItemIndex + 1;
+  UpdateGUI;
+end;
+
 procedure TFormMain.FormDestroy(Sender: TObject);
 var
   i: Integer;
@@ -258,6 +277,11 @@ begin
   end;
 end;
 
+procedure TFormMain.lbTracksSelectionChange(Sender: TObject; User: boolean);
+begin
+  UpdateGUI;
+end;
+
 procedure TFormMain.UpdateGUI;
 var
   iTrack: Integer;
@@ -276,6 +300,8 @@ begin
     ok := ok or lbTracks.Checked[iTrack];
   end;
 
+  btUp.Enabled := lbTracks.ItemIndex > 0;
+  btDn.Enabled := InRange(lbTracks.ItemIndex, 0, lbTracks.Count - 2);
   btLoad.Enabled := FileExists(edInputMid.Text);
   btConvert.Enabled := ok;
 end;

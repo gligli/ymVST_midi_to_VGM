@@ -6,7 +6,7 @@ object FormMain: TFormMain
   Caption = 'GliGli''s midi + ymVST patch to VGM converter'
   ClientHeight = 480
   ClientWidth = 640
-  Constraints.MinHeight = 200
+  Constraints.MinHeight = 320
   Constraints.MinWidth = 640
   Position = poScreenCenter
   OnCreate = FormCreate
@@ -26,7 +26,7 @@ object FormMain: TFormMain
     Top = 448
     Width = 520
     Anchors = [akLeft, akRight, akBottom]
-    TabOrder = 9
+    TabOrder = 11
     Text = 'test.vgm'
   end
   object btConvert: TButton
@@ -36,14 +36,14 @@ object FormMain: TFormMain
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Convert'
-    TabOrder = 10
+    TabOrder = 12
     OnClick = btConvertClick
   end
   object lbTracks: TCheckListBox
     Left = 8
     Height = 280
     Top = 96
-    Width = 624
+    Width = 600
     Anchors = [akTop, akLeft, akRight, akBottom]
     Font.CharSet = ANSI_CHARSET
     Font.Name = 'Lucida Console'
@@ -54,6 +54,7 @@ object FormMain: TFormMain
     TabOrder = 6
     OnClickCheck = lbTracksClickCheck
     OnDblClick = lbTracksDblClick
+    OnSelectionChange = lbTracksSelectionChange
   end
   object btLoad: TButton
     Left = 560
@@ -107,7 +108,7 @@ object FormMain: TFormMain
     Caption = 'Length (seconds):'
   end
   object llHint: TLabel
-    Left = 412
+    Left = 388
     Height = 16
     Top = 74
     Width = 220
@@ -137,7 +138,7 @@ object FormMain: TFormMain
     Top = 384
     Width = 528
     Anchors = [akLeft, akRight, akBottom]
-    TabOrder = 7
+    TabOrder = 9
     Text = 'Loading...'
   end
   object edAuthor: TEdit
@@ -146,7 +147,7 @@ object FormMain: TFormMain
     Top = 416
     Width = 528
     Anchors = [akLeft, akRight, akBottom]
-    TabOrder = 8
+    TabOrder = 10
     Text = 'GliGli'
   end
   object chkAutomations: TCheckBox
@@ -158,5 +159,31 @@ object FormMain: TFormMain
     Checked = True
     State = cbChecked
     TabOrder = 5
+  end
+  object btUp: TButton
+    Left = 608
+    Height = 25
+    Hint = 'Move track up (higher priority)'
+    Top = 200
+    Width = 24
+    Anchors = [akRight]
+    Caption = 'Up'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 7
+    OnClick = btUpClick
+  end
+  object btDn: TButton
+    Left = 608
+    Height = 25
+    Hint = 'Move track down (lower priority)'
+    Top = 240
+    Width = 24
+    Anchors = [akRight]
+    Caption = 'Dn'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 8
+    OnClick = btDnClick
   end
 end
