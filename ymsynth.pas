@@ -572,10 +572,14 @@ begin
 
     if (n.VirtualVoice.GetIntParameter(yvpHardOnOff, frame) = 0) and (buzz < 0) and (assignedCount < Length(AssignedBuzz)) then
     begin
-      AssignedBuzz[assignedCount] := True;
       buzz := n.VirtualVoice.GetBuzzAt(n.Note, relativeFrame, frame);
       Level[assignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame, False);
-      Inc(assignedCount);
+
+      if Level[assignedCount] > 0 then
+      begin
+        AssignedBuzz[assignedCount] := True;
+        Inc(assignedCount);
+      end;
     end;
   end;
 
@@ -590,13 +594,17 @@ begin
 
     if (n.VirtualVoice.GetIntParameter(yvpSquareOnOff, frame) = 0) and (assignedCount < Length(AssignedSquare)) then
     begin
-      AssignedSquare[assignedCount] := True;
       Pitch[assignedCount] := n.VirtualVoice.GetPitchAt(n.Note, relativeFrame, frame);
       Level[assignedCount] := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame, False);
-      Inc(assignedCount);
 
-      // for portamento
-      n.VirtualVoice.FPrevSquareNote := n.Note;
+      if Level[assignedCount] > 0 then
+      begin
+        AssignedSquare[assignedCount] := True;
+        Inc(assignedCount);
+
+        // for portamento
+        n.VirtualVoice.FPrevSquareNote := n.Note;
+      end;
     end;
   end;
 
@@ -611,36 +619,40 @@ begin
 
     if (n.VirtualVoice.GetIntParameter(yvpNoiseOnOff, frame) = 0) and (noiseFreq < 0) then
     begin
-      noiseFreq := n.VirtualVoice.GetNoiseFreqAt(relativeFrame, frame);
       noiseLvl := n.VirtualVoice.GetVolumeAt(n.Velocity, relativeFrame, frame, True);
 
-      if assignedCount < Length(AssignedNoise) then
+      if noiseLvl > 0 then
       begin
-        AssignedNoise[assignedCount] := True;
-        Level[assignedCount] := noiseLvl;
-        Inc(assignedCount);
-      end
-      else
-      begin
-        // pair with the voice closest in volume
+        noiseFreq := n.VirtualVoice.GetNoiseFreqAt(relativeFrame, frame);
 
-        bestVoice := -1;
-        bestLvlDiff := MaxInt;
-        for iVoice := 0 to High(AssignedSquare) do
+        if assignedCount < Length(AssignedNoise) then
         begin
-          lvlDiff := Abs(CLevelToVelocity[Level[iVoice]] - CLevelToVelocity[noiseLvl]);
+          AssignedNoise[assignedCount] := True;
+          Level[assignedCount] := noiseLvl;
+          Inc(assignedCount);
+        end
+        else
+        begin
+          // pair with the voice closest in volume
 
-          if lvlDiff <= bestLvlDiff then
+          bestVoice := -1;
+          bestLvlDiff := MaxInt;
+          for iVoice := 0 to High(AssignedSquare) do
           begin
-            bestVoice := iVoice;
-            bestLvlDiff := lvlDiff;
+            lvlDiff := Abs(CLevelToVelocity[Level[iVoice]] - CLevelToVelocity[noiseLvl]);
+
+            if lvlDiff <= bestLvlDiff then
+            begin
+              bestVoice := iVoice;
+              bestLvlDiff := lvlDiff;
+            end;
           end;
+
+          Assert(bestVoice >= 0);
+
+          AssignedNoise[bestVoice] := True;
+          Level[bestVoice] := noiseLvl;
         end;
-
-        Assert(bestVoice >= 0);
-
-        AssignedNoise[bestVoice] := True;
-        Level[bestVoice] := noiseLvl;
       end;
     end;
   end;
