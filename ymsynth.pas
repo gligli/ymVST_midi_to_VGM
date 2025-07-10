@@ -28,7 +28,7 @@ type
 
 const
   CYMBaseFreq = 2000000;
-  CYMSquareFreq = CYMBaseFreq / 16;
+  CYMSquareNoiseFreq = CYMBaseFreq / 16;
   CYMBuzzFreq = CYMBaseFreq / 256;
 
   CVelocityToLevel: array[0 .. High(ShortInt)] of Byte = (
@@ -150,7 +150,7 @@ type
     function GetTicksPerVBL: Byte;
     function GetVolumeAt(AVelocity: Byte; ARelativeFrame, AFrame: Integer; AIsNoise: Boolean): Byte;
     function GetPitchAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Word;
-    function GetNoiseFreqAt(ARelativeFrame, AFrame: Integer): Byte;
+    function GetNoiseAt(ARelativeFrame, AFrame: Integer): Byte;
     function GetBuzzAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Integer;
 
     property Synth: TYMSynth read FSynth;
@@ -176,6 +176,8 @@ type
     class function GetHertzNote(AHertz: Double): Double;
     class function GetYMSquareNote(AHertz: Double): Word;
     class function GetYMBuzzNote(AHertz: Double): Cardinal;
+    class function GetYMNoiseValue(AHertz: Double): Byte;
+    class function GetYMNoiseHertz(AValue: Byte): Double;
 
     constructor Create(ASongLength: Double);
     destructor Destroy; override;
@@ -415,21 +417,21 @@ begin
     Result := Result or $1000;
 end;
 
-function TYMVirtualVoice.GetNoiseFreqAt(ARelativeFrame, AFrame: Integer): Byte;
+function TYMVirtualVoice.GetNoiseAt(ARelativeFrame, AFrame: Integer): Byte;
 var
   depth: Integer;
-  rate: Double;
+  freq, rate: Double;
 begin
-  Result := GetIntParameter(yvpNoiseFreq, AFrame);
+  freq := TYMSynth.GetYMNoiseHertz(31 - GetIntParameter(yvpNoiseFreq, AFrame));
 
   // noise pitch envelope
 
-  rate := (GetIntParameter(yvpNoiseBendRate, AFrame) + 1) * 2.0;
+  rate := (GetIntParameter(yvpNoiseBendRate, AFrame) + 1) * 0.5;
   depth := GetIntParameter(yvpNoiseBendDepth, AFrame) - 31;
 
-  Result := EnsureRange(Round(lerp(Result, Result + depth, Max(0, rate - ARelativeFrame / GetTicksPerVBL) / rate)), 0, 31);
+  freq := lerp(freq, TYMSynth.GetNoteHertz(TYMSynth.GetHertzNote(freq) + depth), Max(0, rate - ARelativeFrame / GetTicksPerVBL) / rate);
 
-  Result := 31 - Result;
+  Result := TYMSynth.GetYMNoiseValue(freq);
 end;
 
 function TYMVirtualVoice.GetBuzzAt(ANote: Integer; ARelativeFrame, AFrame: Integer): Integer;
@@ -509,12 +511,22 @@ end;
 
 class function TYMSynth.GetYMSquareNote(AHertz: Double): Word;
 begin
-  Result := EnsureRange(round(CYMSquareFreq / AHertz), 0, 4095);
+  Result := EnsureRange(round(CYMSquareNoiseFreq / AHertz), 0, 4095);
 end;
 
 class function TYMSynth.GetYMBuzzNote(AHertz: Double): Cardinal;
 begin
   Result := EnsureRange(round(CYMBuzzFreq / AHertz), 0, High(Word));
+end;
+
+class function TYMSynth.GetYMNoiseValue(AHertz: Double): Byte;
+begin
+  Result := EnsureRange(round(CYMSquareNoiseFreq / AHertz), 0, 31);
+end;
+
+class function TYMSynth.GetYMNoiseHertz(AValue: Byte): Double;
+begin
+ Result := CYMSquareNoiseFreq / AValue;
 end;
 
 constructor TYMSynth.Create(ASongLength: Double);
@@ -623,7 +635,7 @@ begin
 
       if noiseLvl > 0 then
       begin
-        noiseFreq := n.VirtualVoice.GetNoiseFreqAt(relativeFrame, frame);
+        noiseFreq := n.VirtualVoice.GetNoiseAt(relativeFrame, frame);
 
         if assignedCount < Length(AssignedNoise) then
         begin
