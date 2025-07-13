@@ -9,7 +9,7 @@
         <Filename Value="ymVST_midi_to_VGM.lpr"/>
         <IsPartOfProject Value="True"/>
         <CursorPos Y="17"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="148"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -19,6 +19,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="MainForm"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="121"/>
         <CursorPos X="24" Y="153"/>
@@ -29,11 +30,10 @@
       <Unit>
         <Filename Value="ymexport.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <TopLine Value="390"/>
         <CursorPos X="60" Y="432"/>
-        <UsageCount Value="199"/>
+        <UsageCount Value="202"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -42,7 +42,7 @@
         <EditorIndex Value="2"/>
         <TopLine Value="443"/>
         <CursorPos Y="754"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="201"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>

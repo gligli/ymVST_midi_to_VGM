@@ -212,7 +212,7 @@ object FormMain: TFormMain
     Height = 25
     Top = 448
     Width = 27
-    Anchors = [akTop, akRight]
+    Anchors = [akRight, akBottom]
     Caption = '...'
     TabOrder = 13
     OnClick = btOutputBrowseClick
