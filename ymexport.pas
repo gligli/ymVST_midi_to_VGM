@@ -8,6 +8,7 @@ uses
   Classes, SysUtils, StrUtils, Math, Types;
 
 const
+  CSNDHReplayerFileName = 'Atari_SNDH_replayer\sndh.bin';
   CVGMTag = 'Vgm ';
   CGD3Tag = 'Gd3 ';
   CVGMVersion = $151;
@@ -15,6 +16,7 @@ const
   CYMFrequency: Cardinal = 2000000;
   CVBLPerSecond = 50;
   CSTSystemName = 'Atari ST';
+
 
   CYMRegsMasks: array[0 .. 15] of Byte = (
     $ff, $0f, $ff, $0f, $ff, $0f,
@@ -37,17 +39,32 @@ type
     SongName, Author: UnicodeString;
   end;
 
+  { TYMBaseExporter }
+
+  TYMBaseExporter = class
+  private
+    FFileName: String;
+  protected
+    procedure ParseFrameData(const AFrameRegData: TYMRegSet; var ymState: TYMRegSet; var ymRegChanged: array of Boolean;
+     var ymAnyChanged: Boolean);
+  public
+    constructor Create(AFileName: String); virtual;
+
+    procedure Export(const AYMData: TYMData); virtual; abstract;
+  end;
 
   { TYMVGMExporter }
 
-  TYMVGMExporter = class
-  private
-    FFileName: String;
+  TYMVGMExporter = class(TYMBaseExporter)
   public
-    constructor Create(AFileName: String);
-    destructor Destroy; override;
+    procedure Export(const AYMData: TYMData); override;
+  end;
 
-    procedure Export(const AYMData: TYMData);
+  { TYMSNDHExporter }
+
+  TYMSNDHExporter = class(TYMBaseExporter)
+  public
+    procedure Export(const AYMData: TYMData); override;
   end;
 
   function InvariantFormatSettings: TFormatSettings;
@@ -60,17 +77,37 @@ begin
   GetLocaleFormatSettings(LOCALE_INVARIANT, Result);
 end;
 
-{ TYMVGMExporter }
+{ TYMBaseExporter }
 
-constructor TYMVGMExporter.Create(AFileName: String);
+procedure TYMBaseExporter.ParseFrameData(const AFrameRegData: TYMRegSet; var ymState: TYMRegSet; var ymRegChanged: array of Boolean; var ymAnyChanged: Boolean);
+var
+  iReg: Integer;
+  reg, maskedReg: Byte;
+begin
+  for iReg := 0 to High(TYMRegSet) - 2 do
+  begin
+    reg := AFrameRegData[iReg];
+    maskedReg := reg and CYMRegsMasks[iReg];
+
+    if (maskedReg <> ymState[iReg]) or (iReg = 13) then
+    begin
+      ymState[iReg] := maskedReg;
+
+      if (iReg <> 13) or (reg <> $ff) then // account for not resetting the SSG envelope
+      begin
+        ymRegChanged[iReg] := True;
+        ymAnyChanged := True;
+      end;
+    end;
+  end;
+end;
+
+constructor TYMBaseExporter.Create(AFileName: String);
 begin
   FFileName := AFileName;
 end;
 
-destructor TYMVGMExporter.Destroy;
-begin
- inherited Destroy;
-end;
+{ TYMVGMExporter }
 
 procedure TYMVGMExporter.Export(const AYMData: TYMData);
 var
@@ -124,7 +161,6 @@ var
 
 var
   iFrame, iReg, iVoice, gd3SizePos, ymSquareSyncCnt: Integer;
-  reg, maskedReg: Byte;
   ymRegChanged: array[0 .. High(TYMRegSet)] of Boolean;
   ymState: TYMRegSet;
 begin
@@ -171,22 +207,7 @@ begin
     begin
       // parse frame data
 
-      for iReg := 0 to High(ymState) do
-      begin
-        reg := AYMData.Frames[iFrame, iReg];
-        maskedReg := reg and CYMRegsMasks[iReg];
-
-        if (maskedReg <> ymState[iReg]) or (iReg = 13) then
-        begin
-          ymState[iReg] := maskedReg;
-
-          if (iReg <> 13) or (reg <> $ff) then // account for not resetting the SSG envelope
-          begin
-            ymRegChanged[iReg] := True;
-            ymAnyChanged := True;
-          end;
-        end;
-      end;
+      ParseFrameData(AYMData.Frames[iFrame], ymState, ymRegChanged, ymAnyChanged);
 
       // handle VGM waits
 
@@ -266,6 +287,162 @@ begin
     fs.Seek($04, soBeginning);
     fs.WriteDWord(fs.Size - $04);
   finally
+    fs.Free;
+  end;
+end;
+
+{ TYMSNDHExporter }
+
+procedure TYMSNDHExporter.Export(const AYMData: TYMData);
+var
+  fs, rfs: TFileStream;
+  AnyChanged: Boolean;
+  Regs: TYMRegSet;
+  RegChanged: array[0 .. High(TYMRegSet)] of Boolean;
+
+  procedure WriteString(AString: AnsiString);
+  var
+    p: PAnsiChar;
+  begin
+    p := GetMem((Length(AString) + 1) * SizeOf(AnsiChar));
+    try
+      if Length(AString) > 0 then
+        Move(AString[1], p^, Length(AString) * SizeOf(AnsiChar));
+      p[Length(AString)] := #0;
+      fs.Write(p^, (Length(AString) + 1) * SizeOf(AnsiChar));
+    finally
+      Freemem(p);
+    end;
+  end;
+
+  procedure WriteHeaderString(ATag, AString: AnsiString);
+  begin
+    fs.Write(ATag[1], Length(ATag));
+    WriteString(AString);
+  end;
+
+  procedure WriteHeaderWord(ATag: AnsiString; AWord: Word);
+  begin
+    fs.Write(ATag[1], Length(ATag));
+    fs.WriteWord(NtoBE(AWord));
+  end;
+
+  function HandleFrameWaits(AFrame: Integer; AForce: Boolean): Boolean;
+  var
+    iFutureFrame, actualWait: Integer;
+    futureAnyChanged: Boolean;
+    futureRegs: TYMRegSet;
+    futureRegChanged: array[0 .. High(TYMRegSet)] of Boolean;
+  begin
+    Result:= False;
+
+    if (AnyChanged or AForce) then
+    begin
+      actualWait := 0;
+      Move(Regs[0], futureRegs[0], Length(futureRegs));
+      FillChar(futureRegChanged[0], Length(futureRegChanged), 0);
+      futureAnyChanged := False;
+      for iFutureFrame := AFrame + 1 to High(AYMData.Frames) do
+      begin
+        Inc(actualWait);
+        ParseFrameData(AYMData.Frames[iFutureFrame], futureRegs, futureRegChanged, futureAnyChanged);
+        if futureAnyChanged then
+          Break;
+      end;
+
+      while actualWait >= High(Byte) do
+      begin
+        Regs[15] := High(Byte);
+        RegChanged[15] := True;
+        AnyChanged := True;
+
+        fs.WriteWord(NtoBE($0001));
+        fs.WriteByte(High(Byte));
+
+        actualWait -= High(Byte);
+      end;
+
+      if Regs[15] <> actualWait then
+      begin
+        Regs[15] := actualWait;
+        RegChanged[15] := True;
+        AnyChanged := True;
+      end;
+
+      Result := True;
+    end;
+  end;
+
+  procedure WriteRegSet;
+  var
+    iReg: Integer;
+    regInd: Word;
+  begin
+    if AnyChanged then
+    begin
+      regInd := 0;
+      for iReg := 0 to High(TYMRegSet) do
+        if RegChanged[iReg] then
+          regInd := regInd or ($8000 shr iReg);
+      fs.WriteWord(NtoBE(regInd));
+
+      for iReg := 0 to High(TYMRegSet) do
+        if RegChanged[iReg] then
+        begin
+          fs.WriteByte(Regs[iReg]);
+          RegChanged[iReg] := False;
+        end;
+      AnyChanged := False;
+    end;
+  end;
+
+var
+  iFrame: Integer;
+begin
+  fs := TFileStream.Create(FFileName, fmCreate or fmShareDenyWrite);
+  rfs := TFileStream.Create(ExtractFilePath(Application.ExeName) + CSNDHReplayerFileName, fmOpenRead or fmShareDenyNone);
+  try
+    // write replayer
+
+    fs.CopyFrom(rfs, rfs.Size);
+
+    // write sndh header
+
+    fs.Seek($10, soBeginning);
+
+    if AYMData.SongName <> '' then
+      WriteHeaderString('TITL', AnsiString(AYMData.SongName));
+    if AYMData.Author <> '' then
+      WriteHeaderString('COMM', AnsiString(AYMData.Author));
+    WriteHeaderString('CONV', Application.Title);
+    WriteHeaderString('TC', IntToStr(AYMData.FrameRate));
+    WriteHeaderString('YEAR', FormatDateTime('yyyy', Date));
+    WriteHeaderWord('TIME', Ceil(Length(AYMData.Frames) / AYMData.FrameRate));
+
+    WriteHeaderString('HDNS', '');
+
+    // write song data
+
+    fs.Seek(rfs.Size, soBeginning);
+
+    FillChar(Regs, SizeOf(Regs), $ff);
+    FillChar(RegChanged, SizeOf(RegChanged), 0);
+
+    for iFrame := 0 to High(AYMData.Frames) do
+    begin
+      ParseFrameData(AYMData.Frames[iFrame], Regs, RegChanged, AnyChanged);
+      HandleFrameWaits(iFrame, False);
+      WriteRegSet;
+    end;
+
+    HandleFrameWaits(Length(AYMData.Frames), True);
+
+    // terminator
+    fs.WriteWord(NtoBE($0001));
+    fs.WriteByte($00);
+
+  finally
+    rfs.Free;
     fs.Free;
   end;
 end;

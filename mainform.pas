@@ -27,16 +27,19 @@ type
    btConvert: TButton;
    btDn: TButton;
    btInputBrowse: TButton;
+   btOutputBrowse: TButton;
    btLoad: TButton;
    btUp: TButton;
+   cbExport: TComboBox;
    chkAutomations: TCheckBox;
    edAuthor: TEdit;
    edSongName: TEdit;
    lbTracks: TCheckListBox;
    edInputMid: TEdit;
-   edOutputYM: TEdit;
+   edOutput: TEdit;
    llAuthor: TLabel;
    llBPM: TLabel;
+   llFormat: TLabel;
    llHint: TLabel;
    llSongName: TLabel;
    llTime: TLabel;
@@ -46,7 +49,9 @@ type
    procedure btDnClick(Sender: TObject);
    procedure btInputBrowseClick(Sender: TObject);
    procedure btLoadClick(Sender: TObject);
+   procedure btOutputBrowseClick(Sender: TObject);
    procedure btUpClick(Sender: TObject);
+   procedure cbExportChange(Sender: TObject);
    procedure FormCreate(Sender: TObject);
    procedure FormDestroy(Sender: TObject);
    procedure lbTracksClickCheck(Sender: TObject);
@@ -77,7 +82,7 @@ begin
   edInputMid.Text := '';
   edAuthor.Text := '';
   edSongName.Text := '';
-  edOutputYM.Text := '';
+  edOutput.Text := '';
 {$ENDIF}
 
   UpdateGUI;
@@ -128,11 +133,7 @@ begin
       t.Name := FMIDIContainer.Track_Name[iTrack];
       t.PatchFileName := ChangeFileExt(t.Name,'.fxp');
 
-{$IFDEF DEBUG}
-      t.Export := False;
-{$ELSE}
       t.Export := True;
-{$ENDIF}
 
       lbTracks.AddItem('dummy', t);
     end;
@@ -141,10 +142,29 @@ begin
   UpdateGUI;
 end;
 
+procedure TFormMain.btOutputBrowseClick(Sender: TObject);
+var
+  fn: String;
+begin
+  fn := edOutput.Text;
+  if PromptForFileName(fn, 'VGM / SNDH|*.vgm;*.snd;*.sndh', '', '', '', True) then
+  begin
+    edOutput.Text := fn;
+    UpdateGUI;
+  end;
+end;
+
 procedure TFormMain.btUpClick(Sender: TObject);
 begin
   lbTracks.Exchange(lbTracks.ItemIndex, lbTracks.ItemIndex - 1);
   lbTracks.ItemIndex := lbTracks.ItemIndex - 1;
+  UpdateGUI;
+end;
+
+procedure TFormMain.cbExportChange(Sender: TObject);
+begin
+  if edOutput.Text <> '' then
+    edOutput.Text := ChangeFileExt(edOutput.Text, '.' + LowerCase(cbExport.Text));
   UpdateGUI;
 end;
 
@@ -156,7 +176,7 @@ begin
   if PromptForFileName(fn, 'MIDI|*.mid;*.midi') then
   begin
     edInputMid.Text := fn;
-    edOutputYM.Text := ChangeFileExt(fn, '.vgm');
+    edOutput.Text := ChangeFileExt(fn, '.' + LowerCase(cbExport.Text));
     UpdateGUI;
   end;
 end;
@@ -169,7 +189,7 @@ var
   p: TYMPatch;
   vv: TYMVirtualVoice;
   yms: TYMSynth;
-  yme: TYMVGMExporter;
+  yme: TYMBaseExporter;
   e: TMIDI_Event;
   n, d, s, t: TReal_Array;
 begin
@@ -219,7 +239,10 @@ begin
     yms.Free;
   end;
 
-  yme := TYMVGMExporter.Create(edOutputYM.Text);
+  if SameText(ExtractFileExt(edOutput.Text), '.vgm') then
+    yme := TYMVGMExporter.Create(edOutput.Text)
+  else
+    yme := TYMSNDHExporter.Create(edOutput.Text);
   try
     yme.Export(YMData);
   finally
@@ -303,7 +326,7 @@ begin
   btUp.Enabled := lbTracks.ItemIndex > 0;
   btDn.Enabled := InRange(lbTracks.ItemIndex, 0, lbTracks.Count - 2);
   btLoad.Enabled := FileExists(edInputMid.Text);
-  btConvert.Enabled := ok;
+  btConvert.Enabled := ok and (edOutput.Text <> '');
 end;
 
 end.
